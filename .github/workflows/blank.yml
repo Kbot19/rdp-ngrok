@@ -7,7 +7,7 @@ on:
   workflow_dispatch: # هذا الحدث يتيح لك تشغيل العملية يدويًا
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -47,10 +47,10 @@ jobs:
             await page.select("select[name=birthday_month]", "1");
             await page.waitForSelector("select[name=birthday_year]");
             await page.select("select[name=birthday_year]", "1999");
-            // اختيار الجنس "Homme" باستخدام JavaScript
-            await page.evaluate(() => {
-              document.querySelector("#u_0_5_Kw").click();
-            });
+            // انتظر حتى يتم إظهار زر الجنس "Homme"
+            await page.waitForSelector("#u_0_5_Kw", { timeout: 60000 });
+            // اختر الجنس ذكر
+            await page.click("#u_0_5_Kw");
             await page.waitForSelector("button[type=submit][name=websubmit]");
             await page.click("button[type=submit][name=websubmit]");
             await page.waitForNavigation();
