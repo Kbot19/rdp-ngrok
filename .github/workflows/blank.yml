@@ -34,7 +34,7 @@ jobs:
           (async () => {
             const browser = await puppeteer.launch();
             const page = await browser.newPage();
-            await page.goto("https://www.facebook.com");
+            await page.goto("https://www.facebook.com/r.php?next=https%3A%2F%2Fwww.facebook.com%2F&locale=en_US&display=page");
             await page.screenshot({ path: "facebook_screenshot.png" });
             await browser.close();
           })();
