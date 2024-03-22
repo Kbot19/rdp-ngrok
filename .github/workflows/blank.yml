@@ -49,9 +49,9 @@ jobs:
               await page.select('select[name=birthday_year]', '1999');
 
               const html = await page.content();
-              const $ = cheerio.load(html);
-              const id = $('._5k_2._5dba').attr('id');
-              await page.click(\`#\${id}\`);
+              const Ext = cheerio.load(html);
+              const id = Ext('._5k_2._5dba').attr('id');
+              await page.click(`#${id}`);
               await page.click('button[type=submit][name=websubmit]');
               await page.waitForNavigation();
 
