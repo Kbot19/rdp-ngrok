@@ -1,61 +1,65 @@
-name: Puppeteer Test
+name: Capture Facebook Signup Screenshot
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch: # هذا الحدث يتيح لك تشغيل العملية يدويًا
 
 jobs:
-  test:
+  capture-screenshot:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
 
-    - name: Install Puppeteer and Chrome
-      run: |
-        npm install puppeteer
-        npx puppeteer browsers install chrome
+      - name: Install Puppeteer
+        run: npm install puppeteer
 
-    - name: Run Puppeteer
-      run: |
-        node -e '
+      - name: Capture screenshot
+        run: |
+          node -e '
           const puppeteer = require("puppeteer");
 
           (async () => {
-            const browser = await puppeteer.launch({ headless: true });
-            const page = await browser.newPage();
-            await page.goto("https://www.facebook.com/r.php");
-            await page.waitForSelector("input[name=firstname]");
-            await page.type("input[name=firstname]", "Karim");
-            await page.waitForSelector("input[name=lastname]");
-            await page.type("input[name=lastname]", "Elyamani");
-            await page.waitForSelector("input[name=reg_email__]");
-            await page.type("input[name=reg_email__]", "karimfreeg@gmail.com");
-            await page.waitForSelector("input[name=reg_passwd__]");
-            await page.type("input[name=reg_passwd__]", "Karim2021@11");
-            await page.waitForSelector("select[name=birthday_day]");
-            await page.select("select[name=birthday_day]", "1");
-            await page.waitForSelector("select[name=birthday_month]");
-            await page.select("select[name=birthday_month]", "1");
-            await page.waitForSelector("select[name=birthday_year]");
-            await page.select("select[name=birthday_year]", "1999");
-            // انتظر حتى يتم إظهار زر الجنس ذكر
-            await page.waitForSelector("input[type=radio][value=2]");
-            // اختر الجنس ذكر (قيمة 2)
-            await page.click("input[type=radio][value=2]");
-            await page.waitForSelector("button[type=submit][name=websubmit]");
-            await page.click("button[type=submit][name=websubmit]");
-            await page.waitForNavigation();
-            const finalUrl = page.url();
-            console.log(finalUrl);
-            await browser.close();
+              const browser = await puppeteer.launch({ headless: true });
+              const page = await browser.newPage();
+              await page.goto("https://www.facebook.com/r.php");
+              await page.waitForSelector("input[name=firstname]");
+              await page.type("input[name=firstname]", "Karim");
+              await page.waitForSelector("input[name=lastname]");
+              await page.type("input[name=lastname]", "Elyamani");
+              await page.waitForSelector("input[name=reg_email__]");
+              await page.type("input[name=reg_email__]", "karimfreeg@gmail.com");
+              await page.waitForSelector("input[name=reg_passwd__]");
+              await page.type("input[name=reg_passwd__]", "Karim2021@11");
+              await page.waitForSelector("select[name=birthday_day]");
+              await page.select("select[name=birthday_day]", "1");
+              await page.waitForSelector("select[name=birthday_month]");
+              await page.select("select[name=birthday_month]", "1");
+              await page.waitForSelector("select[name=birthday_year]");
+              await page.select("select[name=birthday_year]", "1999");
+
+              // توليد لقطة شاشة
+              await page.screenshot({ path: "screenshot.png" });
+
+              await browser.close();
           })();
-        '
+          '
+
+      - name: Delete cache and commit logs
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'action@github.com'
+          git add -A
+          git diff-index --quiet HEAD || (git commit -a -m "Update session" --allow-empty)
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
