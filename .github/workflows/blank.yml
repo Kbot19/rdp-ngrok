@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Install Puppeteer
+        run: npm install puppeteer
+
       - name: Capture screenshot
         run: |
           node -e '
