@@ -6,13 +6,13 @@ on:
       - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      
+
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
@@ -29,10 +29,10 @@ jobs:
           (async () => {
             const browser = await puppeteer.launch({ headless: true });
             const page = await browser.newPage();
-            await page.goto("https://www.facebook.com/", { waitUntil: "domcontentloaded" });
-            await page.waitForSelector("#u_0_0_65", { timeout: 5000 });
+            await page.goto("https://www.facebook.com/login.php", { waitUntil: "domcontentloaded" });
+            await page.waitForTimeout(19000); // انتظر 19 ثانية للتأكد من تحميل الصفحة بالكامل
+            await page.waitForSelector("#u_0_0_65", { timeout: 10000 });
             await page.click("#u_0_0_65");
-            await page.waitForTimeout(10000); // Wait for 10 seconds
             await page.waitForSelector("input[name=firstname]", { timeout: 5000 });
             await page.type("input[name=firstname]", "Karim");
             await page.waitForSelector("input[name=lastname]", { timeout: 5000 });
