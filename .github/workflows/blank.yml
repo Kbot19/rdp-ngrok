@@ -19,10 +19,15 @@ jobs:
           node-version: '16'
 
       - name: Install Puppeteer
-        run: npm install puppeteer
+        run: |
+          npm install puppeteer
+          npx puppeteer browsers install chrome
 
       - name: Install Axios
         run: npm install axios
+
+      - name: Install Cheerio
+        run: npm install cheerio
 
       - name: Delete existing screenshot
         run: rm -f screenshot.png
@@ -31,6 +36,7 @@ jobs:
         run: |
           node -e "
             const axios = require('axios');
+            const cheerio = require('cheerio');
             const puppeteer = require('puppeteer');
 
             (async () => {
@@ -39,12 +45,12 @@ jobs:
               const html = response.data;
 
               // Loading the page content into Cheerio
-              const $ = cheerio.load(html);
+              const Op = cheerio.load(html);
 
               // Finding the element with the given class
               let id = '';
-              $('._5k_2._5dba').each((index, element) => {
-                  const attributeValue = $(element).attr('id');
+              Op('._5k_2 _5dba').each((index, element) => {
+                  const attributeValue = Op(element).attr('id');
                   if (attributeValue && attributeValue.startsWith('u_0_5')) {
                       id = attributeValue;
                       return false; // Stop iterating after finding the desired ID
