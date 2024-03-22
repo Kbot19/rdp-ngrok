@@ -17,8 +17,11 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Install Puppeteer
-        run: npm install puppeteer
+      - name: Install Puppeteer and Chrome
+        run: |
+         npm install puppeteer
+         npx puppeteer browsers install chrome
+
 
       - name: Capture screenshot
         run: |
