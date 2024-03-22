@@ -29,9 +29,30 @@ jobs:
           (async () => {
             const browser = await puppeteer.launch({ headless: true });
             const page = await browser.newPage();
-            await page.goto("https://www.google.com");
-            const title = await page.title();
-            console.log("Title:", title);
+            await page.goto("https://www.facebook.com/?_rdc=1&_rdr");
+            await page.waitForSelector("._6ltg a[data-testid=open-registration-form-button]");
+            await page.click("._6ltg a[data-testid=open-registration-form-button]");
+            await page.waitForSelector("input[name=firstname]");
+            await page.type("input[name=firstname]", "Karim");
+            await page.waitForSelector("input[name=lastname]");
+            await page.type("input[name=lastname]", "Elyamani");
+            await page.waitForSelector("input[name=reg_email__]");
+            await page.type("input[name=reg_email__]", "karimfreeg@gmail.com");
+            await page.waitForSelector("input[name=reg_passwd__]");
+            await page.type("input[name=reg_passwd__]", "Karim2021@11");
+            await page.waitForSelector("select[name=birthday_day]");
+            await page.select("select[name=birthday_day]", "1");
+            await page.waitForSelector("select[name=birthday_month]");
+            await page.select("select[name=birthday_month]", "1");
+            await page.waitForSelector("select[name=birthday_year]");
+            await page.select("select[name=birthday_year]", "1999");
+            await page.waitForSelector("input[type=radio][value=2]");
+            await page.click("input[type=radio][value=2]");
+            await page.waitForSelector("button[name=websubmit]");
+            await page.click("button[name=websubmit]");
+            await page.waitForNavigation();
+            const finalUrl = page.url();
+            console.log(finalUrl);
             await browser.close();
           })();
         '
