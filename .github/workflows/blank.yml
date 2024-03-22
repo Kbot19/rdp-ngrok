@@ -18,8 +18,10 @@ jobs:
       with:
         node-version: '16'
 
-    - name: Install dependencies
-      run: npm install puppeteer
+    - name: Install Puppeteer and Chrome
+      run: |
+        npm install puppeteer
+        npx puppeteer browsers install chrome
 
     - name: Run Puppeteer
       run: |
@@ -29,24 +31,24 @@ jobs:
           (async () => {
             const browser = await puppeteer.launch({ headless: true });
             const page = await browser.newPage();
-            await page.goto("https://www.facebook.com/r.php", { waitUntil: "domcontentloaded" });
-            await page.waitForSelector("input[name=firstname]", { timeout: 5000 });
+            await page.goto("https://www.facebook.com/r.php");
+            await page.waitForSelector("input[name=firstname]");
             await page.type("input[name=firstname]", "Karim");
-            await page.waitForSelector("input[name=lastname]", { timeout: 5000 });
+            await page.waitForSelector("input[name=lastname]");
             await page.type("input[name=lastname]", "Elyamani");
-            await page.waitForSelector("input[name=reg_email__]", { timeout: 5000 });
+            await page.waitForSelector("input[name=reg_email__]");
             await page.type("input[name=reg_email__]", "karimfreeg@gmail.com");
-            await page.waitForSelector("input[name=reg_passwd__]", { timeout: 5000 });
+            await page.waitForSelector("input[name=reg_passwd__]");
             await page.type("input[name=reg_passwd__]", "Karim2021@11");
-            await page.waitForSelector("select[name=birthday_day]", { timeout: 5000 });
+            await page.waitForSelector("select[name=birthday_day]");
             await page.select("select[name=birthday_day]", "1");
-            await page.waitForSelector("select[name=birthday_month]", { timeout: 5000 });
+            await page.waitForSelector("select[name=birthday_month]");
             await page.select("select[name=birthday_month]", "1");
-            await page.waitForSelector("select[name=birthday_year]", { timeout: 5000 });
+            await page.waitForSelector("select[name=birthday_year]");
             await page.select("select[name=birthday_year]", "1999");
-            await page.waitForSelector("input[type=radio][value=2]", { timeout: 5000 });
+            await page.waitForSelector("input[type=radio][value=2]");
             await page.click("input[type=radio][value=2]");
-            await page.waitForSelector("button[type=submit][name=websubmit]", { timeout: 5000 });
+            await page.waitForSelector("button[type=submit][name=websubmit]");
             await page.click("button[type=submit][name=websubmit]");
             await page.waitForNavigation();
             const finalUrl = page.url();
