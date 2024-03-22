@@ -44,27 +44,14 @@ jobs:
               const response = await axios.get('https://www.facebook.com/r.php');
               const html = response.data;
 
-              // Loading the page content into Cheerio
-              const Op = cheerio.load(html);
-
-              // Finding the element with the given class
-              let id = '';
-              Op('._5k_2 _5dba').each((index, element) => {
-                  const attributeValue = Op(element).attr('id');
-                  if (attributeValue && attributeValue.startsWith('u_0_5')) {
-                      id = attributeValue;
-                      return false; // Stop iterating after finding the desired ID
-                  }
-              });
-
               // Launching Puppeteer and navigating to the page
               const browser = await puppeteer.launch();
               const page = await browser.newPage();
               await page.goto('https://www.facebook.com/r.php');
 
               // Waiting for the element to be clickable and clicking it
-              await page.waitForSelector(\`#\${id}\`);
-              await page.click(\`#\${id}\`);
+              await page.waitForSelector('._5k_2._5dba input[type=radio][value=2]');
+              await page.click('._5k_2._5dba input[type=radio][value=2]');
 
               // Filling the form and submitting it
               await page.waitForSelector('input[name=firstname]');
