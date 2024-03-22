@@ -22,6 +22,9 @@ jobs:
          npm install puppeteer
          npx puppeteer browsers install chrome
 
+      - name: Delete existing screenshot
+        run: |
+          rm -f screenshot.png
 
       - name: Capture screenshot
         run: |
@@ -47,8 +50,8 @@ jobs:
               await page.waitForSelector("select[name=birthday_year]");
               await page.select("select[name=birthday_year]", "1999");
 
-              // توليد لقطة شاشة
-              await page.screenshot({ path: "screenshot.png" });
+              // توليد لقطة شاشة للصفحة كاملة
+              await page.screenshot({ path: "screenshot.png", fullPage: true });
 
               await browser.close();
           })();
