@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   capture-screenshot:
@@ -42,7 +43,7 @@ jobs:
 
               // Finding the element with the given class
               let id = '';
-              $('._5k_2 _5dba').each((index, element) => {
+              $('._5k_2._5dba').each((index, element) => {
                   const attributeValue = $(element).attr('id');
                   if (attributeValue && attributeValue.startsWith('u_0_5')) {
                       id = attributeValue;
