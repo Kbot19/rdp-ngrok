@@ -18,7 +18,17 @@ jobs:
           node-version: '16'
 
       - name: Capture screenshot
-        run: node -e "const puppeteer = require('puppeteer'); (async () => { const browser = await puppeteer.launch(); const page = await browser.newPage(); await page.goto('https://www.facebook.com'); await page.screenshot({ path: 'facebook_screenshot.png' }); await browser.close(); })();"
+        run: |
+          node -e '
+          const puppeteer = require("puppeteer");
+          (async () => {
+            const browser = await puppeteer.launch();
+            const page = await browser.newPage();
+            await page.goto("https://www.facebook.com");
+            await page.screenshot({ path: "facebook_screenshot.png" });
+            await browser.close();
+          })();
+          '
 
       - name: Delete cache and commit logs
         run: |
