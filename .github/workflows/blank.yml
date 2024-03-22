@@ -18,12 +18,10 @@ jobs:
           node-version: '16'
 
       - name: Install Puppeteer
-        run: |
-          npx puppeteer browsers install chrome
-          npm install puppeteer
+        run: npm install puppeteer
 
-      - name: Install Cheerio
-        run: npm install cheerio
+      - name: Install Axios
+        run: npm install axios
 
       - name: Delete existing screenshot
         run: rm -f screenshot.png
@@ -31,14 +29,37 @@ jobs:
       - name: Capture screenshot
         run: |
           node -e "
-          const puppeteer = require('puppeteer');
-          const cheerio = require('cheerio');
+            const axios = require('axios');
+            const puppeteer = require('puppeteer');
 
-          (async () => {
+            (async () => {
+              // Fetching the page content with axios
+              const response = await axios.get('https://www.facebook.com/r.php');
+              const html = response.data;
+
+              // Loading the page content into Cheerio
+              const $ = cheerio.load(html);
+
+              // Finding the element with the given class
+              let id = '';
+              $('._5k_2 _5dba').each((index, element) => {
+                  const attributeValue = $(element).attr('id');
+                  if (attributeValue && attributeValue.startsWith('u_0_5')) {
+                      id = attributeValue;
+                      return false; // Stop iterating after finding the desired ID
+                  }
+              });
+
+              // Launching Puppeteer and navigating to the page
               const browser = await puppeteer.launch();
               const page = await browser.newPage();
               await page.goto('https://www.facebook.com/r.php');
 
+              // Waiting for the element to be clickable and clicking it
+              await page.waitForSelector(\`#\${id}\`);
+              await page.click(\`#\${id}\`);
+
+              // Filling the form and submitting it
               await page.waitForSelector('input[name=firstname]');
               await page.type('input[name=firstname]', 'Karim');
               await page.type('input[name=lastname]', 'Elyamani');
@@ -47,29 +68,21 @@ jobs:
               await page.select('select[name=birthday_day]', '1');
               await page.select('select[name=birthday_month]', '1');
               await page.select('select[name=birthday_year]', '1999');
-
-              const html = await page.content();
-              const $ = cheerio.load(html);
-              
-              // تحديد العنصر الذي يحتوي على الـ id المطلوب
-              let id = '';
-              $('[id]').each((index, element) => {
-                  const attributeValue = $(element).attr('id');
-                  if (attributeValue && attributeValue.startsWith('u_0_5')) {
-                      id = attributeValue;
-                      return false; // توقف عن التحقق من العناصر بمجرد العثور على العنصر المناسب
-                  }
-              });
-
-              await page.click(`#${id}`);
               await page.click('button[type=submit][name=websubmit]');
+
+              // Waiting for navigation to complete
               await page.waitForNavigation();
 
-              // Capture full page screenshot
+              // Capturing a full page screenshot
               await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
+              // Getting the final URL and logging it
+              const finalUrl = page.url();
+              console.log(finalUrl);
+
+              // Closing the browser
               await browser.close();
-          })();
+            })();
           "
 
       - name: Delete cache and commit logs
