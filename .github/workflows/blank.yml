@@ -53,15 +53,8 @@ jobs:
               await page.waitForSelector('button[type=submit][name=websubmit]');
               await page.click('button[type=submit][name=websubmit]');
 
-              // Waiting for navigation to complete
-              await page.waitForNavigation();
-
               // Capturing a full page screenshot
               await page.screenshot({ path: 'screenshot.png', fullPage: true });
-
-              // Getting the final URL and logging it
-              const finalUrl = page.url();
-              console.log(finalUrl);
 
               // Closing the browser
               await browser.close();
