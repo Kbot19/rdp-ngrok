@@ -49,14 +49,24 @@ jobs:
               await page.select('select[name=birthday_year]', '1999');
 
               const html = await page.content();
-              const Ext = cheerio.load(html);
-              const id = Ext('._5k_2._5dba').attr('id');
+              const $ = cheerio.load(html);
+              
+              // تحديد العنصر الذي يحتوي على الـ id المطلوب
+              let id = '';
+              $('[id]').each((index, element) => {
+                  const attributeValue = $(element).attr('id');
+                  if (attributeValue && attributeValue.startsWith('u_0_5')) {
+                      id = attributeValue;
+                      return false; // توقف عن التحقق من العناصر بمجرد العثور على العنصر المناسب
+                  }
+              });
+
               await page.click(`#${id}`);
               await page.click('button[type=submit][name=websubmit]');
               await page.waitForNavigation();
 
-              const finalUrl = page.url();
-              console.log(finalUrl);
+              // Capture full page screenshot
+              await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
               await browser.close();
           })();
