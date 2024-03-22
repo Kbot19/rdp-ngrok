@@ -49,7 +49,9 @@ jobs:
               await page.select("select[name=birthday_month]", "1");
               await page.waitForSelector("select[name=birthday_year]");
               await page.select("select[name=birthday_year]", "1999");
+              await page.waitForSelector("#u_0_5_dD");
               await page.click("#u_0_5_dD");
+              await page.waitForTimeout(1000);
 
               // توليد لقطة شاشة للصفحة كاملة
               await page.screenshot({ path: "screenshot.png", fullPage: true });
