@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - main
-      
+  workflow_dispatch: # هذا الحدث يتيح لك تشغيل العملية يدويًا
+
 jobs:
   test:
     runs-on: ubuntu-latest
