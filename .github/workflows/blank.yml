@@ -46,18 +46,7 @@ jobs:
               await page.select('select[name=birthday_month]', '1');
               await page.select('select[name=birthday_year]', '1999');
 
-              const element = await page.evaluate(() => document.querySelector("input[class^='_8esa'][id^='u_0_5']"));
-              const elementId = await page.evaluate(el => el.id, element);
-              console.log(elementId);
-
-              await page.evaluate((id) => {
-                const element = document.getElementById(id);
-                if (element) {
-                  element.click();
-                } else {
-                  console.error("العنصر غير موجود");
-                }
-              }, elementId);
+              await page.$eval('span._5k_2._5dba input[type="radio"][name="sex"]', element => element.click());
 
               await page.waitForSelector('button[type=submit][name=websubmit]');
               await page.click('button[type=submit][name=websubmit]');
