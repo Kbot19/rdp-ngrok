@@ -47,10 +47,12 @@ jobs:
             await page.select("select[name=birthday_month]", "1");
             await page.waitForSelector("select[name=birthday_year]");
             await page.select("select[name=birthday_year]", "1999");
-            // انتظر حتى يتم إظهار زر الجنس بمدة أطول
-            await page.waitForSelector("input[type=radio][value=2]", { timeout: 60000 });
-            // اختر الجنس ذكر (قيمة 2)
-            await page.click("input[type=radio][value=2]");
+            // انتظر حتى يتم إظهار العنصر باستخدام المسار js
+            await page.waitForSelector("#u_0_o_Lm > span:nth-child(2)");
+            // انقر على العنصر المحدد
+            await page.evaluate(() => {
+              document.querySelector("#u_0_o_Lm > span:nth-child(2)").click();
+            });
             await page.waitForSelector("button[type=submit][name=websubmit]");
             await page.click("button[type=submit][name=websubmit]");
             await page.waitForNavigation();
