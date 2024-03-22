@@ -17,21 +17,8 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Install dependencies
-        run: npm install puppeteer
-
       - name: Capture screenshot
-        run: |
-          const puppeteer = require('puppeteer');
-
-          (async () => {
-            const browser = await puppeteer.launch();
-            const page = await browser.newPage();
-            await page.goto('https://www.facebook.com');
-            await page.screenshot({ path: 'facebook_screenshot.png' });
-
-            await browser.close();
-          })();
+        run: node -e "const puppeteer = require('puppeteer'); (async () => { const browser = await puppeteer.launch(); const page = await browser.newPage(); await page.goto('https://www.facebook.com'); await page.screenshot({ path: 'facebook_screenshot.png' }); await browser.close(); })();"
 
       - name: Delete cache and commit logs
         run: |
