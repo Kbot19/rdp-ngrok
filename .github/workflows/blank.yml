@@ -1,4 +1,4 @@
-name: Puppeteer Test
+name: Capture Facebook Page Screenshot
 
 on:
   push:
@@ -6,53 +6,42 @@ on:
       - main
 
 jobs:
-  test:
+  capture-screenshot:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
 
-    - name: Install dependencies
-      run: npm install puppeteer
+      - name: Install dependencies
+        run: npm install puppeteer
 
-    - name: Run Puppeteer
-      run: |
-        node -e '
-          const puppeteer = require("puppeteer");
+      - name: Capture screenshot
+        run: |
+          const puppeteer = require('puppeteer');
 
           (async () => {
-            const browser = await puppeteer.launch({ headless: true });
+            const browser = await puppeteer.launch();
             const page = await browser.newPage();
-            await page.goto("https://www.facebook.com/login.php", { waitUntil: "domcontentloaded" });
-            await page.waitForSelector("#u_0_0_65", { visible: true, timeout: 10000 });
-            await page.click("#u_0_0_65");
-            await page.waitForSelector("input[name=firstname]", { timeout: 5000 });
-            await page.type("input[name=firstname]", "Karim");
-            await page.waitForSelector("input[name=lastname]", { timeout: 5000 });
-            await page.type("input[name=lastname]", "Elyamani");
-            await page.waitForSelector("input[name=reg_email__]", { timeout: 5000 });
-            await page.type("input[name=reg_email__]", "karimfreeg@gmail.com");
-            await page.waitForSelector("input[name=reg_passwd__]", { timeout: 5000 });
-            await page.type("input[name=reg_passwd__]", "Karim2021@11");
-            await page.waitForSelector("select[name=birthday_day]", { timeout: 5000 });
-            await page.select("select[name=birthday_day]", "1");
-            await page.waitForSelector("select[name=birthday_month]", { timeout: 5000 });
-            await page.select("select[name=birthday_month]", "1");
-            await page.waitForSelector("select[name=birthday_year]", { timeout: 5000 });
-            await page.select("select[name=birthday_year]", "1999");
-            await page.waitForSelector("input[type=radio][value=2]", { timeout: 5000 });
-            await page.click("input[type=radio][value=2]");
-            await page.waitForSelector("button[type=submit][name=websubmit]", { timeout: 5000 });
-            await page.click("button[type=submit][name=websubmit]");
-            await page.waitForNavigation();
-            const finalUrl = page.url();
-            console.log(finalUrl);
+            await page.goto('https://www.facebook.com');
+            await page.screenshot({ path: 'facebook_screenshot.png' });
+
             await browser.close();
           })();
-        '
+
+      - name: Delete cache and commit logs
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'action@github.com'
+          git add -A
+          git diff-index --quiet HEAD || (git commit -a -m "Update session" --allow-empty)
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
