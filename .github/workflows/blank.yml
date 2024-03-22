@@ -12,13 +12,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Use Node.js
+      - name: Use Node.js from repo
         uses: actions/setup-node@v2
         with:
           node-version: '16'
-
-      - name: Install Puppeteer
-        run: npm install puppeteer
+          cache: 'node_modules' # Use node_modules cache from repository
 
       - name: Capture screenshot
         run: |
@@ -32,6 +30,9 @@ jobs:
             await browser.close();
           })();
           '
+
+      - name: Delete captured screenshot
+        run: rm -f facebook_screenshot.png
 
       - name: Delete cache and commit logs
         run: |
