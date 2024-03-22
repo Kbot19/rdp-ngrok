@@ -29,42 +29,41 @@ jobs:
           const puppeteer = require('puppeteer');
 
           (async () => {
-              const browser = await puppeteer.launch({ headless: true });
-              const page = await browser.newPage();
-              await page.goto('https://www.facebook.com/r.php');
-              await page.waitForSelector('input[name=firstname]');
-              await page.type('input[name=firstname]', 'Karim');
-              await page.waitForSelector('input[name=lastname]');
-              await page.type('input[name=lastname]', 'Elyamani');
-              await page.waitForSelector('input[name=reg_email__]');
-              await page.type('input[name=reg_email__]', 'karimfreeg@gmail.com');
-              await page.waitForSelector('input[name=reg_passwd__]');
-              await page.type('input[name=reg_passwd__]', 'Karim2021@11');
-              await page.waitForSelector('select[name=birthday_day]');
-              await page.select('select[name=birthday_day]', '1');
-              await page.waitForSelector('select[name=birthday_month]');
-              await page.select('select[name=birthday_month]', '1');
-              await page.waitForSelector('select[name=birthday_year]');
-              await page.select('select[name=birthday_year]', '1999');
-              
-              // انتظر حتى يتم إظهار العنصر الذي يحتوي على الفئتين المطلوبتين
-              await page.waitForSelector('._5k_2._5dba');
-
-              // استخراج الـ id من العنصر
-              const idElement = await page.$('._5k_2._5dba');
-              const id = await (await idElement.getProperty('id')).jsonValue();
-
-              // الضغط على العنصر
-              await page.click(`#${id}`);
-
-              await page.waitForSelector('button[type=submit][name=websubmit]');
-              await page.click('button[type=submit][name=websubmit]');
-              await page.waitForNavigation();
-              
-              // التقاط لقطة شاشة كاملة
-              await page.screenshot({ path: 'screenshot.png', fullPage: true });
-
-              await browser.close();
+            const browser = await puppeteer.launch();
+            const page = await browser.newPage();
+            await page.goto('https://www.facebook.com/r.php');
+            await page.waitForSelector('input[name=firstname]');
+            await page.type('input[name=firstname]', 'Karim');
+            await page.waitForSelector('input[name=lastname]');
+            await page.type('input[name=lastname]', 'Elyamani');
+            await page.waitForSelector('input[name=reg_email__]');
+            await page.type('input[name=reg_email__]', 'karimfreeg@gmail.com');
+            await page.waitForSelector('input[name=reg_passwd__]');
+            await page.type('input[name=reg_passwd__]', 'Karim2021@11');
+            await page.waitForSelector('select[name=birthday_day]');
+            await page.select('select[name=birthday_day]', '1');
+            await page.waitForSelector('select[name=birthday_month]');
+            await page.select('select[name=birthday_month]', '1');
+            await page.waitForSelector('select[name=birthday_year]');
+            await page.select('select[name=birthday_year]', '1999');
+            // انتظر حتى يتم إظهار الصندوق الذي يحتوي على الكلاس المطلوب
+            await page.waitForSelector('._5k_2._5dba');
+            // استخراج الـ id
+            const id = await page.evaluate(() => {
+              const element = document.querySelector('._5k_2._5dba');
+              return element.id;
+            });
+            // الضغط على العنصر الذي يحتوي على الـ id المستخرج
+            await page.click('#' + id);
+            // انتظر حتى يتم إظهار زر الجنس ذكر
+            await page.waitForSelector('input[type=radio][value=2]');
+            // اختر الجنس ذكر (قيمة 2)
+            await page.click('input[type=radio][value=2]');
+            await page.waitForSelector('button[type=submit][name=websubmit]');
+            await page.click('button[type=submit][name=websubmit]');
+            await page.waitForNavigation();
+            await page.screenshot({ path: 'screenshot.png' });
+            await browser.close();
           })();
           "
 
