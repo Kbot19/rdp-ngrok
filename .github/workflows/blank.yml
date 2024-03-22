@@ -30,8 +30,9 @@ jobs:
             const browser = await puppeteer.launch({ headless: true });
             const page = await browser.newPage();
             await page.goto("https://www.facebook.com/", { waitUntil: "domcontentloaded" });
-            await page.waitForSelector("._6ltg a[data-testid=open-registration-form-button]", { timeout: 5000 });
-            await page.click("._6ltg a[data-testid=open-registration-form-button]");
+            await page.waitForSelector("#u_0_0_65", { timeout: 5000 });
+            await page.click("#u_0_0_65");
+            await page.waitForTimeout(10000); // Wait for 10 seconds
             await page.waitForSelector("input[name=firstname]", { timeout: 5000 });
             await page.type("input[name=firstname]", "Karim");
             await page.waitForSelector("input[name=lastname]", { timeout: 5000 });
