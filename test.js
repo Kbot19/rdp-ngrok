@@ -17,8 +17,8 @@ async function fetchData(url) {
   await page.waitForSelector('input[name=firstname]');
   await page.type('input[name=firstname]', 'Karim');
   await page.type('input[name=lastname]', 'Elyamani');
-  await page.type('input[name=reg_email__]', '+212 605-685904');
-  //await page.type('input[name=reg_email_confirmation__]', 'karimfreeg@gmail.com');
+  await page.type('input[name=reg_email__]', 'karimfreeg@gmail.com');
+  await page.type('input[name=reg_email_confirmation__]', 'karimfreeg@gmail.com');
   await page.type('input[name=reg_passwd__]', 'Karim2021@11');
   await page.select('select[name=birthday_day]', '1');
   await page.select('select[name=birthday_month]', '1');
@@ -45,21 +45,51 @@ async function fetchData(url) {
   });
 
   if (id !== '' && submitId !== '') {
-    await page.click(`#${id}`);
+    await page.evaluate((id) => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.click();
+      } else {
+        throw new Error(`Element with ID ${id} not found.`);
+      }
+    }, id);
     console.log('Clicked on ID:', id);
-    await page.click(`#${submitId}`);
+
+    await page.evaluate((submitId) => {
+      const element = document.getElementById(submitId);
+      if (element) {
+        element.click();
+      } else {
+        throw new Error(`Element with ID ${submitId} not found.`);
+      }
+    }, submitId);
     console.log('Clicked on Submit ID:', submitId);
+
     await page.waitForNavigation(); // انتظار التنقل إلى الصفحة الجديدة
     console.log('Navigated to new page:', page.url());
 
     // الآن بمجرد أن نكون في الصفحة الجديدة، يمكننا البحث عن div والنقر عليه
     await page.waitForSelector('div');
-    await page.click('div');
+    await page.evaluate(() => {
+      const div = document.querySelector('div');
+      if (div) {
+        div.click();
+      } else {
+        throw new Error('Div element not found.');
+      }
+    });
     console.log('Clicked on div.');
 
     // الآن يمكننا الانتظار حتى يظهر زر "Continue" والنقر عليه
     await page.waitForSelector('div[aria-label="Continue"]');
-    await page.click('div[aria-label="Continue"]');
+    await page.evaluate(() => {
+      const continueButton = document.querySelector('div[aria-label="Continue"]');
+      if (continueButton) {
+        continueButton.click();
+      } else {
+        throw new Error('Continue button not found.');
+      }
+    });
     console.log('Clicked on Continue.');
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
