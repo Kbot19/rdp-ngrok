@@ -1,6 +1,14 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-extra');
+const RecaptchaPlugin = require('puppeteer-extra-plugin-recaptcha');
 const axios = require('axios');
 const cheerio = require('cheerio');
+
+puppeteer.use(
+  RecaptchaPlugin({
+    provider: { id: '2captcha', token: '6LcPpaIpAAAAAAKagZf6e8as_J6IjwhqcA-UMGtLQ' },
+    visualFeedback: true
+  })
+);
 
 const url = 'https://www.facebook.com/r.php';
 
@@ -90,6 +98,18 @@ async function fetchData(url) {
 
     // انتظر لمدة 60 ثانية
     await new Promise(resolve => setTimeout(resolve, 60000));
+
+    // تجاوز reCAPTCHA v2
+    await page.waitForSelector('.g-recaptcha');
+    await page.solveRecaptchas();
+    console.log('reCAPTCHA v2 solved.');
+
+    // نقر على زر submit
+    await page.click('#submit-button');
+    console.log('Clicked on submit button.');
+
+    // انتظار لبعض الوقت
+    await page.waitForTimeout(5000);
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
     console.log('Screenshot taken.');
