@@ -18,6 +18,10 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Set TERM environment variable
+        run: export TERM=xterm
+
+      
       - name: Install Puppeteer
         run: |
           npm install puppeteer
