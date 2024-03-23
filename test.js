@@ -16,7 +16,7 @@ const puppeteer = require('puppeteer');
   await page.select('select[name=birthday_year]', '1999');
 
   // تحديد الجنس
-  const elements = await page.querySelectorAll('#u_0_5');
+  const elements = await page.evaluate(() => document.querySelectorAll('#u_0_5'))
   const firstElement = elements[0];
   const lastTwoDigits = firstElement.getAttribute('id').slice(-2);
   const selector = `#u_0_5_${lastTwoDigits}`;
