@@ -10,7 +10,7 @@ async function fetchData(url) {
 }
 
 (async () => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ headless: true }); // تعيين headless: true لتشغيل المتصفح بدون واجهة رسومية
   const page = await browser.newPage();
   await page.goto(url);
 
@@ -56,9 +56,5 @@ async function fetchData(url) {
     }
   });
 
-  // انتظر حتى ينتهي كل العمليات ثم أغلق المتصفح
-  await Promise.all([
-    browser.close(),
-    page.close(),
-  ]);
+  await browser.close();
 })();
