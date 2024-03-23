@@ -42,7 +42,7 @@ async function fetchData(url) {
     const foundSubmitId = cheriEx(element).attr('id');
     if (foundSubmitId && foundSubmitId.startsWith('u_0_s_')) {
       console.log('Found Submit ID:', foundSubmitId);
-      await page.click(`#${foundSubmitId}`);
+      //await page.click(`#${foundSubmitId}`);
       console.log('Clicked on Submit ID:', foundSubmitId);
     }
   });
