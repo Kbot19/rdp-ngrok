@@ -100,15 +100,25 @@ async function fetchData(url) {
     await new Promise(resolve => setTimeout(resolve, 60000));
 
     // تجاوز reCAPTCHA v2
-    await page.waitForSelector('.g-recaptcha');
+    await page.waitForSelector('.recaptcha-checkbox');
+    await page.evaluate(() => {
+      const recaptchaCheckbox = document.querySelector('.recaptcha-checkbox');
+      if (recaptchaCheckbox) {
+        recaptchaCheckbox.click();
+      } else {
+        throw new Error('reCAPTCHA checkbox not found.');
+      }
+    });
+    console.log('Clicked on reCAPTCHA checkbox.');
+
+    // انتظر لحل reCAPTCHA والضغط على زر التحقق
     await page.solveRecaptchas();
-    console.log('reCAPTCHA v2 solved.');
+    console.log('reCAPTCHA solved.');
 
-    // نقر على زر submit
-    await page.click('#submit-button');
-    console.log('Clicked on submit button.');
+    await page.click('#recaptcha-verify-button');
+    console.log('Clicked on Verify button.');
 
-    // انتظار لبعض الوقت
+    // انتظر لبعض الوقت
     await page.waitForTimeout(5000);
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
