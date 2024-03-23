@@ -17,8 +17,11 @@ const puppeteer = require('puppeteer');
 
   // تحديد الجنس
   const elements = await page.evaluate(() => document.querySelectorAll('#u_0_5'))
-  const firstElement = elements[0];
-  const lastTwoDigits = firstElement.getAttribute('id').slice(-2);
+  const firstElementId = await page.evaluate(
+    () => document.querySelector('#u_0_5').id
+  );
+  const lastTwoDigits = firstElementId.slice(-2);
+
   const selector = `#u_0_5_${lastTwoDigits}`;
   await page.click(selector);
 
