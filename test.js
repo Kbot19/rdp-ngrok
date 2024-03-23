@@ -42,8 +42,15 @@ async function fetchData(url) {
       await page.click(`#${foundSubmitId}`);
       console.log('Clicked on Submit ID:', foundSubmitId);
 
-      // انتظر حتى يتم تحميل الصفحة الجديدة
+      // انتظر حتى يتم تحميل الصفحة التالية
       await page.waitForNavigation();
+
+      // تحقق من أن عنوان URL يشير إلى الصفحة التالية (Confirmation page)
+      if (page.url().includes('facebook.com/confirmation')) {
+        console.log('Navigated to Confirmation page.');
+      } else {
+        console.log('Unexpected page after Submit.');
+      }
 
       // انتظر حتى يتم تحميل الصفحة بالكامل
       await page.waitForSelector('div');
