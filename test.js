@@ -36,6 +36,10 @@ async function fetchData(url) {
       await page.waitForSelector('button[type=submit][name=websubmit]');
       await page.click('button[type=submit][name=websubmit]');
 
+      // انتظر حتى تحميل الصفحة الجديدة
+      await page.waitForNavigation();
+
+      // التقاط لقطة شاشة بعد تحميل الصفحة الجديدة
       await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
       await browser.close();
