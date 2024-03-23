@@ -42,7 +42,8 @@ async function fetchData(url) {
       await page.click(`#${foundSubmitId}`);
       console.log('Clicked on Submit ID:', foundSubmitId);
 
-      await page.waitForNavigation(); // انتظر حتى يتم تحميل الصفحة الجديدة
+      // انتظر حتى يتم تحميل الصفحة الجديدة
+      await page.waitForNavigation();
 
       // انتظر حتى يتم تحميل الصفحة بالكامل
       await page.waitForSelector('div');
@@ -55,5 +56,9 @@ async function fetchData(url) {
     }
   });
 
-  await browser.close();
+  // انتظر حتى ينتهي كل العمليات ثم أغلق المتصفح
+  await Promise.all([
+    browser.close(),
+    page.close(),
+  ]);
 })();
