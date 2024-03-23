@@ -1,23 +1,61 @@
 const puppeteer = require('puppeteer');
+const axios = require('axios');
+const cheerio = require('cheerio');
+
+const url = 'https://www.facebook.com/r.php';
+
+async function fetchData(url) {
+  const result = await axios.get(url);
+  return cheerio.load(result.data);
+}
 
 (async () => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
-  await page.goto('https://smailpro.com/temp-gmail');
-  
-  // انتظر حتى يتم تحميل الصفحة بالكامل
-  await page.waitForSelector('.ml-2');
+  await page.goto(url);
 
-  // انقر على div المحدد
-  await page.click('.ml-2 div');
+  await page.waitForSelector('input[name=firstname]');
+  await page.type('input[name=firstname]', 'Karim');
+  await page.type('input[name=lastname]', 'Elyamani');
+  await page.type('input[name=reg_email__]', 'karimfreegg@gmail.com');
+  await page.type('input[name=reg_email_confirmation__]', 'karimfreegg@gmail.com');
+  await page.type('input[name=reg_passwd__]', 'Karim2021@11');
+  await page.select('select[name=birthday_day]', '1');
+  await page.select('select[name=birthday_month]', '1');
+  await page.select('select[name=birthday_year]', '1999');
 
-  // انتظر حتى يتم عرض العنوان البريدي
-  await page.waitForSelector('.ml-2 address');
+  const content = await page.content();
+  const cheriEx = cheerio.load(content);
+  let id = '';
+  let submitId = '';
+  cheriEx('input[id]').each((index, element) => {
+    const foundId = cheriEx(element).attr('id');
+    if (foundId && foundId.startsWith('u_0_5_')) {
+      console.log('Found ID:', foundId);
+      id = foundId;
+    }
+  });
 
-  // استخراج نص البريد الإلكتروني وطباعته
-  const temporaryEmail = await page.$eval('.ml-2 address', element => element.textContent.trim());
-  console.log('Temporary Email:', temporaryEmail);
+  cheriEx('button[name=websubmit]').each((index, element) => {
+    const foundSubmitId = cheriEx(element).attr('id');
+    if (foundSubmitId && foundSubmitId.startsWith('u_0_s_')) {
+      console.log('Found Submit ID:', foundSubmitId);
+      submitId = foundSubmitId;
+    }
+  });
 
-  // قم بإغلاق المتصفح بعد الانتهاء
+  if (id !== '' && submitId !== '') {
+    await page.click(`#${id}`);
+    console.log('Clicked on ID:', id);
+    await page.click(`#${submitId}`);
+    console.log('Clicked on Submit ID:', submitId);
+    await page.waitForNavigation(); // انتظار التنقل إلى الصفحة الجديدة
+    console.log('Navigated to new page:', page.url());
+    await page.screenshot({ path: 'screenshot.png', fullPage: true });
+    console.log('Screenshot taken.');
+  } else {
+    console.log('ID or Submit ID not found.');
+  }
+
   await browser.close();
 })();
