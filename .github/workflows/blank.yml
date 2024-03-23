@@ -21,14 +21,6 @@ jobs:
       - name: Set TERM environment variable
         run: export TERM=xterm
 
-      
-      - name: Install Puppeteer
-        run: |
-          npm install puppeteer
-          npm install axios
-          npm install cheerio
-          npx puppeteer browsers install chrome
-
       - name: Delete existing screenshot
         run: rm -f screenshot.png
 
