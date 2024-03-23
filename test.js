@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-const url = 'https://m.facebook.com/r.php';
+const url = 'https://web.facebook.com/r.php';
 
 async function fetchData(url) {
   const result = await axios.get(url);
