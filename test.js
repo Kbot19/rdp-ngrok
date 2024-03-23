@@ -17,8 +17,8 @@ async function fetchData(url) {
   await page.waitForSelector('input[name=firstname]');
   await page.type('input[name=firstname]', 'Karim');
   await page.type('input[name=lastname]', 'Elyamani');
-  await page.type('input[name=reg_email__]', 'evdfujilg@emltmp.com');
-  await page.type('input[name=reg_email_confirmation__]', 'evdfujilg@emltmp.com');
+  await page.type('input[name=reg_email__]', 'karimfreeg@gmail.com');
+  await page.type('input[name=reg_email_confirmation__]', 'karimfreeg@gmail.com');
   await page.type('input[name=reg_passwd__]', 'Karim2021@11');
   await page.select('select[name=birthday_day]', '1');
   await page.select('select[name=birthday_month]', '1');
@@ -49,7 +49,7 @@ async function fetchData(url) {
     console.log('Clicked on ID:', id);
     await page.click(`#${submitId}`);
     console.log('Clicked on Submit ID:', submitId);
-    await page.waitForNavigation(); // انتظار التنقل إلى الصفحة الجديدة
+    await page.waitForNavigation({ timeout: 60000 }); // زيادة وقت المهلة لانتظار التنقل
     console.log('Navigated to new page:', page.url());
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
     console.log('Screenshot taken.');
