@@ -24,6 +24,8 @@ async function fetchData(url) {
   await page.select('select[name=birthday_month]', '1');
   await page.select('select[name=birthday_year]', '1999');
 
+  let idClicked = false; // تعيين متغير للتحقق مما إذا تم الضغط على الـ ID
+
   const content = await page.content();
   const cheriEx = cheerio.load(content);
   cheriEx('input[id]').each(async (index, element) => {
@@ -32,6 +34,7 @@ async function fetchData(url) {
       console.log('Found ID:', foundId);
       await page.click(`#${foundId}`);
       console.log('Clicked on ID:', foundId);
+      idClicked = true; // تحديث قيمة المتغير بعد النقر
     }
   });
 
@@ -41,19 +44,14 @@ async function fetchData(url) {
       console.log('Found Submit ID:', foundSubmitId);
       await page.click(`#${foundSubmitId}`);
       console.log('Clicked on Submit ID:', foundSubmitId);
-
-      await page.waitForNavigation(); // انتظر حتى يتم تحميل الصفحة الجديدة
-
-      // انتظر حتى يتم تحميل الصفحة بالكامل
-      await page.waitForSelector('div');
-
-      // انتظر 20 ثانية
-      await page.waitForTimeout(20000);
-
-      // أخذ لقطة شاشة
-      await page.screenshot({ path: 'screenshot.png', fullPage: true });
     }
   });
+
+  if (idClicked) {
+    await page.screenshot({ path: 'screenshot.png', fullPage: true });
+  } else {
+    console.log('Did not click on ID, screenshot not taken.');
+  }
 
   await browser.close();
 })();
