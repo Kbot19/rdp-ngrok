@@ -24,26 +24,21 @@ async function fetchData(url) {
   await page.select('select[name=birthday_month]', '1');
   await page.select('select[name=birthday_year]', '1999');
 
-  let id = '';
-
   const content = await page.content();
   const cheriEx = cheerio.load(content);
   cheriEx('input[id]').each(async (index, element) => {
     const foundId = cheriEx(element).attr('id');
     if (foundId && foundId.startsWith('u_0_5_')) {
       console.log('Found ID:', foundId);
-      id = foundId;
       await page.click(`#${foundId}`);
       console.log('Clicked on ID:', foundId);
+
+      await page.waitForSelector('button[type=submit][name=websubmit]');
+      await page.click('button[type=submit][name=websubmit]');
+
+      await page.screenshot({ path: 'screenshot.png', fullPage: true });
+
+      await browser.close();
     }
   });
-
-  console.log('The extracted ID:', id);
-
-  await page.waitForSelector('button[type=submit][name=websubmit]');
-  await page.click('button[type=submit][name=websubmit]');
-
-  await page.screenshot({ path: 'screenshot.png', fullPage: true });
-
-  await browser.close();
 })();
