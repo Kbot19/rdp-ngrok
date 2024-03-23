@@ -32,17 +32,19 @@ async function fetchData(url) {
       console.log('Found ID:', foundId);
       await page.click(`#${foundId}`);
       console.log('Clicked on ID:', foundId);
-
-      await page.waitForSelector('button[type=submit][name=websubmit]');
-      await page.click('button[type=submit][name=websubmit]');
-
-      // انتظر حتى تحميل الصفحة الجديدة
-      await page.waitForNavigation();
-
-      // التقاط لقطة شاشة بعد تحميل الصفحة الجديدة
-      await page.screenshot({ path: 'screenshot.png', fullPage: true });
-
-      await browser.close();
     }
   });
+
+  cheriEx('button[name=websubmit]').each(async (index, element) => {
+    const foundSubmitId = cheriEx(element).attr('id');
+    if (foundSubmitId && foundSubmitId.startsWith('u_0_s_')) {
+      console.log('Found Submit ID:', foundSubmitId);
+      await page.click(`#${foundSubmitId}`);
+      console.log('Clicked on Submit ID:', foundSubmitId);
+      await page.waitForNavigation(); // انتظر حتى يتم التنقل إلى صفحة جديدة
+      await page.screenshot({ path: 'screenshot_after_submit.png', fullPage: true }); // التقاط لقطة شاشة بعد النقر على submit
+    }
+  });
+
+  await browser.close();
 })();
