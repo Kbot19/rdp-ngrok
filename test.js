@@ -51,7 +51,9 @@ async function fetchData(url) {
     console.log('Clicked on Submit ID:', submitId);
     await page.waitForNavigation(); // انتظار التنقل إلى الصفحة الجديدة
     console.log('Navigated to new page:', page.url());
-    await page.waitForTimeout(10000); // انتظار 10 ثواني
+    await page.waitForSelector('div'); // انتظار عنصر div
+    await page.click('div'); // النقر على عنصر div
+    console.log('Clicked on div.');
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
     console.log('Screenshot taken.');
   } else {
