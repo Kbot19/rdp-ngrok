@@ -17,11 +17,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+          
 
+      - name: Install dependencies
+        run: rm -rf pakcage-lock.json && npm i && npx puppeteer browsers install chrome
+        
       - name: Set TERM environment variable
-        run: |
-          export TERM=xterm
-          npx puppeteer browsers install chrome
+        run: export TERM=xterm
 
 
       - name: Delete existing screenshot
