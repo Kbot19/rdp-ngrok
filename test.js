@@ -17,8 +17,7 @@ async function fetchData(url) {
   await page.waitForSelector('input[name=firstname]');
   await page.type('input[name=firstname]', 'Karim');
   await page.type('input[name=lastname]', 'Elyamani');
-  await page.type('input[name=reg_email__]', '+212 605-685904');
-  //await page.type('input[name=reg_email_confirmation__]', 'karimfreeg@gmail.com');
+  await page.type('input[name=reg_email__]', '+212 605-685904'); // تعديل الرقم هنا
   await page.type('input[name=reg_passwd__]', 'Karim2021@11');
   await page.select('select[name=birthday_day]', '1');
   await page.select('select[name=birthday_month]', '1');
@@ -91,6 +90,9 @@ async function fetchData(url) {
       }
     });
     console.log('Clicked on div.');
+
+    await page.waitForNavigation(); // انتظار التنقل إلى الصفحة الجديدة بعد النقر على div
+    console.log('Navigated to new page:', page.url());
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
     console.log('Screenshot taken.');
