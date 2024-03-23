@@ -64,9 +64,6 @@ async function fetchData(url) {
     }, submitId);
     console.log('Clicked on Submit ID:', submitId);
 
-    await page.waitForNavigation(); // انتظار التنقل إلى الصفحة الجديدة
-    console.log('Navigated to new page:', page.url());
-
     // انتظر حتى يظهر الزر "Continue" والنقر عليه
     await page.waitForSelector('div[aria-label="Continue"]');
     await page.evaluate(() => {
@@ -91,8 +88,7 @@ async function fetchData(url) {
     });
     console.log('Clicked on div.');
 
-    await page.waitForNavigation(); // انتظار التنقل إلى الصفحة الجديدة بعد النقر على div
-    console.log('Navigated to new page:', page.url());
+    await page.waitForTimeout(60000); // انتظر لمدة 60 ثانية
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
     console.log('Screenshot taken.');
