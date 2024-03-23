@@ -20,7 +20,7 @@ jobs:
           
 
       - name: Install dependencies
-        run: rm -rf pakcage-lock.json && npm i && npx puppeteer browsers install chrome
+        run: rm -rf pakcage-lock.json && rm -rf node_modules && npm i && npx puppeteer browsers install chrome
         
       - name: Set TERM environment variable
         run: export TERM=xterm
@@ -34,6 +34,7 @@ jobs:
 
       - name: Delete cache and commit logs
         run: |
+          rm -rf node_modules
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'action@github.com'
           git add -A
