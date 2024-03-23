@@ -10,7 +10,7 @@ async function fetchData(url) {
 }
 
 (async () => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
   await page.goto(url);
 
@@ -24,35 +24,39 @@ async function fetchData(url) {
   await page.select('select[name=birthday_month]', '1');
   await page.select('select[name=birthday_year]', '1999');
 
-  let id = '';
-  let submitId = '';
-
   const content = await page.content();
   const cheriEx = cheerio.load(content);
-  cheriEx('input[id]').each(async (index, element) => {
+  let id = '';
+  let submitId = '';
+  cheriEx('input[id]').each((index, element) => {
     const foundId = cheriEx(element).attr('id');
     if (foundId && foundId.startsWith('u_0_5_')) {
       console.log('Found ID:', foundId);
       id = foundId;
-      await page.click(`#${foundId}`);
-      console.log('Clicked on ID:', foundId);
     }
   });
 
-  cheriEx('button[name=websubmit]').each(async (index, element) => {
+  cheriEx('button[name=websubmit]').each((index, element) => {
     const foundSubmitId = cheriEx(element).attr('id');
     if (foundSubmitId && foundSubmitId.startsWith('u_0_s_')) {
       console.log('Found Submit ID:', foundSubmitId);
       submitId = foundSubmitId;
-      await page.click(`#${foundSubmitId}`);
-      console.log('Clicked on Submit ID:', foundSubmitId);
     }
   });
 
-  console.log('The extracted ID:', id);
-  console.log('The extracted Submit ID:', submitId);
-
-  await page.screenshot({ path: 'screenshot.png', fullPage: true });
+  if (id !== '' && submitId !== '') {
+    await page.click(`#${id}`);
+    console.log('Clicked on ID:', id);
+    await page.click(`#${submitId}`);
+    console.log('Clicked on Submit ID:', submitId);
+    await page.waitForNavigation(); // انتظار التنقل إلى الصفحة الجديدة
+    console.log('Navigated to new page:', page.url());
+    await page.waitForTimeout(10000); // انتظار 10 ثواني
+    await page.screenshot({ path: 'screenshot.png', fullPage: true });
+    console.log('Screenshot taken.');
+  } else {
+    console.log('ID or Submit ID not found.');
+  }
 
   await browser.close();
 })();
