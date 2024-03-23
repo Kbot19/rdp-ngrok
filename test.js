@@ -1,20 +1,22 @@
-const puppeteer = require('puppeteer-extra');
-const RecaptchaPlugin = require('puppeteer-extra-plugin-recaptcha');
+const puppeteer = require('puppeteer');
 const axios = require('axios');
 const cheerio = require('cheerio');
+const fs = require('fs');
 
-puppeteer.use(
-  RecaptchaPlugin({
-    provider: { id: '2captcha', token: '6LcPpaIpAAAAAAKagZf6e8as_J6IjwhqcA-UMGtLQ' },
-    visualFeedback: true
-  })
-);
+const whisper = require('whisper');
 
 const url = 'https://www.facebook.com/r.php';
 
 async function fetchData(url) {
   const result = await axios.get(url);
   return cheerio.load(result.data);
+}
+
+async function solveCaptcha(audioSrc) {
+    const audioContent = await axios.get(audioSrc, { responseType: 'arraybuffer' });
+    fs.writeFileSync('.temp.mp3', Buffer.from(audioContent.data));
+    const result = await whisper.transcribe('.temp.mp3');
+    return result.text.trim();
 }
 
 (async () => {
@@ -38,7 +40,6 @@ async function fetchData(url) {
   cheriEx('input[id]').each((index, element) => {
     const foundId = cheriEx(element).attr('id');
     if (foundId && foundId.startsWith('u_0_5_')) {
-      console.log('Found ID:', foundId);
       id = foundId;
     }
   });
@@ -46,7 +47,6 @@ async function fetchData(url) {
   cheriEx('button[name=websubmit]').each((index, element) => {
     const foundSubmitId = cheriEx(element).attr('id');
     if (foundSubmitId && foundSubmitId.startsWith('u_0_s_')) {
-      console.log('Found Submit ID:', foundSubmitId);
       submitId = foundSubmitId;
     }
   });
@@ -60,7 +60,6 @@ async function fetchData(url) {
         throw new Error(`Element with ID ${id} not found.`);
       }
     }, id);
-    console.log('Clicked on ID:', id);
 
     await page.evaluate((submitId) => {
       const element = document.getElementById(submitId);
@@ -70,9 +69,7 @@ async function fetchData(url) {
         throw new Error(`Element with ID ${submitId} not found.`);
       }
     }, submitId);
-    console.log('Clicked on Submit ID:', submitId);
 
-    // انتظر حتى يظهر الزر "Continue" والنقر عليه
     await page.waitForSelector('div[aria-label="Continue"]');
     await page.evaluate(() => {
       const continueButton = document.querySelector('div[aria-label="Continue"]');
@@ -82,9 +79,7 @@ async function fetchData(url) {
         throw new Error('Continue button not found.');
       }
     });
-    console.log('Clicked on Continue.');
 
-    // انتظر حتى يظهر ال div والنقر عليه
     await page.waitForSelector('div');
     await page.evaluate(() => {
       const div = document.querySelector('div');
@@ -94,33 +89,25 @@ async function fetchData(url) {
         throw new Error('Div element not found.');
       }
     });
-    console.log('Clicked on div.');
+    
+    await new Promise(resolve => setTimeout(resolve, 15000));
 
-    // انتظر لمدة 60 ثانية
-    await new Promise(resolve => setTimeout(resolve, 15000)); // انتظر لمدة 15 ثانية بدلاً من 60 ثانية
+    //await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
-    // تجاوز reCAPTCHA v2
     await page.waitForSelector('#recaptcha-anchor');
-    await page.evaluate(() => {
-      const recaptchaCheckbox = document.getElementById('recaptcha-anchor');
-      if (recaptchaCheckbox) {
-        recaptchaCheckbox.click();
-      } else {
-        throw new Error('reCAPTCHA checkbox not found.');
-      }
-    });
-    console.log('Clicked on reCAPTCHA checkbox.');
+    await page.click('#recaptcha-anchor');
 
-    // انتظر لحل reCAPTCHA والضغط على زر التحقق
-    await page.solveRecaptchas();
-    console.log('reCAPTCHA solved.');
+    await page.waitForSelector('#recaptcha-audio-button');
+    await page.click('#recaptcha-audio-button');
 
-    // انتظر لبعض الوقت
-    await new Promise(resolve => setTimeout(resolve, 15000)); // انتظر لمدة 15 ثانية بدلاً من 60 ثانية
-
+    await page.waitForSelector('#audio-source');
+    const audioSrc = await page.$eval('#audio-source', source => source.getAttribute('src'));
+    const captchaText = await solveCaptcha(audioSrc);
+    await page.type('#audio-response', captchaText);
+    await page.click('#recaptcha-verify-button');
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
-    console.log('Screenshot taken.');
+
   } else {
     console.log('ID or Submit ID not found.');
   }
