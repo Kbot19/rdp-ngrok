@@ -10,7 +10,7 @@ async function fetchData(url) {
 }
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(url);
 
@@ -24,43 +24,35 @@ async function fetchData(url) {
   await page.select('select[name=birthday_month]', '1');
   await page.select('select[name=birthday_year]', '1999');
 
-  const content = await fetchData(url);
-  const cheriEx = cheerio.load(content);
+  let id = '';
+  let submitId = '';
 
-  let idClicked = false;
+  const content = await page.content();
+  const cheriEx = cheerio.load(content);
   cheriEx('input[id]').each(async (index, element) => {
     const foundId = cheriEx(element).attr('id');
     if (foundId && foundId.startsWith('u_0_5_')) {
       console.log('Found ID:', foundId);
+      id = foundId;
       await page.click(`#${foundId}`);
       console.log('Clicked on ID:', foundId);
-      idClicked = true;
     }
   });
 
-  let submitIdClicked = false;
   cheriEx('button[name=websubmit]').each(async (index, element) => {
     const foundSubmitId = cheriEx(element).attr('id');
     if (foundSubmitId && foundSubmitId.startsWith('u_0_s_')) {
       console.log('Found Submit ID:', foundSubmitId);
+      submitId = foundSubmitId;
       await page.click(`#${foundSubmitId}`);
       console.log('Clicked on Submit ID:', foundSubmitId);
-      submitIdClicked = true;
     }
   });
 
-  if (idClicked && submitIdClicked) {
-    console.log('Both ID and Submit ID clicked, navigating to new page.');
-    await page.waitForNavigation(); // انتظر الانتقال إلى الصفحة الجديدة
-    console.log('New page URL:', page.url());
+  console.log('The extracted ID:', id);
+  console.log('The extracted Submit ID:', submitId);
 
-    // الآن يمكننا البحث عن العنصر div والنقر عليه في الصفحة الجديدة
-    await page.waitForSelector('div'); // انتظر حتى يتم تحميل العنصر div
-    await page.click('div'); // قم بالنقر على العنصر div
-    console.log('Clicked on div in the new page.');
-  } else {
-    console.log('ID or Submit ID not clicked, no navigation performed.');
-  }
+  await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
   await browser.close();
 })();
