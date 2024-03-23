@@ -97,7 +97,7 @@ async function fetchData(url) {
     console.log('Clicked on div.');
 
     // انتظر لمدة 60 ثانية
-    await new Promise(resolve => setTimeout(resolve, 1500)));
+    await new Promise(resolve => setTimeout(resolve, 15000)); // انتظر لمدة 15 ثانية بدلاً من 60 ثانية
 
     // تجاوز reCAPTCHA v2
     await page.waitForSelector('#recaptcha-anchor');
@@ -116,7 +116,8 @@ async function fetchData(url) {
     console.log('reCAPTCHA solved.');
 
     // انتظر لبعض الوقت
-    await new Promise(resolve => setTimeout(resolve, 5000)));
+    await new Promise(resolve => setTimeout(resolve, 15000)); // انتظر لمدة 15 ثانية بدلاً من 60 ثانية
+
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
     console.log('Screenshot taken.');
