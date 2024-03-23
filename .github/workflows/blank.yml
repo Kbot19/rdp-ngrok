@@ -19,7 +19,10 @@ jobs:
           node-version: '16'
 
       - name: Set TERM environment variable
-        run: export TERM=xterm
+        run: |
+          export TERM=xterm
+          npx puppeteer browsers install chrome
+
 
       - name: Delete existing screenshot
         run: rm -f screenshot.png
