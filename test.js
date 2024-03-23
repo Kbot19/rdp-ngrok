@@ -88,7 +88,8 @@ async function fetchData(url) {
     });
     console.log('Clicked on div.');
 
-    await page.waitForTimeout(60000); // انتظر لمدة 60 ثانية
+    // انتظر لمدة 60 ثانية
+    await new Promise(resolve => setTimeout(resolve, 60000));
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
     console.log('Screenshot taken.');
