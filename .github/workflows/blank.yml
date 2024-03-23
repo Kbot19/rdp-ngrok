@@ -20,7 +20,7 @@ jobs:
           
 
       - name: Install dependencies
-        run: rm -rf pakcage-lock.json && rm -rf node_modules && npm i && npx puppeteer browsers install chrome && npm install puppeteer-extra puppeteer-extra-plugin-recaptcha
+        run: rm -rf pakcage-lock.json && npm i whisper && rm -rf node_modules && npm i && npx puppeteer browsers install chrome && npm install puppeteer-extra puppeteer-extra-plugin-recaptcha
 
         
       - name: Set TERM environment variable
