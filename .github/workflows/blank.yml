@@ -20,7 +20,7 @@ jobs:
 
       - name: Set TERM environment variable
         run: |
-          //export TERM=xterm
+          
           npx puppeteer browsers install chrome
 
 
