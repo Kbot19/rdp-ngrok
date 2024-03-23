@@ -10,7 +10,7 @@ async function fetchData(url) {
 }
 
 (async () => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
   await page.goto(url);
 
@@ -24,9 +24,7 @@ async function fetchData(url) {
   await page.select('select[name=birthday_month]', '1');
   await page.select('select[name=birthday_year]', '1999');
 
-  let idClicked = false; // تعيين متغير للتحقق مما إذا تم الضغط على الـ ID
-
-  const content = await page.content();
+  const content = await fetchData(url);
   const cheriEx = cheerio.load(content);
   cheriEx('input[id]').each(async (index, element) => {
     const foundId = cheriEx(element).attr('id');
@@ -34,7 +32,6 @@ async function fetchData(url) {
       console.log('Found ID:', foundId);
       await page.click(`#${foundId}`);
       console.log('Clicked on ID:', foundId);
-      idClicked = true; // تحديث قيمة المتغير بعد النقر
     }
   });
 
@@ -42,16 +39,13 @@ async function fetchData(url) {
     const foundSubmitId = cheriEx(element).attr('id');
     if (foundSubmitId && foundSubmitId.startsWith('u_0_s_')) {
       console.log('Found Submit ID:', foundSubmitId);
-      //await page.click(`#${foundSubmitId}`);
+      await page.click(`#${foundSubmitId}`);
       console.log('Clicked on Submit ID:', foundSubmitId);
     }
   });
 
-  if (idClicked) {
-    await page.screenshot({ path: 'screenshot.png', fullPage: true });
-  } else {
-    console.log('Did not click on ID, screenshot not taken.');
-  }
+  console.log('Screenshot taken in headless mode.');
 
+  await page.screenshot({ path: 'screenshot.png', fullPage: true });
   await browser.close();
 })();
