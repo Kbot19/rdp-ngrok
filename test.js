@@ -41,8 +41,17 @@ async function fetchData(url) {
       console.log('Found Submit ID:', foundSubmitId);
       await page.click(`#${foundSubmitId}`);
       console.log('Clicked on Submit ID:', foundSubmitId);
-      await page.waitForNavigation(); // انتظر حتى يتم التنقل إلى صفحة جديدة
-      await page.screenshot({ path: 'screenshot_after_submit.png', fullPage: true }); // التقاط لقطة شاشة بعد النقر على submit
+
+      await page.waitForNavigation(); // انتظر حتى يتم تحميل الصفحة الجديدة
+
+      // انتظر حتى يتم تحميل الصفحة بالكامل
+      await page.waitForSelector('div');
+
+      // انتظر 20 ثانية
+      await page.waitForTimeout(20000);
+
+      // أخذ لقطة شاشة
+      await page.screenshot({ path: 'screenshot.png', fullPage: true });
     }
   });
 
