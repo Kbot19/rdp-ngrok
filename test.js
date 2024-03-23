@@ -24,11 +24,6 @@ async function fetchData(url) {
   await page.select('select[name=birthday_month]', '1');
   await page.select('select[name=birthday_year]', '1999');
 
-  await page.waitForSelector('button[type=submit][name=websubmit]');
-  await page.click('button[type=submit][name=websubmit]');
-
-  await page.waitForNavigation();
-
   let id = '';
 
   const content = await page.content();
@@ -44,6 +39,9 @@ async function fetchData(url) {
   });
 
   console.log('The extracted ID:', id);
+
+  await page.waitForSelector('button[type=submit][name=websubmit]');
+  await page.click('button[type=submit][name=websubmit]');
 
   await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
