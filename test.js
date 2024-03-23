@@ -17,8 +17,8 @@ async function fetchData(url) {
   await page.waitForSelector('input[name=firstname]');
   await page.type('input[name=firstname]', 'Karim');
   await page.type('input[name=lastname]', 'Elyamani');
-  await page.type('input[name=reg_email__]', 'kfndccjlg@emltmp.com');
-  await page.type('input[name=reg_email_confirmation__]', 'kfndccjlg@emltmp.com');
+  await page.type('input[name=reg_email__]', '+212 667-957953');
+  //await page.type('input[name=reg_email_confirmation__]', 'kfndccjlg@emltmp.com');
   await page.type('input[name=reg_passwd__]', 'Karim2021@11');
   await page.select('select[name=birthday_day]', '1');
   await page.select('select[name=birthday_month]', '1');
