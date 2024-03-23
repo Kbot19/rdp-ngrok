@@ -68,19 +68,7 @@ async function fetchData(url) {
     await page.waitForNavigation(); // انتظار التنقل إلى الصفحة الجديدة
     console.log('Navigated to new page:', page.url());
 
-    // الآن بمجرد أن نكون في الصفحة الجديدة، يمكننا البحث عن div والنقر عليه
-    await page.waitForSelector('div');
-    await page.evaluate(() => {
-      const div = document.querySelector('div');
-      if (div) {
-        div.click();
-      } else {
-        throw new Error('Div element not found.');
-      }
-    });
-    console.log('Clicked on div.');
-
-    // الآن يمكننا الانتظار حتى يظهر زر "Continue" والنقر عليه
+    // انتظر حتى يظهر الزر "Continue" والنقر عليه
     await page.waitForSelector('div[aria-label="Continue"]');
     await page.evaluate(() => {
       const continueButton = document.querySelector('div[aria-label="Continue"]');
@@ -91,6 +79,18 @@ async function fetchData(url) {
       }
     });
     console.log('Clicked on Continue.');
+
+    // انتظر حتى يظهر ال div والنقر عليه
+    await page.waitForSelector('div');
+    await page.evaluate(() => {
+      const div = document.querySelector('div');
+      if (div) {
+        div.click();
+      } else {
+        throw new Error('Div element not found.');
+      }
+    });
+    console.log('Clicked on div.');
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
     console.log('Screenshot taken.');
