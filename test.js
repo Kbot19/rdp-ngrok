@@ -15,7 +15,7 @@ async function fetchData(url) {
   await page.goto(url);
 
   await page.waitForSelector('input[name=firstname]');
-  await page.type('input[name=firstname]', 'Karim');
+  await page.type('input[name=firstname]', 'Israel');
   await page.type('input[name=lastname]', 'E L Yamani');
   await page.type('input[name=reg_email__]', '5fgzx4d9bhp@icznn.com');
   await page.type('input[name=reg_email_confirmation__]', '5fgzx4d9bhp@icznn.com');
