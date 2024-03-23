@@ -97,12 +97,12 @@ async function fetchData(url) {
     console.log('Clicked on div.');
 
     // انتظر لمدة 60 ثانية
-    await new Promise(resolve => setTimeout(resolve, 60000));
+    await new Promise(resolve => setTimeout(resolve, 1500)));
 
     // تجاوز reCAPTCHA v2
-    await page.waitForSelector('.recaptcha-checkbox');
+    await page.waitForSelector('#recaptcha-anchor');
     await page.evaluate(() => {
-      const recaptchaCheckbox = document.querySelector('.recaptcha-checkbox');
+      const recaptchaCheckbox = document.getElementById('recaptcha-anchor');
       if (recaptchaCheckbox) {
         recaptchaCheckbox.click();
       } else {
@@ -115,11 +115,8 @@ async function fetchData(url) {
     await page.solveRecaptchas();
     console.log('reCAPTCHA solved.');
 
-    await page.click('#recaptcha-verify-button');
-    console.log('Clicked on Verify button.');
-
     // انتظر لبعض الوقت
-    await page.waitForTimeout(5000);
+    await new Promise(resolve => setTimeout(resolve, 5000)));
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
     console.log('Screenshot taken.');
