@@ -10,7 +10,7 @@ async function fetchData(url) {
 }
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(url);
 
@@ -41,15 +41,10 @@ async function fetchData(url) {
       console.log('Found Submit ID:', foundSubmitId);
       await page.click(`#${foundSubmitId}`);
       console.log('Clicked on Submit ID:', foundSubmitId);
-
-      // انتظر لمدة 10 ثوانٍ
-      await page.waitForTimeout(10000);
-
-      // الحصول على عنوان الصفحة (title)
-      const pageTitle = await page.title();
-      console.log('Page Title:', pageTitle);
     }
   });
+
+  await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
   await browser.close();
 })();
