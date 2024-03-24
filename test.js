@@ -95,8 +95,10 @@ async function solveCaptcha(audioSrc) {
         throw new Error('Div element not found.');
       }
     });*/
+
+    await page.waitForNavigation();
     
-    await new Promise(resolve => setTimeout(resolve, 15000));
+    await new Promise(resolve => setTimeout(resolve, 500));
 
     /*await page.waitForSelector('.recaptcha-checkbox-checkmark');
     const checkbox = await page.$('.recaptcha-checkbox-checkmark');
