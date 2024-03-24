@@ -94,12 +94,13 @@ async function solveCaptcha(audioSrc) {
       }
     });
     
-    const recaptchaAnchorLabel = cheriEx('#recaptcha-anchor-label'); // البحث عن العنصر بالـ id
-if (recaptchaAnchorLabel.length > 0) { // التأكد من وجود العنصر
-    console.log('Recaptcha Anchor Label Element:', recaptchaAnchorLabel.html()); // طباعة العنصر
+    const recaptchaCheckbox = cheriEx('div.recaptcha-checkbox-border[role="presentation"]'); // البحث عن العنصر بالـ class والـ role
+if (recaptchaCheckbox.length > 0) { // التأكد من وجود العنصر
+    console.log('Recaptcha Checkbox Element:', recaptchaCheckbox.html()); // طباعة العنصر
 } else {
-    console.log('Recaptcha Anchor Label Element not found.');
+    console.log('Recaptcha Checkbox Element not found.');
 }
+
 
 
 
