@@ -20,7 +20,13 @@ async function solveCaptcha(audioSrc) {
 }
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ 
+  headless: true,
+  args: [
+    `--proxy-server=102.50.252.231:8181`
+  ]
+});
+
   const page = await browser.newPage();
   await page.goto(url);
 
@@ -70,7 +76,7 @@ async function solveCaptcha(audioSrc) {
       }
     }, submitId);
 
-    await page.waitForSelector('div[aria-label="Continue"]');
+    /*await page.waitForSelector('div[aria-label="Continue"]');
     await page.evaluate(() => {
       const continueButton = document.querySelector('div[aria-label="Continue"]');
       if (continueButton) {
@@ -88,7 +94,7 @@ async function solveCaptcha(audioSrc) {
       } else {
         throw new Error('Div element not found.');
       }
-    });
+    });*/
     
     await new Promise(resolve => setTimeout(resolve, 15000));
 
