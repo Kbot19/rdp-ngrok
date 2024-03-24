@@ -1,9 +1,13 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-extra');
+const stealthPlugin = require('puppeteer-extra-plugin-stealth');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require('fs');
 
 const whisper = require('whisper');
+
+// Add Stealth plugin
+puppeteer.use(stealthPlugin());
 
 const url = 'https://www.facebook.com/r.php';
 
@@ -13,17 +17,17 @@ async function fetchData(url) {
 }
 
 async function solveCaptcha(audioSrc) {
-    const audioContent = await axios.get(audioSrc, { responseType: 'arraybuffer' });
-    fs.writeFileSync('.temp.mp3', Buffer.from(audioContent.data));
-    const result = await whisper.transcribe('.temp.mp3');
-    return result.text.trim();
+  const audioContent = await axios.get(audioSrc, { responseType: 'arraybuffer' });
+  fs.writeFileSync('.temp.mp3', Buffer.from(audioContent.data));
+  const result = await whisper.transcribe('.temp.mp3');
+  return result.text.trim();
 }
 
 (async () => {
   const browser = await puppeteer.launch({ 
-  headless: true,
-  args: [`--proxy-server=105.154.112.134:57304`]
-});
+    headless: false
+    //args: [`--proxy-server=105.154.112.134:57304`]
+  });
 
   const page = await browser.newPage();
   await page.goto(url);
@@ -31,7 +35,7 @@ async function solveCaptcha(audioSrc) {
   await page.waitForSelector('input[name=firstname]');
   await page.type('input[name=firstname]', 'Karim');
   await page.type('input[name=lastname]', 'Elyamani');
-  await page.type('input[name=reg_email__]', '+212 605-685904'); // تعديل الرقم هنا
+  await page.type('input[name=reg_email__]', '+972-5-253-9205 1');
   await page.type('input[name=reg_passwd__]', 'Karim2021@11');
   await page.select('select[name=birthday_day]', '1');
   await page.select('select[name=birthday_month]', '1');
@@ -93,13 +97,8 @@ async function solveCaptcha(audioSrc) {
         throw new Error('Div element not found.');
       }
     });
-    
 
     await new Promise(resolve => setTimeout(resolve, 500));
-
-
-
-   // await new Promise(resolve => setTimeout(resolve, 15000));
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
