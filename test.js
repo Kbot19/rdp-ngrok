@@ -93,15 +93,10 @@ async function solveCaptcha(audioSrc) {
         throw new Error('Div element not found.');
       }
     });
-    await page.evaluate(() => {
-      const cap = document.getElementById('recaptcha-anchor-label');
-      if (cap) {
-        cap.click();
-      } else {
-        //throw new Error('Div element not found.');
-      }
-    });
-    //await page.click('#recaptcha-anchor-label');
+    
+    await page.waitForSelector('label.rc-anchor-center-item.rc-anchor-checkbox-label');
+    await page.click('label.rc-anchor-center-item.rc-anchor-checkbox-label');
+
     
     await new Promise(resolve => setTimeout(resolve, 500));
 
