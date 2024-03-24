@@ -78,6 +78,8 @@ async function solveCaptcha(audioSrc) {
       }
     }, submitId);
 
+    await newPage.waitForNavigation();
+
     /*await page.waitForSelector('div[aria-label="Continue"]');
     await page.evaluate(() => {
       const continueButton = document.querySelector('div[aria-label="Continue"]');
