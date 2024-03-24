@@ -98,7 +98,7 @@ async function solveCaptcha(audioSrc) {
       if (cap) {
         cap.click();
       } else {
-        throw new Error('Div element not found.');
+        //throw new Error('Div element not found.');
       }
     });
     //await page.click('#recaptcha-anchor-label');
