@@ -21,8 +21,8 @@ async function solveCaptcha(audioSrc) {
 
 (async () => {
   const browser = await puppeteer.launch({ 
-  headless: true
-  //args: [`--proxy-server=102.50.252.231:8181`]
+  headless: true,
+  args: [`--proxy-server=105.154.112.134:57304`]
 });
 
   const page = await browser.newPage();
@@ -94,29 +94,12 @@ async function solveCaptcha(audioSrc) {
       }
     });
     
-    await page.waitForSelector('#recaptcha-anchor > div.recaptcha-checkbox-border');
-    await page.click('#recaptcha-anchor > div.recaptcha-checkbox-border');
-
 
     await new Promise(resolve => setTimeout(resolve, 500));
 
-    /*await page.waitForSelector('.recaptcha-checkbox-checkmark');
-    const checkbox = await page.$('.recaptcha-checkbox-checkmark');
-    await checkbox.click();*/
 
 
-
-    await new Promise(resolve => setTimeout(resolve, 15000));
-      
-
-    /*await page.waitForSelector('#recaptcha-audio-button');
-    await page.click('#recaptcha-audio-button');
-
-    await page.waitForSelector('#audio-source');
-    const audioSrc = await page.$eval('#audio-source', source => source.getAttribute('src'));
-    const captchaText = await solveCaptcha(audioSrc);
-    await page.type('#audio-response', captchaText);
-    await page.click('#recaptcha-verify-button');*/
+   // await new Promise(resolve => setTimeout(resolve, 15000));
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
