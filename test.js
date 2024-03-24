@@ -78,7 +78,7 @@ async function solveCaptcha(audioSrc) {
       }
     }, submitId);
 
-    await page.waitForSelector('div[aria-label="Continue"]');
+    /*await page.waitForSelector('div[aria-label="Continue"]');
     await page.evaluate(() => {
       const continueButton = document.querySelector('div[aria-label="Continue"]');
       if (continueButton) {
@@ -96,7 +96,7 @@ async function solveCaptcha(audioSrc) {
       } else {
         throw new Error('Div element not found.');
       }
-    });
+    });*/
 
     await new Promise(resolve => setTimeout(resolve, 500));
 
