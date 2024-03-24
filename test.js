@@ -94,8 +94,13 @@ async function solveCaptcha(audioSrc) {
       }
     });
     
-    const recaptchaId = cheriEx('label.rc-anchor-center-item.rc-anchor-checkbox-label').attr('id'); // استخراج الـ id
-console.log('Recaptcha ID:', recaptchaId); // طباعة الـ id
+    const recaptchaAnchorLabel = cheriEx('#recaptcha-anchor-label'); // البحث عن العنصر بالـ id
+if (recaptchaAnchorLabel.length > 0) { // التأكد من وجود العنصر
+    console.log('Recaptcha Anchor Label Element:', recaptchaAnchorLabel.html()); // طباعة العنصر
+} else {
+    console.log('Recaptcha Anchor Label Element not found.');
+}
+
 
 
     
