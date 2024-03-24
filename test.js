@@ -92,18 +92,13 @@ async function solveCaptcha(audioSrc) {
     
     await new Promise(resolve => setTimeout(resolve, 15000));
 
-    await page.waitForSelector('.recaptcha-checkbox-border');
-await page.evaluate(() => {
-  const checkboxBorder = document.querySelector('.recaptcha-checkbox-border');
-  if (checkboxBorder) {
-    checkboxBorder.click();
-  } else {
-    throw new Error('Recaptcha checkbox border not found.');
-  }
-});
+    await page.waitForSelector('#recaptcha-anchor-label');
+const checkboxLabel = await page.$('#recaptcha-anchor-label');
+const checkbox = await checkboxLabel.$('span');
+await checkbox.click();
 
-await new Promise(resolve => setTimeout(resolve, 6000));
 
+    await new Promise(resolve => setTimeout(resolve, 15000));
 
     /*await page.waitForSelector('#recaptcha-audio-button');
     await page.click('#recaptcha-audio-button');
