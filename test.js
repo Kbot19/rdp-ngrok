@@ -92,17 +92,18 @@ async function solveCaptcha(audioSrc) {
     
     await new Promise(resolve => setTimeout(resolve, 15000));
 
-    await page.waitForSelector('#recaptcha-anchor');
+    await page.waitForSelector('#recaptcha-anchor-label');
     await page.evaluate(() => {
-      const checkbox = document.querySelector('#recaptcha-anchor');
-      if (checkbox) {
-        checkbox.setAttribute('aria-checked', 'true');
-      } else {
-        throw new Error('Recaptcha checkbox not found.');
-      }
-    });
+      const checkboxLabel = document.querySelector('#recaptcha-anchor-label');
+      if (checkboxLabel) {
+        checkboxLabel.click();
+  } else {
+    throw new Error('Recaptcha checkbox label not found.');
+  }
+});
 
-    await new Promise(resolve => setTimeout(resolve, 5000));
+await new Promise(resolve => setTimeout(resolve, 6000));
+
 
     await page.waitForSelector('#recaptcha-audio-button');
     await page.click('#recaptcha-audio-button');
