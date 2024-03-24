@@ -6,10 +6,9 @@ const { promisify } = require('util');
 
 const writeFile = promisify(fs.writeFile);
 
-const model = whisper.load_model('base');
-
 async function transcribe(url) {
     await writeFile('.temp', await promisify(request.get)(url));
+    const model = await whisper.loadModel("base");
     const result = await model.transcribe('.temp');
     return result.text.trim();
 }
