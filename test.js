@@ -88,7 +88,7 @@ async function solveCaptcha(audioSrc) {
       } else {
         throw new Error('Continue button not found.');
       }
-    });
+    });*/
 
     await page.waitForSelector('div');
     await page.evaluate(() => {
@@ -98,7 +98,7 @@ async function solveCaptcha(audioSrc) {
       } else {
         throw new Error('Div element not found.');
       }
-    });*/
+    });
 
     await new Promise(resolve => setTimeout(resolve, 500));
 
