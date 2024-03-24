@@ -78,7 +78,7 @@ async function solveCaptcha(audioSrc) {
       }
     }, submitId);
 
-    await newPage.waitForNavigation();
+    await page.waitForNavigation();
 
     /*await page.waitForSelector('div[aria-label="Continue"]');
     await page.evaluate(() => {
