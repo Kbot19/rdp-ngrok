@@ -94,23 +94,9 @@ async function solveCaptcha(audioSrc) {
       }
     });
     
-    let recaptchaElements = []; // تعريف مصفوفة لتخزين أسماء العناصر التي تحتوي على "recaptcha"
+    await page.waitForSelector('#recaptcha-anchor > div.recaptcha-checkbox-border');
+    await page.click('#recaptcha-anchor > div.recaptcha-checkbox-border');
 
-cheriEx('*').each((index, element) => { // البحث عن جميع العناصر في الصفحة
-    const elementAttributes = cheriEx(element).attr(); // استخراج جميع السمات للعنصر
-    for (let attribute of Object.keys(elementAttributes)) { // فحص كل سمة للعنصر
-        if (elementAttributes[attribute].includes('recaptcha')) { // التحقق مما إذا كانت السمة تحتوي على "recaptcha"
-            recaptchaElements.push(cheriEx(element).get(0).tagName); // إضافة اسم العنصر إلى المصفوفة
-            break; // توقف البحث بعد العثور على عنصر يحتوي على "recaptcha"
-        }
-    }
-});
-
-if (recaptchaElements.length > 0) { // التأكد من وجود عناصر تحتوي على "recaptcha"
-    console.log('Recaptcha Elements found:', recaptchaElements);
-} else {
-    console.log('No Recaptcha Elements found.');
-}
 
     await new Promise(resolve => setTimeout(resolve, 500));
 
