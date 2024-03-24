@@ -21,10 +21,8 @@ async function solveCaptcha(audioSrc) {
 
 (async () => {
   const browser = await puppeteer.launch({ 
-  headless: true,
-  args: [
-    `--proxy-server=102.50.252.231:8181`
-  ]
+  headless: true
+  //args: [`--proxy-server=102.50.252.231:8181`]
 });
 
   const page = await browser.newPage();
