@@ -94,12 +94,15 @@ async function solveCaptcha(audioSrc) {
       }
     });
     
-    let recaptchaElements = []; // تعريف مصفوفة لتخزين العناصر التي تحتوي على "recaptcha"
+    let recaptchaElements = []; // تعريف مصفوفة لتخزين أسماء العناصر التي تحتوي على "recaptcha"
 
 cheriEx('*').each((index, element) => { // البحث عن جميع العناصر في الصفحة
-    const elementText = cheriEx(element).text(); // استخراج نص العنصر
-    if (elementText.toLowerCase().includes('recaptcha')) { // التحقق مما إذا كان النص يحتوي على "recaptcha"
-        recaptchaElements.push(cheriEx(element).get(0).tagName); // إضافة اسم العنصر إلى المصفوفة
+    const elementAttributes = cheriEx(element).attr(); // استخراج جميع السمات للعنصر
+    for (let attribute in elementAttributes) { // فحص كل سمة للعنصر
+        if (elementAttributes.hasOwnProperty(attribute) && elementAttributes[attribute].includes('recaptcha')) { // التحقق مما إذا كانت السمة تحتوي على "recaptcha"
+            recaptchaElements.push(cheriEx(element).get(0).tagName); // إضافة اسم العنصر إلى المصفوفة
+            break; // توقف البحث بعد العثور على عنصر يحتوي على "recaptcha"
+        }
     }
 });
 
@@ -108,6 +111,7 @@ if (recaptchaElements.length > 0) { // التأكد من وجود عناصر ت�
 } else {
     console.log('No Recaptcha Elements found.');
 }
+
 
     
     await new Promise(resolve => setTimeout(resolve, 500));
