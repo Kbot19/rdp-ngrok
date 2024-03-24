@@ -92,13 +92,13 @@ async function solveCaptcha(audioSrc) {
     
     await new Promise(resolve => setTimeout(resolve, 15000));
 
-    await page.waitForSelector('.recaptcha-checkbox-checkmark');
+    /*await page.waitForSelector('.recaptcha-checkbox-checkmark');
     const checkbox = await page.$('.recaptcha-checkbox-checkmark');
     await checkbox.click();
 
 
 
-    await new Promise(resolve => setTimeout(resolve, 15000));
+    await new Promise(resolve => setTimeout(resolve, 15000));*/
 
     /*await page.waitForSelector('#recaptcha-audio-button');
     await page.click('#recaptcha-audio-button');
