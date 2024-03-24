@@ -92,27 +92,27 @@ async function solveCaptcha(audioSrc) {
     
     await new Promise(resolve => setTimeout(resolve, 15000));
 
-    await page.waitForSelector('#recaptcha-anchor-label');
-    await page.evaluate(() => {
-      const checkboxLabel = document.querySelector('#recaptcha-anchor-label');
-      if (checkboxLabel) {
-        checkboxLabel.click();
+    await page.waitForSelector('.recaptcha-checkbox-border');
+await page.evaluate(() => {
+  const checkboxBorder = document.querySelector('.recaptcha-checkbox-border');
+  if (checkboxBorder) {
+    checkboxBorder.click();
   } else {
-    throw new Error('Recaptcha checkbox label not found.');
+    throw new Error('Recaptcha checkbox border not found.');
   }
 });
 
 await new Promise(resolve => setTimeout(resolve, 6000));
 
 
-    await page.waitForSelector('#recaptcha-audio-button');
+    /*await page.waitForSelector('#recaptcha-audio-button');
     await page.click('#recaptcha-audio-button');
 
     await page.waitForSelector('#audio-source');
     const audioSrc = await page.$eval('#audio-source', source => source.getAttribute('src'));
     const captchaText = await solveCaptcha(audioSrc);
     await page.type('#audio-response', captchaText);
-    await page.click('#recaptcha-verify-button');
+    await page.click('#recaptcha-verify-button');*/
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
