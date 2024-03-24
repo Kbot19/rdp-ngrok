@@ -23,6 +23,7 @@ async function solveCaptcha(audioSrc) {
   return result.text.trim();
 }
 
+
 (async () => {
   const browser = await puppeteer.launch({ 
     headless: true
