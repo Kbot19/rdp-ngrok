@@ -99,20 +99,15 @@ async function solveCaptcha(audioSrc) {
 cheriEx('*').each((index, element) => { // البحث عن جميع العناصر في الصفحة
     const elementText = cheriEx(element).text(); // استخراج نص العنصر
     if (elementText.toLowerCase().includes('recaptcha')) { // التحقق مما إذا كان النص يحتوي على "recaptcha"
-        recaptchaElements.push(element); // إضافة العنصر إلى المصفوفة
+        recaptchaElements.push(cheriEx(element).get(0).tagName); // إضافة اسم العنصر إلى المصفوفة
     }
 });
 
 if (recaptchaElements.length > 0) { // التأكد من وجود عناصر تحتوي على "recaptcha"
-    console.log('Recaptcha Elements found:', recaptchaElements.length);
-    // يمكنك القيام بالإجراء المناسب مع هذه العناصر هنا
+    console.log('Recaptcha Elements found:', recaptchaElements);
 } else {
     console.log('No Recaptcha Elements found.');
 }
-
-
-
-
 
     
     await new Promise(resolve => setTimeout(resolve, 500));
