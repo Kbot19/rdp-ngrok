@@ -94,12 +94,22 @@ async function solveCaptcha(audioSrc) {
       }
     });
     
-    const recaptchaCheckbox = cheriEx('div.recaptcha-checkbox-border[role="presentation"]'); // البحث عن العنصر بالـ class والـ role
-if (recaptchaCheckbox.length > 0) { // التأكد من وجود العنصر
-    console.log('Recaptcha Checkbox Element:', recaptchaCheckbox.html()); // طباعة العنصر
+    let recaptchaElements = []; // تعريف مصفوفة لتخزين العناصر التي تحتوي على "recaptcha"
+
+cheriEx('*').each((index, element) => { // البحث عن جميع العناصر في الصفحة
+    const elementText = cheriEx(element).text(); // استخراج نص العنصر
+    if (elementText.toLowerCase().includes('recaptcha')) { // التحقق مما إذا كان النص يحتوي على "recaptcha"
+        recaptchaElements.push(element); // إضافة العنصر إلى المصفوفة
+    }
+});
+
+if (recaptchaElements.length > 0) { // التأكد من وجود عناصر تحتوي على "recaptcha"
+    console.log('Recaptcha Elements found:', recaptchaElements.length);
+    // يمكنك القيام بالإجراء المناسب مع هذه العناصر هنا
 } else {
-    console.log('Recaptcha Checkbox Element not found.');
+    console.log('No Recaptcha Elements found.');
 }
+
 
 
 
