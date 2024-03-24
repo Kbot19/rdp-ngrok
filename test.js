@@ -98,8 +98,8 @@ async function solveCaptcha(audioSrc) {
 
 cheriEx('*').each((index, element) => { // البحث عن جميع العناصر في الصفحة
     const elementAttributes = cheriEx(element).attr(); // استخراج جميع السمات للعنصر
-    for (let attribute in elementAttributes) { // فحص كل سمة للعنصر
-        if (elementAttributes.hasOwnProperty(attribute) && elementAttributes[attribute].includes('recaptcha')) { // التحقق مما إذا كانت السمة تحتوي على "recaptcha"
+    for (let attribute of Object.keys(elementAttributes)) { // فحص كل سمة للعنصر
+        if (elementAttributes[attribute].includes('recaptcha')) { // التحقق مما إذا كانت السمة تحتوي على "recaptcha"
             recaptchaElements.push(cheriEx(element).get(0).tagName); // إضافة اسم العنصر إلى المصفوفة
             break; // توقف البحث بعد العثور على عنصر يحتوي على "recaptcha"
         }
@@ -112,8 +112,6 @@ if (recaptchaElements.length > 0) { // التأكد من وجود عناصر ت�
     console.log('No Recaptcha Elements found.');
 }
 
-
-    
     await new Promise(resolve => setTimeout(resolve, 500));
 
     /*await page.waitForSelector('.recaptcha-checkbox-checkmark');
