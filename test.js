@@ -94,9 +94,8 @@ async function solveCaptcha(audioSrc) {
       }
     });
     
-    await page.waitForSelector('label.rc-anchor-center-item.rc-anchor-checkbox-label');
-    await page.click('label.rc-anchor-center-item.rc-anchor-checkbox-label');
-
+    await page.waitForSelector('#recaptcha-anchor-label');
+    await page.click('#recaptcha-anchor-label');
     
     await new Promise(resolve => setTimeout(resolve, 500));
 
