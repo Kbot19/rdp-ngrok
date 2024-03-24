@@ -95,7 +95,7 @@ async function solveCaptcha(audioSrc) {
     });
     await page.evaluate(() => {
       const cap = document.getElementById('recaptcha-anchor-label');
-      if (div) {
+      if (cap) {
         cap.click();
       } else {
         throw new Error('Div element not found.');
