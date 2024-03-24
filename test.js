@@ -94,11 +94,12 @@ async function solveCaptcha(audioSrc) {
       }
     });
 
-    await page.evaluate(() => {
-        const iframe = document.querySelector('iframe[title="reCAPTCHA"]');
-        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-        iframeDoc.getElementById('recaptcha-anchor-label').click();
-    });
+    await page.waitForSelector('iframe[title="reCAPTCHA"]');
+const iframeHandle = await page.$('iframe[title="reCAPTCHA"]');
+const iframe = await iframeHandle.contentFrame();
+await iframe.waitForSelector('#recaptcha-anchor-label');
+await iframe.click('#recaptcha-anchor-label');
+
     
     await new Promise(resolve => setTimeout(resolve, 500));
 
