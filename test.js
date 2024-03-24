@@ -94,12 +94,16 @@ async function solveCaptcha(audioSrc) {
       }
     });
 
-    await page.waitForSelector('iframe[title="reCAPTCHA"]');
-const iframeHandle = await page.$('iframe[title="reCAPTCHA"]');
-const iframe = await iframeHandle.contentFrame();
-await iframe.waitForSelector('#recaptcha-anchor-label');
-await iframe.click('#recaptcha-anchor-label');
-
+    await page.waitForSelector('#recaptcha-anchor-label');
+    await page.evaluate(() => {
+      const cap = document.querySelector('recaptcha-anchor-label');
+      if (div) {
+        cap.click();
+      } else {
+        throw new Error('Div element not found.');
+      }
+    });
+    //await page.click('#recaptcha-anchor-label');
     
     await new Promise(resolve => setTimeout(resolve, 500));
 
