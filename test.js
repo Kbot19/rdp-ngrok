@@ -94,8 +94,9 @@ async function solveCaptcha(audioSrc) {
       }
     });
     
-    const recaptchaId = cheriEx('#recaptcha-anchor-label').attr('id'); // البحث باستخدام الـ id
-    console.log('Recaptcha ID:', recaptchaId); // طباعة الـ id
+    const recaptchaId = cheriEx('label.rc-anchor-center-item.rc-anchor-checkbox-label').attr('id'); // استخراج الـ id
+console.log('Recaptcha ID:', recaptchaId); // طباعة الـ id
+
 
     
     await new Promise(resolve => setTimeout(resolve, 500));
