@@ -71,8 +71,8 @@ async function getRandomEmail() {
   await page.waitForSelector('input[name=firstname]');
   await page.type('input[name=firstname]', 'Adam');
   await page.type('input[name=lastname]', 'Ahmed');
-  await page.type('input[name=reg_email__]', '+16462282347');
-  //await page.type('input[name=reg_email_confirmation__]', 'mageerauld+trkdw@gmail.com');
+  await page.type('input[name=reg_email__]', 'karimfreeg@gmail.com');
+  await page.type('input[name=reg_email_confirmation__]', 'karimfreeg@gmail.com');
   await page.type('input[name=reg_passwd__]', 'AhmedAhmed@11');
   await page.select('select[name=birthday_day]', '1');
   await page.select('select[name=birthday_month]', '2');
