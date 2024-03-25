@@ -109,16 +109,6 @@ async function solveCaptcha(audioSrc) {
     
     await page.goto('https://www.facebook.com/change_contactpoint/dialog/?should_stop_sms=0');
 
-    await page.waitForSelector('div');
-    await page.evaluate(() => {
-      const div = document.querySelector('div');
-      if (div) {
-        div.click();
-      } else {
-        throw new Error('Div element not found.');
-      }
-    });
-
     await new Promise(resolve => setTimeout(resolve, 500));
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
