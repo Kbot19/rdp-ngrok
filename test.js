@@ -112,8 +112,26 @@ async function solveCaptcha(audioSrc) {
     await page.waitForSelector('input[name="contactpoint"]');
     await page.type('input[name="contactpoint"]', 'karimfreegg@gmail.com');
 
-    await page.waitForSelector('button[aria-label="Add"]');
-    await page.click('button[aria-label="Add"]');
+    // انتظر حتى يظهر زر "Add"
+await page.waitForSelector('button[type="submit"]');
+
+// البحث عن الزر "Add" باستخدام Cheerio وتخزين قيمة الـ id في متغير
+const addButtonId = await page.evaluate(() => {
+  const buttons = document.querySelectorAll('button[type="submit"]');
+  for (const button of buttons) {
+    if (button.innerText === 'Add') {
+      return button.id;
+    }
+  }
+});
+
+// التأكد من أن تم العثور على الـ id والنقر عليه
+if (addButtonId) {
+  await page.click(`#${addButtonId}`);
+} else {
+  console.log('Could not find the Add button ID.');
+}
+
 
     await new Promise(resolve => setTimeout(resolve, 1500));
 
