@@ -107,9 +107,14 @@ async function solveCaptcha(audioSrc) {
     const pageUrl = page.url();
     console.log('Page URL:', pageUrl);
     
-    await page.goto('https://www.facebook.com/change_contactpoint/dialog/?should_stop_sms=0');
-
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await page.evaluate(() => {
+  const updateContactButton = document.querySelector('a[href="/change_contactpoint/dialog/?should_stop_sms=0"]');
+  if (updateContactButton) {
+    updateContactButton.click();
+  } else {
+    throw new Error('Update Contact Info button not found.');
+  }
+});
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
