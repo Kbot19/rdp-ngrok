@@ -173,7 +173,7 @@ if (randomEmailData) {
 
     await page.waitForNavigation();
 
-    await new Promise(resolve => setTimeout(resolve, 20000));
+    await new Promise(resolve => setTimeout(resolve, 1500));
 
    // await page.waitForSelector('input[name="code"]');
 
