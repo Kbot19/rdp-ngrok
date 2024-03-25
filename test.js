@@ -116,6 +116,8 @@ async function solveCaptcha(audioSrc) {
       }
     });
 
+    await new Promise(resolve => setTimeout(resolve, 500));
+
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
   } else {
