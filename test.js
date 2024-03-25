@@ -69,13 +69,13 @@ async function getRandomEmail() {
   await page.goto('https://www.facebook.com/r.php');
 
   await page.waitForSelector('input[name=firstname]');
-  await page.type('input[name=firstname]', 'Karim');
-  await page.type('input[name=lastname]', 'Elyamani');
+  await page.type('input[name=firstname]', 'Ahmed');
+  await page.type('input[name=lastname]', 'Almorabiti');
   await page.type('input[name=reg_email__]', '+1 (425) 475-7001');
-  await page.type('input[name=reg_passwd__]', 'Karim2021@11');
+  await page.type('input[name=reg_passwd__]', 'AhmedAhmed@11');
   await page.select('select[name=birthday_day]', '1');
-  await page.select('select[name=birthday_month]', '1');
-  await page.select('select[name=birthday_year]', '1999');
+  await page.select('select[name=birthday_month]', '2');
+  await page.select('select[name=birthday_year]', '1996');
 
   const content = await page.content();
   const cheriEx = cheerio.load(content);
@@ -130,13 +130,13 @@ async function getRandomEmail() {
 
     //await new Promise(resolve => setTimeout(resolve, 1000));
 
-    /*await page.waitForSelector('a[href*="/change_contactpoint/dialog"]');
+    await page.waitForSelector('a[href*="/change_contactpoint/dialog"]');
     await page.click('a[href*="/change_contactpoint/dialog"]');
 
     await new Promise(resolve => setTimeout(resolve, 1500));
 
     /*await page.waitForSelector('input[name="contactpoint"]');
-    await page.type('input[name="contactpoint"]', '7cqyh2zw@mailpwr.com');
+    await page.type('input[name="contactpoint"]', '7cqyh2zw@mailpwr.com');*/
     
     const randomEmailData = await getRandomEmail();
 if (randomEmailData) {
@@ -201,9 +201,9 @@ if (randomEmailData) {
     await page.waitForNavigation();
 
     console.log("Email: ", randomEmail);
-    console.log("Pwd : Karim2021@11");
+    console.log("Pwd : AhmedAhmed@11");
 
-    await new Promise(resolve => setTimeout(resolve, 1500));*/
+    await new Promise(resolve => setTimeout(resolve, 1500));
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
