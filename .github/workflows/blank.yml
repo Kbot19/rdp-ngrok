@@ -33,7 +33,7 @@ jobs:
          rm -f screenshot.png
 
       - name: Capture screenshot
-        run: node test.js &
+        run: node test.js
 
       - name: Delete cache and commit logs
         run: |
