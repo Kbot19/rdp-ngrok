@@ -106,7 +106,8 @@ async function solveCaptcha(audioSrc) {
 
     const pageUrl = page.url();
     console.log('Page URL:', pageUrl);
-
+    
+    await page.goto('https://www.facebook.com/change_contactpoint/dialog/?should_stop_sms=0');
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
