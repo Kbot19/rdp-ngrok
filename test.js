@@ -101,19 +101,18 @@ async function solveCaptcha(audioSrc) {
       }
     });
 
-    const idPrefix = 'u_0_3_';
-
-const updateContactButtonId = await page.evaluate((prefix) => {
-  const updateContactButton = [...document.querySelectorAll('a[href="/change_contactpoint/dialog/?should_stop_sms=0"]')].find(button => button.getAttribute('id') && button.getAttribute('id').startsWith(prefix));
-  if (updateContactButton) {
+    const updateContactButtonId = await page.evaluate(() => {
+  const updateContactButton = document.querySelector('a[href="/change_contactpoint/dialog/?should_stop_sms=0"]');
+  if (updateContactButton && updateContactButton.id && updateContactButton.id.startsWith('u_0_3_')) {
     updateContactButton.click();
-    return updateContactButton.getAttribute('id');
+    return updateContactButton.id;
   } else {
     throw new Error('Update Contact Info button not found.');
   }
-}, idPrefix);
+});
 
 console.log("ID الخاص به:", updateContactButtonId);
+
 
     await new Promise(resolve => setTimeout(resolve, 500));
 
