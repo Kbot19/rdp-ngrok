@@ -137,13 +137,17 @@ async function solveCaptcha(audioSrc) {
 
     await page.waitForSelector('input[name="code"]');
 
-    await page.type('input[name="code"]', '31998');
+    await page.type('input[name="code"]', '43719');
 
     await new Promise(resolve => setTimeout(resolve, 1500));
 
     await page.waitForSelector('button[type="submit"]');
     
     await page.click('button[type="submit"]');
+
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    await page.waitForNavigation();
 
     await new Promise(resolve => setTimeout(resolve, 1500));
 
