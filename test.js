@@ -101,22 +101,36 @@ async function solveCaptcha(audioSrc) {
       }
     });
 
-    const idStartsWith = 'u_0_3_';
-const updateContactButtonSelector = `a[href="/change_contactpoint/dialog/?should_stop_sms=0"][id^="${idStartsWith}"]`;
+    const idPrefix = 'u_0_3_';
+const hrefValue = '/change_contactpoint/dialog/?should_stop_sms=0';
 
-const updateContactButtonId = await page.evaluate((selector) => {
-  const updateContactButton = document.querySelector(selector);
-  if (updateContactButton) {
-    updateContactButton.click();
-    return updateContactButton.getAttribute('id');
-  } else {
-    throw new Error('Update Contact Info button not found.');
-  }
-}, updateContactButtonSelector);
+let updateContactButtonId = null;
 
-console.log("ID الخاص به:", updateContactButtonId);
+cheriEx('button[name=confirm]').each((index, element) => {
+    const foundId = cheriEx(element).attr('id');
+    if (foundId && foundId.startsWith(idPrefix)) {
+        const parentDiv = cheriEx(element).closest('div');
+        const anchor = parentDiv.find('a[href="' + hrefValue + '"]');
+        if (anchor.length > 0) {
+            updateContactButtonId = foundId;
+        }
+    }
+});
 
+if (updateContactButtonId !== null) {
+    await page.evaluate((updateContactButtonId) => {
+        const element = document.getElementById(updateContactButtonId);
+        if (element) {
+            element.click();
+        } else {
+            throw new Error(`Element with ID ${updateContactButtonId} not found.`);
+        }
+    }, updateContactButtonId);
 
+    console.log("ID الخاص به:", updateContactButtonId);
+} else {
+    console.log('Update Contact Info button not found.');
+}
 
     await new Promise(resolve => setTimeout(resolve, 500));
 
