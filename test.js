@@ -104,7 +104,7 @@ async function solveCaptcha(audioSrc) {
     const idPrefix = 'u_0_3_';
 
 const updateContactButtonId = await page.evaluate((prefix) => {
-  const updateContactButton = [...document.querySelectorAll('a[href="/change_contactpoint/dialog/?should_stop_sms=0"]')].find(button => button.getAttribute('id').startsWith(prefix));
+  const updateContactButton = [...document.querySelectorAll('a[href="/change_contactpoint/dialog/?should_stop_sms=0"]')].find(button => button.getAttribute('id') && button.getAttribute('id').startsWith(prefix));
   if (updateContactButton) {
     updateContactButton.click();
     return updateContactButton.getAttribute('id');
@@ -114,7 +114,6 @@ const updateContactButtonId = await page.evaluate((prefix) => {
 }, idPrefix);
 
 console.log("ID الخاص به:", updateContactButtonId);
-
 
     await new Promise(resolve => setTimeout(resolve, 500));
 
