@@ -112,6 +112,11 @@ async function solveCaptcha(audioSrc) {
     await page.waitForSelector('input[name="contactpoint"]');
     await page.type('input[name="contactpoint"]', 'karimfreegg@gmail.com');
 
+    await page.waitForSelector('button[type="submit"]');
+    await page.click('button[type="submit"]');
+
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
     /*const cheerioHtml = await page.evaluate(() => {
     return document.documentElement.outerHTML;
     });
