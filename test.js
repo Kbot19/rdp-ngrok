@@ -132,7 +132,6 @@ if (updateContactButtonId) {
   console.log('Update Contact Info button not found.');
 }
 
-
     await new Promise(resolve => setTimeout(resolve, 500));
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
