@@ -109,10 +109,13 @@ async function solveCaptcha(audioSrc) {
 
     await new Promise(resolve => setTimeout(resolve, 1500));
 
-    const cheerioHtml = await page.evaluate(() => {
+    await page.waitForSelector('input[name="contactpoint"]');
+    await page.type('input[name="contactpoint"]', 'karimfreegg@gmail.com');
+
+    /*const cheerioHtml = await page.evaluate(() => {
     return document.documentElement.outerHTML;
     });
-    fs.writeFileSync('fb.html', cheerioHtml);
+    fs.writeFileSync('fb.html', cheerioHtml);*/
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
