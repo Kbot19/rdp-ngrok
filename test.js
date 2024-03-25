@@ -142,7 +142,7 @@ async function getRandomEmail() {
 if (randomEmailData) {
   const randomEmail = randomEmailData.email;
   await page.waitForSelector('input[name="contactpoint"]');
-  await page.type('input[name="contactpoint"]', randomEmail);
+  await page.type('input[name="contactpoint"]', 'karimfreegg1@gmail.com');
 } else {
   console.log("Failed to get random email.");
 }
