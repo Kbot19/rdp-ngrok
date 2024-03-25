@@ -201,12 +201,12 @@ if (randomEmailData) {
     
     await page.click('button[type="submit"]');
 
-    /*await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise(resolve => setTimeout(resolve, 1500));
 
     await page.waitForNavigation();
 
     console.log("Email: ", randomEmail);
-    console.log("Pwd : Karim2021@11");*/
+    console.log("Pwd : Karim2021@11");
 
     await new Promise(resolve => setTimeout(resolve, 1500));
 
