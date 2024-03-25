@@ -69,10 +69,10 @@ async function getRandomEmail() {
   await page.goto('https://www.facebook.com/r.php');
 
   await page.waitForSelector('input[name=firstname]');
-  await page.type('input[name=firstname]', 'Karim');
-  await page.type('input[name=lastname]', 'Alyamani');
-  await page.type('input[name=reg_email__]', 'mageerauld+trkdw@gmail.com');
-  await page.type('input[name=reg_email_confirmation__]', 'mageerauld+trkdw@gmail.com');
+  await page.type('input[name=firstname]', 'Adam');
+  await page.type('input[name=lastname]', 'Ahmed');
+  await page.type('input[name=reg_email__]', '+1 (425) 475-7001');
+  //await page.type('input[name=reg_email_confirmation__]', 'mageerauld+trkdw@gmail.com');
   await page.type('input[name=reg_passwd__]', 'AhmedAhmed@11');
   await page.select('select[name=birthday_day]', '1');
   await page.select('select[name=birthday_month]', '2');
