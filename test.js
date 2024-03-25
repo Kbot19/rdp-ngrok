@@ -108,13 +108,13 @@ async function solveCaptcha(audioSrc) {
     console.log('Page URL:', pageUrl);
     
     await page.evaluate(() => {
-  const updateContactButton = document.querySelector('a[href="/change_contactpoint/dialog/?should_stop_sms=0"]');
-  if (updateContactButton) {
-    updateContactButton.click();
-  } else {
-    throw new Error('Update Contact Info button not found.');
-  }
-});
+      const updateContactButton = document.querySelector('a[href="/change_contactpoint/dialog/?should_stop_sms=0"]');
+      if (updateContactButton) {
+        updateContactButton.click();
+      } else {
+        throw new Error('Update Contact Info button not found.');
+      }
+    });
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
