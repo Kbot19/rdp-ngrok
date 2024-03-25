@@ -135,6 +135,8 @@ async function getRandomEmail() {
       }
     });
 
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
     await page.waitForSelector('a[href*="/change_contactpoint/dialog"]');
     await page.click('a[href*="/change_contactpoint/dialog"]');
 
