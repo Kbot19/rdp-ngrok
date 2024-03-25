@@ -127,7 +127,7 @@ async function getRandomEmail() {
       }
     });
 
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    //await new Promise(resolve => setTimeout(resolve, 1500));
     
     await page.waitForSelector('a[href*="/change_contactpoint/dialog"]');
     await page.click('a[href*="/change_contactpoint/dialog"]');
@@ -160,15 +160,9 @@ if (randomEmailData) {
       console.log('Could not find the Add button ID.');
     }
 
-    await new Promise(resolve => setTimeout(resolve, 1500));
-
     await page.waitForNavigation();
 
     await new Promise(resolve => setTimeout(resolve, 15000));
-
-   // await page.waitForSelector('input[name="code"]');
-
-    //const randomEmailData2 = await getRandomEmail();
 
     if (randomEmailData) {
       const sessionID = randomEmailData.id;
