@@ -6,10 +6,7 @@ const fs = require('fs');
 
 const whisper = require('whisper');
 
-// Add Stealth plugin
 puppeteer.use(stealthPlugin());
-
-const url = 'https://www.facebook.com/r.php';
 
 async function fetchData(url) {
   const result = await axios.get(url);
@@ -23,6 +20,21 @@ async function solveCaptcha(audioSrc) {
   return result.text.trim();
 }
 
+async function getRandomEmail() {
+  const link = 'https://dropmail.me/api/graphql/web-test-wgq6m5i?query=mutation%20%7BintroduceSession%20%7Bid%2C%20expiresAt%2C%20addresses%20%7Baddress%7D%7D%7D';
+
+  try {
+    const response = await axios.get(link);
+    const data = response.data;
+    const id = data['data']['introduceSession']['id'];
+    const email = data['data']['introduceSession']['addresses'][0]['address'];
+    
+    return { id, email };
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
 
 (async () => {
   const browser = await puppeteer.launch({ 
@@ -31,7 +43,7 @@ async function solveCaptcha(audioSrc) {
   });
 
   const page = await browser.newPage();
-  await page.goto(url);
+  await page.goto('https://www.facebook.com/r.php');
 
   await page.waitForSelector('input[name=firstname]');
   await page.type('input[name=firstname]', 'Karim');
@@ -83,16 +95,6 @@ async function solveCaptcha(audioSrc) {
 
     await page.waitForNavigation();
 
-    /*await page.waitForSelector('div[aria-label="Continue"]');
-    await page.evaluate(() => {
-      const continueButton = document.querySelector('div[aria-label="Continue"]');
-      if (continueButton) {
-        continueButton.click();
-      } else {
-        throw new Error('Continue button not found.');
-      }
-    });*/
-
     await page.waitForSelector('div');
     await page.evaluate(() => {
       const div = document.querySelector('div');
@@ -106,23 +108,31 @@ async function solveCaptcha(audioSrc) {
     await page.waitForSelector('a[href*="/change_contactpoint/dialog"]');
     await page.click('a[href*="/change_contactpoint/dialog"]');
 
-
     await new Promise(resolve => setTimeout(resolve, 1500));
 
-    await page.waitForSelector('input[name="contactpoint"]');
-    await page.type('input[name="contactpoint"]', '7cqyh2zw@mailpwr.com');
+    /*await page.waitForSelector('input[name="contactpoint"]');
+    await page.type('input[name="contactpoint"]', '7cqyh2zw@mailpwr.com');*/
+    
+    const randomEmailData = await getRandomEmail();
+if (randomEmailData) {
+  const randomEmail = randomEmailData.email;
+  await page.waitForSelector('input[name="contactpoint"]');
+  await page.type('input[name="contactpoint"]', randomEmail);
+} else {
+  console.log("Failed to get random email.");
+}
 
     await page.waitForSelector('button[type="submit"]');
 
     const addButtonId = await page.evaluate(() => {
-    const buttons = document.querySelectorAll('button[type="submit"]');
-    for (const button of buttons) {
-    if (button.innerText === 'Add') {
-      return button.id;
-    }
-    }
+      const buttons = document.querySelectorAll('button[type="submit"]');
+      for (const button of buttons) {
+        if (button.innerText === 'Add') {
+          return button.id;
+        }
+      }
     });
-    
+
     if (addButtonId) {
       await page.click(`#${addButtonId}`);
     } else {
@@ -146,15 +156,6 @@ async function solveCaptcha(audioSrc) {
     await page.click('button[type="submit"]');
 
     await new Promise(resolve => setTimeout(resolve, 1500));
-
-    /*await page.waitForNavigation();
-
-    await new Promise(resolve => setTimeout(resolve, 1500));*/
-
-    /*const cheerioHtml = await page.evaluate(() => {
-    return document.documentElement.outerHTML;
-    });
-    fs.writeFileSync('fb.html', cheerioHtml);*/
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
