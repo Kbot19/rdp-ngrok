@@ -177,10 +177,10 @@ if (randomEmailData) {
 
    // await page.waitForSelector('input[name="code"]');
 
-    const randomEmailData2 = await getRandomEmail();
+    //const randomEmailData2 = await getRandomEmail();
 
-    if (randomEmailData2) {
-      const sessionID = randomEmailData2.id;
+    if (randomEmailData) {
+      const sessionID = randomEmailData.id;
       const fbCodes = await getReceivedEmails(sessionID);
       if (fbCodes && fbCodes.length > 0) {
       const verificationCode = fbCodes[0];
