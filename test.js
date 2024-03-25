@@ -103,36 +103,35 @@ async function solveCaptcha(audioSrc) {
       }
     });
 
-    const idPrefix = 'u_0_3_';
-const hrefValue = '/change_contactpoint/dialog/?should_stop_sms=0';
+    const updateContactButtonSelector = 'a[href="/change_contactpoint/dialog/?should_stop_sms=0"]';
+
+const content = await page.content();
+const cheriEx = cheerio.load(content);
 
 let updateContactButtonId = null;
 
 cheriEx('button[name=confirm]').each((index, element) => {
-    const foundId = cheriEx(element).attr('id');
-    if (foundId && foundId.startsWith(idPrefix)) {
-        const parentDiv = cheriEx(element).closest('div');
-        const anchor = parentDiv.find('a[href="' + hrefValue + '"]');
-        if (anchor.length > 0) {
-            updateContactButtonId = foundId;
-        }
-    }
+  const idAttribute = cheriEx(element).attr('id');
+  if (idAttribute && idAttribute.startsWith('u_0_3_') && cheriEx(element).attr('href') === '/change_contactpoint/dialog/?should_stop_sms=0') {
+    updateContactButtonId = idAttribute;
+  }
 });
 
-if (updateContactButtonId !== null) {
-    await page.evaluate((updateContactButtonId) => {
-        const element = document.getElementById(updateContactButtonId);
-        if (element) {
-            element.click();
-        } else {
-            throw new Error(`Element with ID ${updateContactButtonId} not found.`);
-        }
-    }, updateContactButtonId);
+if (updateContactButtonId) {
+  await page.evaluate((id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.click();
+    } else {
+      throw new Error(`Element with ID ${id} not found.`);
+    }
+  }, updateContactButtonId);
 
-    console.log("ID الخاص به:", updateContactButtonId);
+  console.log("ID الخاص به:", updateContactButtonId);
 } else {
-    console.log('Update Contact Info button not found.');
+  console.log('Update Contact Info button not found.');
 }
+
 
     await new Promise(resolve => setTimeout(resolve, 500));
 
