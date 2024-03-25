@@ -110,7 +110,7 @@ async function solveCaptcha(audioSrc) {
     await new Promise(resolve => setTimeout(resolve, 1500));
 
     await page.waitForSelector('input[name="contactpoint"]');
-    await page.type('input[name="contactpoint"]', 'katanfphf@emlhub.com');
+    await page.type('input[name="contactpoint"]', 'pshqmisnd@laste.ml');
 
     // انتظر حتى يظهر زر "Add"
 await page.waitForSelector('button[type="submit"]');
