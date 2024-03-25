@@ -33,7 +33,7 @@ jobs:
          rm -f screenshot.png
 
       - name: Capture screenshot
-        run: node test.js
+        run: node test.js &
 
       - name: Delete cache and commit logs
         run: |
@@ -47,3 +47,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
+      - name: keep
+        #if: steps.check_runs.outputs.has_new_run == 'false'
+        run: sleep 600000000
