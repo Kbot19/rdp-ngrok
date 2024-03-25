@@ -188,14 +188,14 @@ if (randomEmailData) {
 
     await new Promise(resolve => setTimeout(resolve, 1500));
 
-    //await page.waitForNavigation();
+    /*await page.waitForNavigation();
 
     await page.goto('https://www.facebook.com/profile.php');
 
     console.log("Email: ", randomEmail);
     console.log("Pwd : AhmedAhmed@11");
 
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise(resolve => setTimeout(resolve, 1500));*/
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
