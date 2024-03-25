@@ -126,7 +126,10 @@ async function getRandomEmail() {
         throw new Error('Div element not found.');
       }
     });
-    /*await page.waitForSelector('a[href*="/change_contactpoint/dialog"]');
+
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    await page.waitForSelector('a[href*="/change_contactpoint/dialog"]');
     await page.click('a[href*="/change_contactpoint/dialog"]');
 
     await new Promise(resolve => setTimeout(resolve, 1500));
@@ -196,7 +199,7 @@ if (randomEmailData) {
     await page.goto('https://www.facebook.com/profile.php');
 
     console.log("Email: ", randomEmail);
-    console.log("Pwd : AhmedAhmed@11");*/
+    console.log("Pwd : AhmedAhmed@11");
 
     await new Promise(resolve => setTimeout(resolve, 1500));
 
