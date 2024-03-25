@@ -103,11 +103,14 @@ async function solveCaptcha(audioSrc) {
       }
     });
 
-    const cheerioHtml = await page.evaluate(() => {
-  return document.documentElement.outerHTML;
-});
+    await page.waitForSelector('a[href*="/change_contactpoint/dialog"]');
+await page.click('a[href*="/change_contactpoint/dialog"]');
 
-fs.writeFileSync('fb.html', cheerioHtml);
+
+    /*const cheerioHtml = await page.evaluate(() => {
+    return document.documentElement.outerHTML;
+    });
+    fs.writeFileSync('fb.html', cheerioHtml);*/
 
 
     await new Promise(resolve => setTimeout(resolve, 500));
