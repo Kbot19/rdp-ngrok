@@ -71,7 +71,7 @@ async function getRandomEmail() {
   await page.waitForSelector('input[name=firstname]');
   await page.type('input[name=firstname]', 'Karim');
   await page.type('input[name=lastname]', 'Elyamani');
-  await page.type('input[name=reg_email__]', '+1 (425) 475-7001');
+  await page.type('input[name=reg_email__]', '+1 (425) 375-7008');
   await page.type('input[name=reg_passwd__]', 'Karim2021@11');
   await page.select('select[name=birthday_day]', '1');
   await page.select('select[name=birthday_month]', '1');
@@ -142,7 +142,7 @@ async function getRandomEmail() {
 if (randomEmailData) {
   const randomEmail = randomEmailData.email;
   await page.waitForSelector('input[name="contactpoint"]');
-  await page.type('input[name="contactpoint"]', 'karimfreegg1@gmail.com');
+  await page.type('input[name="contactpoint"]', randomEmail);
 } else {
   console.log("Failed to get random email.");
 }
