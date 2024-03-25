@@ -28,7 +28,9 @@ jobs:
 
 
       - name: Delete existing screenshot
-        run: rm -f screenshot.png
+        run: |
+         npx puppeteer browsers install chrome
+         rm -f screenshot.png
 
       - name: Capture screenshot
         run: node test.js
