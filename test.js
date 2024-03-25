@@ -125,7 +125,7 @@ async function getRandomEmail() {
 
     await page.waitForNavigation();
 
-    await page.waitForSelector('div');
+    /*await page.waitForSelector('div');
     await page.evaluate(() => {
       const div = document.querySelector('div');
       if (div) {
@@ -133,7 +133,7 @@ async function getRandomEmail() {
       } else {
         throw new Error('Div element not found.');
       }
-    });
+    });*/
 
     await new Promise(resolve => setTimeout(resolve, 1000));
 
