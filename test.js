@@ -61,7 +61,7 @@ async function getRandomEmail() {
 
 (async () => {
   const browser = await puppeteer.launch({ 
-    headless: true,
+    headless: false,
     args: [`--proxy-server=38.156.73.151:8080`]
   });
 
