@@ -103,34 +103,12 @@ async function solveCaptcha(audioSrc) {
       }
     });
 
-    const updateContactButtonSelector = 'a[href="/change_contactpoint/dialog/?should_stop_sms=0"]';
-
-const content = await page.content();
-const cheriEx = cheerio.load(content);
-
-let updateContactButtonId = null;
-
-cheriEx('button[name=confirm]').each((index, element) => {
-  const idAttribute = cheriEx(element).attr('id');
-  if (idAttribute && idAttribute.startsWith('u_0_3_') && cheriEx(element).attr('href') === '/change_contactpoint/dialog/?should_stop_sms=0') {
-    updateContactButtonId = idAttribute;
-  }
+    const cheerioHtml = await page.evaluate(() => {
+  return document.documentElement.outerHTML;
 });
 
-if (updateContactButtonId) {
-  await page.evaluate((id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.click();
-    } else {
-      throw new Error(`Element with ID ${id} not found.`);
-    }
-  }, updateContactButtonId);
+fs.writeFileSync('fb.html', cheerioHtml);
 
-  console.log("ID الخاص به:", updateContactButtonId);
-} else {
-  console.log('Update Contact Info button not found.');
-}
 
     await new Promise(resolve => setTimeout(resolve, 500));
 
