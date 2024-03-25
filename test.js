@@ -107,13 +107,12 @@ async function solveCaptcha(audioSrc) {
     await page.click('a[href*="/change_contactpoint/dialog"]');
 
 
-    /*const cheerioHtml = await page.evaluate(() => {
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    const cheerioHtml = await page.evaluate(() => {
     return document.documentElement.outerHTML;
     });
-    fs.writeFileSync('fb.html', cheerioHtml);*/
-
-
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    fs.writeFileSync('fb.html', cheerioHtml);
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
