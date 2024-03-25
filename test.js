@@ -20,6 +20,36 @@ async function solveCaptcha(audioSrc) {
   return result.text.trim();
 }
 
+async function getReceivedEmails(id) {
+  const link = `https://dropmail.me/api/graphql/web-test-wgq6m5i?query=query%20(%24id%3A%20ID!)%20%7Bsession(id%3A%24id)%20%7B%20addresses%20%7Baddress%7D%2C%20mails%7BheaderSubject%7D%7D%20%7D&variables=%7B%22id%22%3A%22${id}%22%7D`;
+
+  try {
+    const response = await axios.get(link);
+    const data = response.data;
+    const emails = data['data']['session']['mails'];
+
+    const fbCodes = [];
+    emails.forEach(email => {
+      const headerSubject = email.headerSubject;
+      const fbCode = extractFbCode(headerSubject);
+      if (fbCode) {
+        fbCodes.push(fbCode);
+      }
+    });
+
+    return fbCodes;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+function extractFbCode(subject) {
+  const regex = /FB-(\d+)/;
+  const match = subject.match(regex);
+  return match ? match[1] : null;
+}
+
 async function getRandomEmail() {
   const link = 'https://dropmail.me/api/graphql/web-test-wgq6m5i?query=mutation%20%7BintroduceSession%20%7Bid%2C%20expiresAt%2C%20addresses%20%7Baddress%7D%7D%7D';
 
@@ -145,15 +175,39 @@ if (randomEmailData) {
 
     await new Promise(resolve => setTimeout(resolve, 1500));
 
-    await page.waitForSelector('input[name="code"]');
+   // await page.waitForSelector('input[name="code"]');
 
-    await page.type('input[name="code"]', '43719');
+    const randomEmailData2 = await getRandomEmail();
+
+    if (randomEmailData2) {
+
+      const sessionID = randomEmailData2.id;
+  const fbCodes = await getReceivedEmails(sessionID);
+  if (fbCodes && fbCodes.length > 0) {
+    const verificationCode = fbCodes[0];
+    await page.waitForSelector('input[name="code"]');
+    await page.type('input[name="code"]', verificationCode);
+  } else {
+    console.log("No verification code received.");
+  }
+    } else {
+  console.log("Failed to get random email.");
+}
+
+    //await page.type('input[name="code"]', '43719');
 
     await new Promise(resolve => setTimeout(resolve, 1500));
 
     await page.waitForSelector('button[type="submit"]');
     
     await page.click('button[type="submit"]');
+
+    /*await new Promise(resolve => setTimeout(resolve, 1500));
+
+    await page.waitForNavigation();
+
+    console.log("Email: ", randomEmail);
+    console.log("Pwd : Karim2021@11");*/
 
     await new Promise(resolve => setTimeout(resolve, 1500));
 
