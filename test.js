@@ -173,23 +173,22 @@ if (randomEmailData) {
 
     await page.waitForNavigation();
 
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise(resolve => setTimeout(resolve, 20000));
 
    // await page.waitForSelector('input[name="code"]');
 
     const randomEmailData2 = await getRandomEmail();
 
     if (randomEmailData2) {
-
       const sessionID = randomEmailData2.id;
-  const fbCodes = await getReceivedEmails(sessionID);
-  if (fbCodes && fbCodes.length > 0) {
-    const verificationCode = fbCodes[0];
-    await page.waitForSelector('input[name="code"]');
-    await page.type('input[name="code"]', verificationCode);
-  } else {
-    console.log("No verification code received.");
-  }
+      const fbCodes = await getReceivedEmails(sessionID);
+      if (fbCodes && fbCodes.length > 0) {
+      const verificationCode = fbCodes[0];
+      await page.waitForSelector('input[name="code"]');
+      await page.type('input[name="code"]', verificationCode);
+      } else {
+        console.log("No verification code received.");
+      }
     } else {
   console.log("Failed to get random email.");
 }
