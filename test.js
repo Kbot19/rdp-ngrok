@@ -133,7 +133,11 @@ if (addButtonId) {
 }
 
 
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    await page.waitForNavigation();
+
+    await new Promise(resolve => setTimeout(resolve, 1500));
 
     /*const cheerioHtml = await page.evaluate(() => {
     return document.documentElement.outerHTML;
