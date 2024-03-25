@@ -19,12 +19,12 @@ jobs:
           node-version: '16'
           
 
-      - name: Install dependencies
-        run: rm -rf pakcage-lock.json && rm -rf fb.html && npm i puppeteer-extra-plugin-stealth && npm i whisper && rm -rf node_modules && npm i && npx puppeteer browsers install chrome && npm install puppeteer-extra puppeteer-extra-plugin-recaptcha
+      #- name: Install dependencies
+       # run: rm -rf pakcage-lock.json && rm -rf fb.html && npm i puppeteer-extra-plugin-stealth && npm i whisper && rm -rf node_modules && npm i && npx puppeteer browsers install chrome && npm install puppeteer-extra puppeteer-extra-plugin-recaptcha
 
         
-      - name: Set TERM environment variable
-        run: export TERM=xterm
+     # - name: Set TERM environment variable
+      #  run: export TERM=xterm
 
 
       - name: Delete existing screenshot
