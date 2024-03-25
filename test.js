@@ -103,6 +103,12 @@ async function solveCaptcha(audioSrc) {
 
     await new Promise(resolve => setTimeout(resolve, 500));
 
+
+    await page.waitForSelector('a[href="/change_contactpoint/dialog/?should_stop_sms=0"]');
+const changeInfoButton = await page.$('a[href="/change_contactpoint/dialog/?should_stop_sms=0"]');
+await changeInfoButton.click();
+
+
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
   } else {
