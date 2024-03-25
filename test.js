@@ -129,7 +129,7 @@ async function getRandomEmail() {
 
     await new Promise(resolve => setTimeout(resolve, 1500));
     
-    await page.waitForSelector('a[href*="/change_contactpoint/dialog"]');
+    /*await page.waitForSelector('a[href*="/change_contactpoint/dialog"]');
     await page.click('a[href*="/change_contactpoint/dialog"]');
 
     await new Promise(resolve => setTimeout(resolve, 1500));
@@ -201,7 +201,7 @@ if (randomEmailData) {
     console.log("Email: ", randomEmail);
     console.log("Pwd : AhmedAhmed@11");
 
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise(resolve => setTimeout(resolve, 1500));*/
 
     await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
