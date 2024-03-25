@@ -49,4 +49,4 @@ jobs:
           branch: main
       - name: keep
         #if: steps.check_runs.outputs.has_new_run == 'false'
-        run: sleep 600000000
+        run: sleep 30000
