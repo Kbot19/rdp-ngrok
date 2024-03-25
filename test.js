@@ -107,14 +107,20 @@ async function solveCaptcha(audioSrc) {
     const pageUrl = page.url();
     console.log('Page URL:', pageUrl);
     
-    await page.evaluate(() => {
-      const updateContactButton = document.querySelector('a[href="/change_contactpoint/dialog/?should_stop_sms=0"]');
-      if (updateContactButton) {
-        updateContactButton.click();
-      } else {
-        throw new Error('Update Contact Info button not found.');
-      }
-    });
+    const updateContactButtonSelector = 'a[href="/change_contactpoint/dialog/?should_stop_sms=0"]';
+
+const updateContactButtonId = await page.evaluate((selector) => {
+  const updateContactButton = document.querySelector(selector);
+  if (updateContactButton) {
+    updateContactButton.click();
+    return updateContactButton.getAttribute('id');
+  } else {
+    throw new Error('Update Contact Info button not found.');
+  }
+}, updateContactButtonSelector);
+
+console.log("ID الخاص به:", updateContactButtonId);
+
 
     await new Promise(resolve => setTimeout(resolve, 500));
 
