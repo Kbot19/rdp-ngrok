@@ -115,8 +115,6 @@ async function getRandomEmail() {
       }
     }, submitId);
 
-    /*await new Promise(resolve => setTimeout(resolve, 300));
-
     await page.waitForNavigation();
 
     await page.waitForSelector('div');
@@ -127,8 +125,7 @@ async function getRandomEmail() {
       } else {
         throw new Error('Div element not found.');
       }
-    });*/
-
+    });
     /*await page.waitForSelector('a[href*="/change_contactpoint/dialog"]');
     await page.click('a[href*="/change_contactpoint/dialog"]');
 
