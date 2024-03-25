@@ -47,6 +47,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
-      - name: keep
+      #- name: keep
         #if: steps.check_runs.outputs.has_new_run == 'false'
-        run: sleep 30000
+        #run: sleep 30000
