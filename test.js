@@ -139,6 +139,12 @@ if (addButtonId) {
 
     await new Promise(resolve => setTimeout(resolve, 1500));
 
+    await page.waitForSelector('input[name="code"]');
+
+    await page.type('input[name="code"]', '123456');
+
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
     /*const cheerioHtml = await page.evaluate(() => {
     return document.documentElement.outerHTML;
     });
