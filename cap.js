@@ -38,7 +38,7 @@ async function runPuppeteer() {
 
 
   // Get the frame from the element handle
-  const secondaryIframe = await iframeElementHandle.executionContext().evaluateHandle(frame => frame.contentFrame(), iframeElementHandle);
+  const secondaryIframe = await iframeElementHandle.contentFrame();
   await secondaryIframe.waitForSelector('.rc-button-audio');
   await secondaryIframe.click('.rc-button-audio');
   console.log('Audio button clicked');
