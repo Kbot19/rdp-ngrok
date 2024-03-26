@@ -69,9 +69,9 @@ async function getRandomEmail() {
   await page.goto('https://www.facebook.com/r.php');
 
   await page.waitForSelector('input[name=firstname]');
-  await page.type('input[name=firstname]', 'Akriam');
-  await page.type('input[name=lastname]', 'Mosawi');
-  await page.type('input[name=reg_email__]', '+1 (425) 275-7060');
+  await page.type('input[name=firstname]', 'Alex');
+  await page.type('input[name=lastname]', 'Parcker');
+  await page.type('input[name=reg_email__]', '+1 (425) 275-7077');
  // await page.type('input[name=reg_email_confirmation__]', 'karimfreeg@gmail.com');
   await page.type('input[name=reg_passwd__]', 'AhmedAhmed@11');
   await page.select('select[name=birthday_day]', '1');
@@ -135,13 +135,13 @@ async function getRandomEmail() {
     await new Promise(resolve => setTimeout(resolve, 1500));
     
     const randomEmailData = await getRandomEmail();
-if (randomEmailData) {
-  const randomEmail = randomEmailData.email;
-  await page.waitForSelector('input[name="contactpoint"]');
-  await page.type('input[name="contactpoint"]', randomEmail);
-} else {
-  console.log("Failed to get random email.");
-}
+    if (randomEmailData) {
+      const randomEmail = randomEmailData.email;
+      await page.waitForSelector('input[name="contactpoint"]');
+      await page.type('input[name="contactpoint"]', randomEmail);
+    } else {
+      console.log("Failed to get random email.");
+    }
 
     await page.waitForSelector('button[type="submit"]');
 
