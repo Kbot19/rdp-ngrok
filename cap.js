@@ -42,7 +42,7 @@ async function runPuppeteer() {
   await secondaryIframe.waitForSelector('.rc-button-audio');
   await secondaryIframe.click('.rc-button-audio');
   console.log('Audio button clicked');
-  await secondaryIframe.waitForSelector('.rc-audiochallenge-tdownload-link');
+  /*await secondaryIframe.waitForSelector('.rc-audiochallenge-tdownload-link');
   const audioUrl = await secondaryIframe.evaluate(() => {
     let downloadLink = document.querySelector(
       '.rc-audiochallenge-tdownload-link',
@@ -90,7 +90,8 @@ async function runPuppeteer() {
     }
   });
 
-  await new Promise(resolve => setTimeout(resolve, 15000));
+  await new Promise(resolve => setTimeout(resolve, 15000));*/
+  await page.screenshot({ path: 'screenshot.png', fullPage: true });
   await browser.close();
 }
 
