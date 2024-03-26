@@ -188,9 +188,9 @@ async function getRandomEmail() {
     
     await page.click('button[type="submit"]');
 
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    //await new Promise(resolve => setTimeout(resolve, 1500));
 
-    await page.waitForNavigation();
+    //await page.waitForNavigation();
 
     //wait page.goto('https://www.facebook.com/profile.php');
 
