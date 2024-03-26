@@ -88,9 +88,9 @@ async function runPuppeteer() {
       await secondaryIframe.type('#audio-response', audioText, 500);
       await secondaryIframe.click('#recaptcha-verify-button');
     }
-  });
+  });*/
 
-  await new Promise(resolve => setTimeout(resolve, 15000));*/
+  await new Promise(resolve => setTimeout(resolve, 15000));
   await page.screenshot({ path: 'screenshot.png', fullPage: true });
   await browser.close();
 }
