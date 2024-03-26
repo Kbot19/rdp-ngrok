@@ -9,6 +9,9 @@ puppeteer.use(StealthPlugin());
   
   await page.goto('https://youtu.be/r-2bvfWGuQk?si=JmnSfb7zkQMatFUQ');
   
+  // انتظر حتى يتم العثور على العنصر الذي يحتوي على مدة الفيديو
+  await page.waitForSelector('.time-second');
+  
   // استخراج مدة الفيديو
   const durationElement = await page.$('.time-second');
   const durationText = await page.evaluate(durationElement => durationElement.textContent, durationElement);
