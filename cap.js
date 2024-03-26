@@ -23,7 +23,9 @@ async function runPuppeteer() {
   console.log('Captcha exists!');
 
   // Switch to the new iframe for the challenge
-  await page.waitForTimeout(3000); // Wait for new iframe to load
+  //await page.waitForTimeout(3000); // Wait for new iframe to load
+  await new Promise(resolve => setTimeout(resolve, 3000));
+
 
   // Find the iframe by its XPath
   const iframeElementHandle = await page.$x(
@@ -83,7 +85,7 @@ async function runPuppeteer() {
     }
   });
 
-  await page.waitForTimeout(15000);
+  await new Promise(resolve => setTimeout(resolve, 15000));
   await browser.close();
 }
 
