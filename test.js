@@ -69,7 +69,7 @@ async function getRandomEmail() {
   await page.goto('https://www.facebook.com/r.php');
 
   await page.waitForSelector('input[name=firstname]');
-  await page.type('input[name=firstname]', 'Alex');
+  await page.type('input[name=firstname]', 'Elina');
   await page.type('input[name=lastname]', 'Parker');
   await page.type('input[name=reg_email__]', '+1 (425) 275-7243');
  // await page.type('input[name=reg_email_confirmation__]', 'karimfreeg@gmail.com');
@@ -84,7 +84,7 @@ async function getRandomEmail() {
   let submitId = '';
   cheriEx('input[id]').each((index, element) => {
     const foundId = cheriEx(element).attr('id');
-    if (foundId && foundId.startsWith('u_0_5_')) {
+    if (foundId && foundId.startsWith('u_0_4_')) {
       id = foundId;
     }
   });
