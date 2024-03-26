@@ -71,9 +71,9 @@ async function getRandomEmail() {
   await page.waitForSelector('input[name=firstname]');
   await page.type('input[name=firstname]', 'Alex');
   await page.type('input[name=lastname]', 'Parker');
-  await page.type('input[name=reg_email__]', '+1 (425) 275-7218');
+  await page.type('input[name=reg_email__]', '+1 (425) 275-7165');
  // await page.type('input[name=reg_email_confirmation__]', 'karimfreeg@gmail.com');
-  await page.type('input[name=reg_passwd__]', 'AhmedAhmed@11');
+  await page.type('input[name=reg_passwd__]', 'AlexParker@11');
   await page.select('select[name=birthday_day]', '1');
   await page.select('select[name=birthday_month]', '2');
   await page.select('select[name=birthday_year]', '1991');
@@ -195,7 +195,7 @@ async function getRandomEmail() {
     await page.goto('https://www.facebook.com/profile.php');
 
     console.log("Email: ", randomEmailData.email);
-    console.log("Pwd : AhmedAhmed@11");
+    console.log("Pwd : AlexParker@11");
 
     await new Promise(resolve => setTimeout(resolve, 1500));
 
