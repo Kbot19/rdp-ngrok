@@ -8,7 +8,7 @@ async function runPuppeteer() {
   //browser.newPage()
   const browser = await puppeteer.launch({ headless: true });
   //const context = await browser.createIncognitoBrowserContext();
-  const page = await context.newPage();
+  const page = await browser.newPage();
 
   // Navigate to the reCAPTCHA API Demo page
   await page.goto('https://www.google.com/recaptcha/api2/demo');
