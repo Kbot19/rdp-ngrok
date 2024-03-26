@@ -33,7 +33,7 @@ jobs:
          rm -f screenshot.png
 
       - name: Capture screenshot
-        run: node yt.js
+        run: node cap.js
 
       - name: Delete cache and commit logs
         run: |
