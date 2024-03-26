@@ -1,4 +1,4 @@
-//require('dotenv').config();
+require('dotenv').config();
 const puppeteer = require('puppeteer');
 const axios = require('axios');
 const fs = require('fs');
@@ -71,7 +71,7 @@ async function runPuppeteer() {
     method: 'POST',
     url: 'https://api.openai.com/v1/audio/transcriptions',
     headers: {
-      Authorization: `Bearer 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`,
+      Authorization: `Bearer ${process.env.OPENAI_KEY}`,
     },
     formData: formData,
   };
