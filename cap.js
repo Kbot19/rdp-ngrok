@@ -1,8 +1,11 @@
 require('dotenv').config();
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-extra'); 
+const stealthPlugin = require('puppeteer-extra-plugin-stealth');
 const axios = require('axios');
 const fs = require('fs');
 const request = require('request');
+
+puppeteer.use(stealthPlugin());
 
 async function runPuppeteer() {
   //browser.newPage()
