@@ -115,6 +115,8 @@ async function getRandomEmail() {
       }
     }, submitId);
 
+    await new Promise(resolve => setTimeout(resolve, 300));
+
     await page.waitForNavigation();
 
     await page.waitForSelector('div');
