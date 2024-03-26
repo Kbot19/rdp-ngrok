@@ -9,7 +9,10 @@ puppeteer.use(stealthPlugin());
 
 async function runPuppeteer() {
   //browser.newPage()
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ 
+  headless: true,
+  args: [`--proxy-server=24.147.144.221:15280`]
+  });
   //const context = await browser.createIncognitoBrowserContext();
   const page = await browser.newPage();
 
