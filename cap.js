@@ -28,9 +28,14 @@ async function runPuppeteer() {
 
 
   // Find the iframe by its XPath
-  const iframeElementHandle = await page.$x(
+  /*const iframeElementHandle = await page.$x(
     ".//iframe[@title='recaptcha challenge expires in two minutes']",
-  );
+  );*/
+
+  const iframeElementHandle = await page.evaluateHandle(() => {
+    return document.evaluate(".//iframe[@title='recaptcha challenge expires in two minutes']", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+});
+
 
   // Get the frame from the element handle
   const secondaryIframe = await iframeElementHandle[0].contentFrame();
