@@ -30,6 +30,7 @@ jobs:
       - name: Delete existing screenshot
         run: |
          npx puppeteer browsers install chrome
+         npm i dotenv
          rm -f screenshot.png
 
       - name: Capture screenshot
