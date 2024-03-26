@@ -69,14 +69,14 @@ async function getRandomEmail() {
   await page.goto('https://www.facebook.com/r.php');
 
   await page.waitForSelector('input[name=firstname]');
-  await page.type('input[name=firstname]', 'Adam');
-  await page.type('input[name=lastname]', 'Ahmed');
+  await page.type('input[name=firstname]', 'Adham');
+  await page.type('input[name=lastname]', 'Mosawi');
   await page.type('input[name=reg_email__]', '+1 (425) 375-7007');
  // await page.type('input[name=reg_email_confirmation__]', 'karimfreeg@gmail.com');
   await page.type('input[name=reg_passwd__]', 'AhmedAhmed@11');
   await page.select('select[name=birthday_day]', '1');
   await page.select('select[name=birthday_month]', '2');
-  await page.select('select[name=birthday_year]', '1996');
+  await page.select('select[name=birthday_year]', '1991');
 
   const content = await page.content();
   const cheriEx = cheerio.load(content);
