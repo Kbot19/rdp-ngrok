@@ -13,7 +13,7 @@ async function runPuppeteer() {
   // Navigate to the reCAPTCHA API Demo page
   await page.goto('https://www.google.com/recaptcha/api2/demo');
   console.log('Going to captcha page');
-  await page.waitForTimeout(4000);
+  await new Promise(resolve => setTimeout(resolve, 4000));
   console.log('Page loaded');
 
   const frame = await page.frames().find((f) => f.name().startsWith('a-'));
