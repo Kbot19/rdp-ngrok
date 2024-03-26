@@ -186,7 +186,7 @@ if (randomEmailData) {
     
     await page.click('button[type="submit"]');
 
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    //await new Promise(resolve => setTimeout(resolve, 1500));
 
     await page.waitForNavigation();
 
