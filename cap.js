@@ -6,7 +6,7 @@ const request = require('request');
 
 async function runPuppeteer() {
   //browser.newPage()
-  //const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ headless: true });
   const context = await browser.createIncognitoBrowserContext();
   const page = await context.newPage();
 
