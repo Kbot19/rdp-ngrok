@@ -10,13 +10,13 @@ const puppeteer = require('puppeteer');
 
   await page.type('input[type="email"]', 'karimfreegg@gmail.com');
 
-  await page.click('button[type="button"]');
+  /*await page.click('button[type="button"]');
 
   await new Promise(resolve => setTimeout(resolve, 10000));
 
   await page.type('input[type="password"]', 'karim2021@11');
 
-  await page.click('button[type="button"]');
+  await page.click('button[type="button"]');*/
 
   await new Promise(resolve => setTimeout(resolve, 10000));
 
