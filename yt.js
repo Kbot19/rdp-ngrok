@@ -10,7 +10,8 @@ const puppeteer = require('puppeteer');
 
   await page.type('input[name="identifier"]', 'karimfreegg@gmail.com');
 
-  await page.click('button[type="button"]');
+  await page.keyboard.press('Enter');
+  //await page.click('button[type="button"]');
 
   //await page.waitForNavigation();
 
