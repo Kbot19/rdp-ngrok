@@ -10,6 +10,8 @@ const puppeteer = require('puppeteer');
 
   await page.type('input[name="identifier"]', 'karimfreegg@gmail.com');
 
+  await new Promise(resolve => setTimeout(resolve, 5000));
+
   await page.keyboard.press('Enter');
   //await page.click('button[type="button"]');
 
