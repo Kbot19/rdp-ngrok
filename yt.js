@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ ignoreHTTPSErrors: true });
   const page = await browser.newPage();
   
   await page.goto('https://accounts.google.com/v3/signin/identifier?hl=en-gb&ifkv=ARZ0qKJp3mev17CcDjjuQzxHizfr4-A2bWBdcjnd__Z9q8Xn-L_3BXGKXS-KWjTof5gi2ecC30MRwA&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S-1543424507%3A1711009155669812&theme=mn&ddm=0');
@@ -17,7 +17,7 @@ const puppeteer = require('puppeteer');
 
   await page.waitForNavigation();
 
-  await new Promise(resolve => setTimeout(resolve, 300));
+  /*await new Promise(resolve => setTimeout(resolve, 300));
 
   await page.keyboard.press('Enter');
 
@@ -27,7 +27,7 @@ const puppeteer = require('puppeteer');
 
   await new Promise(resolve => setTimeout(resolve, 5000));
 
-  await page.keyboard.press('Enter');
+  await page.keyboard.press('Enter');*/
 
   /*await new Promise(resolve => setTimeout(resolve, 10000));
 
