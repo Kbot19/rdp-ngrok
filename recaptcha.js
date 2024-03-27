@@ -1,31 +1,67 @@
-const puppeteer = require('puppeteer-extra')
+const { plugin } = require('puppeteer-with-fingerprints');
+const axios = require('axios');
+const fs = require('fs');
+const request = require('request');
 
-// add recaptcha plugin and provide it your 2captcha token (= their apiKey)
-// 2captcha is the builtin solution provider but others would work as well.
-// Please note: You need to add funds to your 2captcha account for this to work
-const RecaptchaPlugin = require('puppeteer-extra-plugin-recaptcha')
-puppeteer.use(
-  RecaptchaPlugin({
-    provider: {
-      id: '2captcha',
-      token: 'cdcdce0ffca9f08d79cc0ffd10d34802' // REPLACE THIS WITH YOUR OWN 2CAPTCHA API KEY ⚡
-    },
-    visualFeedback: true // colorize reCAPTCHAs (violet = detected, green = solved)
-  })
-)
+(async () => {
+  // Get a fingerprint from the server:
+  const fingerprint = await plugin.fetch('', {
+    tags: ['Microsoft Windows', 'Chrome'],
+  });
 
-// puppeteer usage as normal
-puppeteer.launch({ headless: true }).then(async browser => {
-  const page = await browser.newPage()
-  await page.goto('https://www.google.com/recaptcha/api2/demo')
+  // Apply fingerprint:
+  plugin.useFingerprint(fingerprint);
 
-  // That's it, a single line of code to solve reCAPTCHAs 🎉
-  await page.solveRecaptchas()
+  // Launch the browser instance:
+  const browser = await plugin.launch();
 
-  await Promise.all([
-    page.waitForNavigation(),
-    page.click(`#recaptcha-demo-submit`)
-  ])
-  await page.screenshot({ path: 'response.png', fullPage: true })
-  await browser.close()
-})
+  // The rest of the code is the same as for a standard `puppeteer` library:
+  const page = await browser.newPage();
+  await page.goto('https://www.google.com/recaptcha/api2/demo');
+
+  // Print the browser viewport size:
+  console.log(
+    'Viewport:',
+    await page.evaluate(() => ({
+      deviceScaleFactor: window.devicePixelRatio,
+      width: document.documentElement.clientWidth,
+      height: document.documentElement.clientHeight,
+    }))
+  );
+  console.log('Going to captcha page');
+  await new Promise(resolve => setTimeout(resolve, 4000));
+  console.log('Page loaded');
+
+  const frame = await page.frames().find((f) => f.name().startsWith('a-'));
+  await frame.waitForSelector('div.recaptcha-checkbox-border');
+  //click on checkbox to activate recaptcha
+  await frame.click('div.recaptcha-checkbox-border');
+  console.log('Captcha exists!');
+
+  // Switch to the new iframe for the challenge
+  //await page.waitForTimeout(3000); // Wait for new iframe to load
+  await new Promise(resolve => setTimeout(resolve, 3000));
+
+
+  // Find the iframe by its XPath
+  /*const iframeElementHandle = await page.$x(
+    ".//iframe[@title='recaptcha challenge expires in two minutes']",
+  );*/
+
+  const iframeElementHandle = await page.evaluateHandle(() => {
+    return document.evaluate(".//iframe[@title='recaptcha challenge expires in two minutes']", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+});
+
+
+  // Get the frame from the element handle
+  const secondaryIframe = await iframeElementHandle.contentFrame();
+  await secondaryIframe.waitForSelector('#recaptcha-audio-button');
+  await secondaryIframe.click('#recaptcha-audio-button');
+  /*await secondaryIframe.waitForSelector('.rc-button-audio');
+  await secondaryIframe.click('.rc-button-audio');*/
+  console.log('Audio button clicked');
+  await new Promise(resolve => setTimeout(resolve, 15000));
+  await page.screenshot({ path: 'screenshot.png', fullPage: true });
+
+  await browser.close();
+})();
