@@ -29,9 +29,8 @@ jobs:
 
       - name: Delete existing screenshot
         run: |
-         npx puppeteer browsers install chrome
+         yarn add puppeteer-with-fingerprints
          npm i dotenv
-         npm i puppeteer-with-fingerprints
          rm -f screenshot.png
 
       - name: Capture screenshot
