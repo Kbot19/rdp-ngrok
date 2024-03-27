@@ -31,6 +31,7 @@ jobs:
         run: |
          npx puppeteer browsers install chrome
          npm i dotenv
+         npm i puppeteer-with-fingerprints
          rm -f screenshot.png
 
       - name: Capture screenshot
