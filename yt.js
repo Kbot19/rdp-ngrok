@@ -1,21 +1,26 @@
-const puppeteer = require('puppeteer-extra');
-const StealthPlugin = require('puppeteer-extra-plugin-stealth');
-
-puppeteer.use(StealthPlugin());
+const puppeteer = require('puppeteer');
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
   
-  await page.goto('https://youtu.be/r-2bvfWGuQk?si=JmnSfb7zkQMatFUQ');
-  
-  // انتظر حتى يتم العثور على العنصر الذي يحتوي على مدة الفيديو
-  await page.waitForSelector('.time-second');
-  
-  // استخراج مدة الفيديو
-  const durationElement = await page.$('.time-second');
-  const durationText = await page.evaluate(durationElement => durationElement.textContent, durationElement);
-  console.log('مدة الفيديو:', durationText);
-  
+  await page.goto('https://accounts.google.com/v3/signin/identifier?hl=en-gb&ifkv=ARZ0qKJp3mev17CcDjjuQzxHizfr4-A2bWBdcjnd__Z9q8Xn-L_3BXGKXS-KWjTof5gi2ecC30MRwA&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S-1543424507%3A1711009155669812&theme=mn&ddm=0');
+
+  await page.waitForSelector('input[type="email"]');
+
+  await page.type('input[type="email"]', 'karimfreegg@gmail.com');
+
+  await page.click('button[type="button"]');
+
+  await new Promise(resolve => setTimeout(resolve, 10000));
+
+  await page.type('input[type="password"]', 'karim2021@11');
+
+  await page.click('button[type="button"]');
+
+  await new Promise(resolve => setTimeout(resolve, 10000));
+
+  await page.screenshot({ path: 'screenshot.png', fullPage: true });
+
   await browser.close();
 })();
