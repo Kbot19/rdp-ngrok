@@ -13,7 +13,7 @@ const puppeteer = require('puppeteer');
   await page.keyboard.press('Enter');
   //await page.click('button[type="button"]');
 
-  await page.waitForNavigation();
+  //await page.waitForNavigation();
 
   /*await new Promise(resolve => setTimeout(resolve, 10000));
 
