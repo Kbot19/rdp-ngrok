@@ -1,5 +1,6 @@
-const puppeteer = require('puppeteer');
-
+const puppeteer = require('puppeteer-extra');
+const stealthPlugin = require('puppeteer-extra-plugin-stealth');
+puppeteer.use(stealthPlugin());
 (async () => {
   const browser = await puppeteer.launch({ ignoreHTTPSErrors: true });
   const page = await browser.newPage();
