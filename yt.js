@@ -10,16 +10,16 @@ const puppeteer = require('puppeteer');
 
   await page.type('input[name="identifier"]', 'karimfreegg@gmail.com');
 
-  /*await page.click('button[type="button"]');
+  await page.click('button[type="button"]');
 
-  await new Promise(resolve => setTimeout(resolve, 10000));
+  /*await new Promise(resolve => setTimeout(resolve, 10000));
 
   await page.type('input[type="password"]', 'karim2021@11');
 
   // النقر على زر "Next" بعد إدخال كلمة المرور
-  await page.click('button[type="button"]');
+  await page.click('button[type="button"]');*/
 
-  await new Promise(resolve => setTimeout(resolve, 10000));*/
+  await new Promise(resolve => setTimeout(resolve, 10000));
 
   await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
