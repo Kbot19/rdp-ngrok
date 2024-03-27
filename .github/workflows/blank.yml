@@ -34,7 +34,7 @@ jobs:
          rm -f screenshot.png
 
       - name: Capture screenshot
-        run: node cap.js
+        run: node recaptcha.js
 
       - name: Delete cache and commit logs
         run: |
