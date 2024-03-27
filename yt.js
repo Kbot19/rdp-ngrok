@@ -12,6 +12,8 @@ const puppeteer = require('puppeteer');
 
   await page.click('button[type="button"]');
 
+  await page.waitForNavigation();
+
   /*await new Promise(resolve => setTimeout(resolve, 10000));
 
   await page.type('input[type="password"]', 'karim2021@11');
