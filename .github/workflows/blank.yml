@@ -26,7 +26,7 @@ jobs:
 
       - name: Capture screenshot
         run: |
-          node puppeteer.py
+          node puppeteer.js
 
       - name: Delete cache and commit logs
         run: |
