@@ -13,6 +13,16 @@ async function fetchData(url) {
   return cheerio.load(result.data);
 }
 
+const Proxy = function(url) {
+    return url ? `https://translate.google.com/translate?sl=en&tl=fr&hl=en&u=${encodeURIComponent(url)}&client=webapp` : '';
+};
+
+const api = function(ID, path = '/', query = {}) {
+    const baseURL = ID;
+    const queryString = new URLSearchParams(Object.entries({ ...query })).toString();
+    return baseURL + path + (queryString ? '?' + queryString : '');
+};
+
 async function getReceivedEmails(id) {
   const link = `https://dropmail.me/api/graphql/web-test-wgq6m5i?query=query%20(%24id%3A%20ID!)%20%7Bsession(id%3A%24id)%20%7B%20addresses%20%7Baddress%7D%2C%20mails%7BheaderSubject%7D%7D%20%7D&variables=%7B%22id%22%3A%22${id}%22%7D`;
 
@@ -66,12 +76,12 @@ async function getRandomEmail() {
   });
 
   const page = await browser.newPage();
-  await page.goto('https://www.facebook.com/r.php');
+  await page.goto(Proxy(api('https://www.facebook.com/r.php'));
 
   await page.waitForSelector('input[name=firstname]');
   await page.type('input[name=firstname]', 'Elina');
   await page.type('input[name=lastname]', 'Parker');
-  await page.type('input[name=reg_email__]', '+1 (425) 275-7100');
+  await page.type('input[name=reg_email__]', '+14252738106');
  // await page.type('input[name=reg_email_confirmation__]', 'karimfreeg@gmail.com');
   await page.type('input[name=reg_passwd__]', 'AlexParker@11');
   await page.select('select[name=birthday_day]', '1');
