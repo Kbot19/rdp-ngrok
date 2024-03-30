@@ -141,7 +141,7 @@ async function getRandomEmail() {
 
     //await new Promise(resolve => setTimeout(resolve, 1500));
     
-    await page.waitForSelector('a[href*="/change_contactpoint/dialog"]');
+   /* await page.waitForSelector('a[href*="/change_contactpoint/dialog"]');
     await page.click('a[href*="/change_contactpoint/dialog"]');
 
     await new Promise(resolve => setTimeout(resolve, 1500));
@@ -205,7 +205,7 @@ async function getRandomEmail() {
     //wait page.goto('https://www.facebook.com/profile.php');
 
     console.log("Email: ", randomEmailData.email);
-    console.log("Pwd : AlexParker@11");
+    console.log("Pwd : AlexParker@11");*/
 
     await new Promise(resolve => setTimeout(resolve, 1500));
 
