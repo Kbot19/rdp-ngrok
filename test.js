@@ -76,7 +76,7 @@ async function getRandomEmail() {
   });
 
   const page = await browser.newPage();
-  await page.goto(Proxy(api('https://www.facebook.com/r.php'));
+  await page.goto('https://www.facebook.com/r.php');
 
   await page.waitForSelector('input[name=firstname]');
   await page.type('input[name=firstname]', 'Elina');
