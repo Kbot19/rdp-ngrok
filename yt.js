@@ -22,7 +22,7 @@ puppeteer.use(stealthPlugin());
   });
 
   //await page.waitForNavigation();
-  await new Promise(resolve => setTimeout(resolve, 9000));
+  await new Promise(resolve => setTimeout(resolve, 15000));
   await page.goto('https://www.tiktok.com/');
   //await page.waitForNavigation();
   await new Promise(resolve => setTimeout(resolve, 1000));
