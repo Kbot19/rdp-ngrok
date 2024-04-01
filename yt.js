@@ -8,7 +8,7 @@ puppeteer.use(stealthPlugin());
 
   await page.goto('https://www.tiktok.com/login/phone-or-email/email');
 
-  await page.waitForSelector('#loginContainer > div.tiktok-aa97el-DivLoginContainer.exd0a430 > form > div.tiktok-q83gm2-DivInputContainer.etcs7ny0 > input');
+  /*await page.waitForSelector('#loginContainer > div.tiktok-aa97el-DivLoginContainer.exd0a430 > form > div.tiktok-q83gm2-DivInputContainer.etcs7ny0 > input');
 
   // Type the specified email address into the email input field
   await page.type('#loginContainer > div.tiktok-aa97el-DivLoginContainer.exd0a430 > form > div.tiktok-q83gm2-DivInputContainer.etcs7ny0 > input', 'karimfreegg@gmail.com');
@@ -31,7 +31,7 @@ puppeteer.use(stealthPlugin());
   //await page.waitForNavigation();
   await new Promise(resolve => setTimeout(resolve, 15000));
   //await page.goto('https://www.tiktok.com/');
-  //await page.waitForNavigation();
+  //await page.waitForNavigation();*/
   await new Promise(resolve => setTimeout(resolve, 1000));
   await page.screenshot({ path: 'screenshot.png', fullPage: true });
   await browser.close();
