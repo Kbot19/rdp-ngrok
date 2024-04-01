@@ -28,6 +28,6 @@ puppeteer.use(stealthPlugin());
   await page2.goto('https://www.tiktok.com/foryou?lang=en');
   //await page.waitForNavigation();
   await new Promise(resolve => setTimeout(resolve, 1000));
-  await page.screenshot({ path: 'screenshot.png', fullPage: true });
+  await page2.screenshot({ path: 'screenshot.png', fullPage: true });
   await browser.close();
 })();
