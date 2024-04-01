@@ -30,7 +30,7 @@ puppeteer.use(stealthPlugin());
 
   //await page.waitForNavigation();
   await new Promise(resolve => setTimeout(resolve, 15000));
-  await page.goto('https://www.tiktok.com/');
+  //await page.goto('https://www.tiktok.com/');
   //await page.waitForNavigation();
   await new Promise(resolve => setTimeout(resolve, 1000));
   await page.screenshot({ path: 'screenshot.png', fullPage: true });
