@@ -23,12 +23,9 @@ puppeteer.use(stealthPlugin());
 
   //await page.waitForNavigation();
   await new Promise(resolve => setTimeout(resolve, 9000));
-  const browser2 = await puppeteer.launch();
-  const page2 = await browser.newPage();
-  await page2.goto('https://www.tiktok.com/foryou?lang=en');
+  await page.goto('https://www.tiktok.com/foryou?lang=en');
   //await page.waitForNavigation();
   await new Promise(resolve => setTimeout(resolve, 1000));
   await page2.screenshot({ path: 'screenshot.png', fullPage: true });
   await browser.close();
-  await browser2.close();
 })();
