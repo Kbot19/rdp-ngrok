@@ -18,7 +18,7 @@ puppeteer.use(stealthPlugin());
     document.querySelector('button[data-e2e="login-button"]').click();
   });
 
-  await page.waitForNavigation();
+  //await page.waitForNavigation();
   await new Promise(resolve => setTimeout(resolve, 1000));
   await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
