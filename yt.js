@@ -13,13 +13,13 @@ puppeteer.use(stealthPlugin());
   await new Promise(resolve => setTimeout(resolve, 1000));
 
   await page.type('input[type="password"]', 'karim2021@11');
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  /*await new Promise(resolve => setTimeout(resolve, 1000));
   await page.evaluate(() => {
     document.querySelector('#loginContainer > div.tiktok-aa97el-DivLoginContainer.exd0a430 > form > button').click();
   });
 
   //await page.waitForNavigation();
-  await page.goto('https://www.tiktok.com/foryou?lang=en');
+  await page.goto('https://www.tiktok.com/foryou?lang=en');*/
   await new Promise(resolve => setTimeout(resolve, 1000));
   await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
