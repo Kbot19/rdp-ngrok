@@ -35,7 +35,7 @@ puppeteer.use(stealthPlugin());
   await page.type('input[type="password"]', 'karim20021@x1');
 
   // النقر على زر "Next" بعد إدخال كلمة المرور
-  await page.click('button[type="button"]');*/
+  await page.keyboard.press('Enter');
 
   await new Promise(resolve => setTimeout(resolve, 20000));
 
