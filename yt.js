@@ -17,9 +17,16 @@ puppeteer.use(stealthPlugin());
 
   await page.type('input[type="password"]', 'karim2021@11');
   await new Promise(resolve => setTimeout(resolve, 1000));
-  await page.evaluate(() => {
-    document.querySelector('#loginContainer > div.tiktok-aa97el-DivLoginContainer.exd0a430 > form > button').click();
-  });
+  const pageContent = await page.content();
+
+  // Check if the "Login" button exists in the page content
+  if (pageContent.includes('data-e2e="login-button"')) {
+    // Click the "Login" button
+    await page.click('button[data-e2e="login-button"]');
+    console.log("Clicked on the 'Login' button.");
+  } else {
+    console.log("Unable to find the 'Login' button.");
+  }
 
   //await page.waitForNavigation();
   await new Promise(resolve => setTimeout(resolve, 15000));
