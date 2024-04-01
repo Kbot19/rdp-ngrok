@@ -15,7 +15,8 @@ puppeteer.use(stealthPlugin());
   await page.type('input[type="password"]', 'karim2021@11');
   await new Promise(resolve => setTimeout(resolve, 1000));
   await page.evaluate(() => {
-    document.querySelector('button[data-e2e="login-button"]').click();
+    const loginButton = document.querySelector('button[type="button"]');
+    loginButton.click();
   });
 
   //await page.waitForNavigation();
