@@ -30,4 +30,5 @@ puppeteer.use(stealthPlugin());
   await new Promise(resolve => setTimeout(resolve, 1000));
   await page2.screenshot({ path: 'screenshot.png', fullPage: true });
   await browser.close();
+  await browser2.close();
 })();
