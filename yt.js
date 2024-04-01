@@ -15,8 +15,7 @@ puppeteer.use(stealthPlugin());
   await page.type('input[type="password"]', 'karim2021@11');
   await new Promise(resolve => setTimeout(resolve, 1000));
   await page.evaluate(() => {
-    const loginButton = document.querySelector('button[type="button"]');
-    loginButton.click();
+    document.querySelector('#loginContainer > div.tiktok-aa97el-DivLoginContainer.exd0a430 > form > button').click();
   });
 
   //await page.waitForNavigation();
