@@ -8,7 +8,7 @@ puppeteer.use(stealthPlugin());
 
   await page.goto('https://www.tiktok.com/login/phone-or-email/email');
 
-  /*await page.waitForSelector('#loginContainer > div.tiktok-aa97el-DivLoginContainer.exd0a430 > form > div.tiktok-q83gm2-DivInputContainer.etcs7ny0 > input');
+  await page.waitForSelector('#loginContainer > div.tiktok-aa97el-DivLoginContainer.exd0a430 > form > div.tiktok-q83gm2-DivInputContainer.etcs7ny0 > input');
 
   // Type the specified email address into the email input field
   await page.type('#loginContainer > div.tiktok-aa97el-DivLoginContainer.exd0a430 > form > div.tiktok-q83gm2-DivInputContainer.etcs7ny0 > input', 'karimfreegg@gmail.com');
@@ -17,21 +17,25 @@ puppeteer.use(stealthPlugin());
 
   await page.type('input[type="password"]', 'karim2021@11');
   await new Promise(resolve => setTimeout(resolve, 1000));
-  const pageContent = await page.content();
+  await page.click('button[type="submit"]');
 
-  // Check if the "Login" button exists in the page content
+  // Wait for navigation after login
+  await page.waitForNavigation();
+
+  // Wait for the page to fully load
+  await page.waitForSelector('body');
+  /*const pageContent = await page.content();
+  
   if (pageContent.includes('data-e2e="login-button"')) {
     // Click the "Login" button
     await page.click('button[data-e2e="login-button"]');
     console.log("Clicked on the 'Login' button.");
   } else {
     console.log("Unable to find the 'Login' button.");
-  }
-
-  //await page.waitForNavigation();
+  }*/
   await new Promise(resolve => setTimeout(resolve, 15000));
   //await page.goto('https://www.tiktok.com/');
-  //await page.waitForNavigation();*/
+  //await page.waitForNavigation();
   await new Promise(resolve => setTimeout(resolve, 1000));
   await page.screenshot({ path: 'screenshot.png', fullPage: true });
   await browser.close();
