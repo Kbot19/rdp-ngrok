@@ -20,10 +20,10 @@ puppeteer.use(stealthPlugin());
   await page.click('button[type="submit"]');
 
   // Wait for navigation after login
-  await page.waitForNavigation();
+  //await page.waitForNavigation();
 
   // Wait for the page to fully load
-  await page.waitForSelector('body');
+  //await page.waitForSelector('body');
   /*const pageContent = await page.content();
   
   if (pageContent.includes('data-e2e="login-button"')) {
