@@ -23,11 +23,11 @@ puppeteer.use(stealthPlugin());
 
   const catchaSolver = new CaptchaSolver(page)
   
-  await new Promise(resolve => setTimeout(resolve, 15000));
+  await new Promise(resolve => setTimeout(resolve, 1500));
   //await page.goto('https://www.tiktok.com/');
   //await page.waitForNavigation();
   await catchaSolver.solve()
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  await new Promise(resolve => setTimeout(resolve, 20000));
   await page.screenshot({ path: 'screenshot.png', fullPage: true });
   await browser.close();
 })();
