@@ -1,9 +1,10 @@
 const puppeteer = require('puppeteer-extra');
 const stealthPlugin = require('puppeteer-extra-plugin-stealth');
+const { chromium } = require('playwright')
 puppeteer.use(stealthPlugin());
 
 (async () => {
-  const browser = await puppeteer.launch();
+  const browser = await chromium.launch({headless: true});
   const page = await browser.newPage();
 
   await page.goto('https://www.tiktok.com/login/phone-or-email/email');
@@ -18,21 +19,7 @@ puppeteer.use(stealthPlugin());
   await page.type('input[type="password"]', 'karim2021@11');
   await new Promise(resolve => setTimeout(resolve, 1000));
   await page.click('button[type="submit"]');
-
-  // Wait for navigation after login
-  //await page.waitForNavigation();
-
-  // Wait for the page to fully load
-  //await page.waitForSelector('body');
-  /*const pageContent = await page.content();
   
-  if (pageContent.includes('data-e2e="login-button"')) {
-    // Click the "Login" button
-    await page.click('button[data-e2e="login-button"]');
-    console.log("Clicked on the 'Login' button.");
-  } else {
-    console.log("Unable to find the 'Login' button.");
-  }*/
   await new Promise(resolve => setTimeout(resolve, 15000));
   //await page.goto('https://www.tiktok.com/');
   //await page.waitForNavigation();
