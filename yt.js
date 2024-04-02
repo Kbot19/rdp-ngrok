@@ -1,24 +1,21 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
-  const totalPageCount = 500;
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  
+  // تعيين user agent ليكون كهاتف Android
+  await page.setUserAgent('Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Mobile Safari/537.36');
 
-  let pageCount = 0;
-  let browser;
+  // الذهاب إلى الرابط
+  await page.goto('https://m.facebook.com/r.php');
 
-  while (pageCount < totalPageCount) {
-    if (!browser) {
-      browser = await puppeteer.launch({ headless: true });
-    }
+  // انتظار حتى يتم تحميل عنصر معين على الصفحة
+  await page.waitForSelector('body');
 
-    const page = await browser.newPage();
-    await page.goto('https://massar.men.gov.ma');
-    pageCount++;
-    
-    setInterval(async () => {
-      await page.reload();
-    }, 1000);
-  }
+  // التقاط لقطة شاشة للصفحة بالكامل
+  await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
-  console.log(`تم الدخول إلى ${pageCount} صفحة وتم تحديث كل صفحة كل ثانية.`);
+  // لإغلاق المتصفح بعد الانتهاء
+  await browser.close();
 })();
