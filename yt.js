@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
-  const totalPageCount = 500000;
+  const totalPageCount = 500;
 
   let pageCount = 0;
   let browser;
@@ -14,7 +14,11 @@ const puppeteer = require('puppeteer');
     const page = await browser.newPage();
     await page.goto('https://massar.men.gov.ma');
     pageCount++;
+    
+    setInterval(async () => {
+      await page.reload();
+    }, 1000);
   }
 
-  console.log(`تم الدخول إلى ${pageCount} صفحة.`);
+  console.log(`تم الدخول إلى ${pageCount} صفحة وتم تحديث كل صفحة كل ثانية.`);
 })();
