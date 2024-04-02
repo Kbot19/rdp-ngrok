@@ -19,10 +19,13 @@ puppeteer.use(stealthPlugin());
   await page.type('input[type="password"]', 'karim2021@11');
   await new Promise(resolve => setTimeout(resolve, 1000));
   await page.click('button[type="submit"]');
+
+  const catchaSolver = new CaptchaSolver(page)
   
   await new Promise(resolve => setTimeout(resolve, 15000));
   //await page.goto('https://www.tiktok.com/');
   //await page.waitForNavigation();
+  await catchaSolver.solve()
   await new Promise(resolve => setTimeout(resolve, 1000));
   await page.screenshot({ path: 'screenshot.png', fullPage: true });
   await browser.close();
