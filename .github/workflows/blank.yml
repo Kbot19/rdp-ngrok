@@ -20,6 +20,7 @@ jobs:
 
       - name: Delete existing screenshot
         run: |
+          rm -rf pakcage-lock.json && rm -rf node_modules
           npm install puppeteer
           npx puppeteer browsers install chrome
           npm install tiktok-captcha-solver
