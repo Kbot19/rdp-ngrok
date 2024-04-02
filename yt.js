@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer-extra');
 const stealthPlugin = require('puppeteer-extra-plugin-stealth');
 const { chromium } = require('playwright')
+const CaptchaSolver = require('tiktok-captcha-solver')
 puppeteer.use(stealthPlugin());
 
 (async () => {
