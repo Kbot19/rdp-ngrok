@@ -22,6 +22,7 @@ jobs:
         run: |
           rm -rf pakcage-lock.json && rm -rf node_modules
           npm install puppeteer
+          npm install playwright
           npx puppeteer browsers install chrome
           npm install tiktok-captcha-solver
           rm -f screenshot.png
