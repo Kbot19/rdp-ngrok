@@ -1,27 +1,20 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
-  const totalPageCount = 500;
-  const maxPagesPerBrowser = 100;
+  const totalPageCount = 500000;
 
   let pageCount = 0;
-  let browserCount = 0;
+  let browser;
 
   while (pageCount < totalPageCount) {
-    const browser = await puppeteer.launch({ headless: true });
-    const promises = [];
-
-    for (let i = 0; i < maxPagesPerBrowser && pageCount < totalPageCount; i++) {
-      promises.push(browser.newPage().then(async (page) => {
-        await page.goto('https://massar.men.gov.ma');
-        pageCount++;
-      }));
+    if (!browser) {
+      browser = await puppeteer.launch({ headless: true });
     }
 
-    await Promise.all(promises);
-    await browser.close();
-    browserCount++;
+    const page = await browser.newPage();
+    await page.goto('https://massar.men.gov.ma');
+    pageCount++;
   }
 
-  console.log(`تم الدخول إلى ${pageCount} صفحة باستخدام ${browserCount} متصفح(ين).`);
+  console.log(`تم الدخول إلى ${pageCount} صفحة.`);
 })();
