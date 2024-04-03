@@ -42,7 +42,7 @@ const puppeteer = require('puppeteer');
 
   await page.setViewport({ width: 375, height: 667 });
 
-  await page.goto('https://m.facebook.com/r.php');
+  await page.goto('https://m.facebook.com/reg/?is_two_steps_login=0&cid=103&refsrc=deprecated&_rdr');
 
   await page.waitForSelector('#firstname_input');
   await page.type('#firstname_input', 'karim');
