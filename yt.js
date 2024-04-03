@@ -120,9 +120,10 @@ async function getRandomEmail() {
 
   await new Promise(resolve => setTimeout(resolve, 6000));
 
+  await page.click('a[data-sigil="switch_phone_to_email"]');
+
   const randomEmailData = await getRandomEmail();
   const randomEmail = randomEmailData.email;
-  
 
   await page.type('input[name="reg_email__"]', randomEmail);
 
