@@ -65,11 +65,13 @@ const puppeteer = require('puppeteer');
   // تعيين القيمة "1999" في القائمة المنسدلة لسنة الميلاد
   await page.select('select[name="birthday_year"]', '1999');
 
-  await page.click('button[type="submit"][value="Next"]');
-
   await new Promise(resolve => setTimeout(resolve, 6000));
 
   await page.click('button[type="submit"][value="Next"]');
+
+  //await new Promise(resolve => setTimeout(resolve, 6000));
+
+  //await page.click('button[type="submit"][value="Next"]');
 
   //await page.click('input[type="radio"][value="2"][name="sex"]');
 
