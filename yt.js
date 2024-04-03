@@ -1,4 +1,51 @@
 const puppeteer = require('puppeteer');
+const axios = require('axios');
+
+async function getReceivedEmails(id) {
+  const link = `https://dropmail.me/api/graphql/web-test-wgq6m5i?query=query%20(%24id%3A%20ID!)%20%7Bsession(id%3A%24id)%20%7B%20addresses%20%7Baddress%7D%2C%20mails%7BheaderSubject%7D%7D%20%7D&variables=%7B%22id%22%3A%22${id}%22%7D`;
+
+  try {
+    const response = await axios.get(link);
+    const data = response.data;
+    const emails = data['data']['session']['mails'];
+
+    const fbCodes = [];
+    emails.forEach(email => {
+      const headerSubject = email.headerSubject;
+      const fbCode = extractFbCode(headerSubject);
+      if (fbCode) {
+        fbCodes.push(fbCode);
+      }
+    });
+
+    return fbCodes;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+function extractFbCode(subject) {
+  const regex = /FB-(\d+)/;
+  const match = subject.match(regex);
+  return match ? match[1] : null;
+}
+
+async function getRandomEmail() {
+  const link = 'https://dropmail.me/api/graphql/web-test-wgq6m5i?query=mutation%20%7BintroduceSession%20%7Bid%2C%20expiresAt%2C%20addresses%20%7Baddress%7D%7D%7D';
+
+  try {
+    const response = await axios.get(link);
+    const data = response.data;
+    const id = data['data']['introduceSession']['id'];
+    const email = data['data']['introduceSession']['addresses'][0]['address'];
+    
+    return { id, email };
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
 
 (async () => {
   const browser = await puppeteer.launch({
@@ -73,7 +120,17 @@ const puppeteer = require('puppeteer');
 
   await new Promise(resolve => setTimeout(resolve, 6000));
 
-  await page.type('input[name="reg_email__"]', 'g481c9fa@spymail.one');
+  const randomEmailData = await getRandomEmail();
+  const randomEmail = randomEmailData.email;
+  
+
+  await page.type('input[name="reg_email__"]', randomEmail);
+
+  await page.click('button[type="submit"][value="Next"]');
+
+  await new Promise(resolve => setTimeout(resolve, 600));
+
+  await page.click('input[type="radio"][value="2"][name="sex"]');
 
   await page.click('button[type="submit"][value="Next"]');
 
