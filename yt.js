@@ -53,7 +53,7 @@ const puppeteer = require('puppeteer');
   // النقر على زر الإرسال
   await page.click('button[type="submit"][value="Next"]');
 
-  await page.waitForNavigation();
+ // await page.waitForNavigation();
 
   // انتظر لمدة 60 ثانية قبل التقاط الصورة
   await new Promise(resolve => setTimeout(resolve, 60000));
