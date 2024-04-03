@@ -71,6 +71,14 @@ const puppeteer = require('puppeteer');
 
   //await page.click('input[type="radio"][value="2"][name="sex"]');
 
+  await new Promise(resolve => setTimeout(resolve, 6000));
+
+  await page.type('input[name="reg_email__"]', 'g481c9fa@spymail.one');
+
+  await page.click('button[type="submit"][value="Next"]');
+
+  await new Promise(resolve => setTimeout(resolve, 600));
+
   await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
   await browser.close();
