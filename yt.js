@@ -56,7 +56,7 @@ const puppeteer = require('puppeteer');
 
   // زيادة التأخير بين العمليات لتجنب الكشف
   const randomDelay = Math.floor(Math.random() * 5000) + 2000; // توليد تأخير عشوائي بين 2 و 5 ثواني
-  await page.waitForTimeout(randomDelay);
+  await new Promise(resolve => setTimeout(resolve, randomDelay));
 
   // الذهاب إلى الرابط
   await page.goto('https://m.facebook.com/r.php');
