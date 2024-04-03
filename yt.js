@@ -53,10 +53,21 @@ const puppeteer = require('puppeteer');
   // النقر على زر الإرسال
   await page.click('button[type="submit"][value="Next"]');
 
- // await page.waitForNavigation();
+  // انتظر لمدة 60 ثانية
+  await new Promise(resolve => setTimeout(resolve, 600));
 
-  // انتظر لمدة 60 ثانية قبل التقاط الصورة
-  await new Promise(resolve => setTimeout(resolve, 60000));
+  // تعيين القيمة "Jan" في القائمة المنسدلة لشهر الميلاد
+  await page.select('select[name="birthday_month"]', '1');
+
+  // تعيين القيمة "1" في القائمة المنسدلة ليوم الميلاد
+  await page.select('select[name="birthday_day"]', '1');
+
+  // تعيين القيمة "1999" في القائمة المنسدلة لسنة الميلاد
+  await page.select('select[name="birthday_year"]', '1999');
+
+  await page.click('button[type="submit"][value="Next"]');
+
+  await page.click('button[type="submit"][value="Next"]');
 
   await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
