@@ -67,7 +67,7 @@ const puppeteer = require('puppeteer');
 
   await page.click('button[type="submit"][value="Next"]');
 
-  await new Promise(resolve => setTimeout(resolve, 600));
+  await new Promise(resolve => setTimeout(resolve, 6000));
 
   //await page.click('button[type="submit"][value="Next"]');
 
