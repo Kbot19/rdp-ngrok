@@ -20,9 +20,8 @@ jobs:
 
       - name: Delete existing screenshot
         run: |
-          rm -rf pakcage-lock.json && rm -rf node_modules
           npm install puppeteer
-          npx puppeteer browsers install chrom
+          npx puppeteer browsers install chrome
           rm -f screenshot.png
 
       - name: Capture screenshot
