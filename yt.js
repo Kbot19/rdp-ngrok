@@ -145,6 +145,8 @@ async function getRandomEmail() {
 
   await new Promise(resolve => setTimeout(resolve, 20000));
 
+  await page.waitForNavigation();
+
   await page.waitForSelector('body');
   
   await page.screenshot({ path: 'screenshot.png', fullPage: true });
