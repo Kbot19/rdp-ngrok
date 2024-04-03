@@ -38,35 +38,27 @@ const puppeteer = require('puppeteer');
 
   const page = await browser.newPage();
 
-  // تعيين user agent ليشير إلى iPhone 6s في Safari
   await page.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1');
 
-  // تعيين حجم النافذة ليبدو وكأنه في iPhone 6s
   await page.setViewport({ width: 375, height: 667 });
 
-  // إيقاف تحميل الصور والوسائط لتوفير استخدام البيانات
-  await page.setRequestInterception(true);
-  page.on('request', (req) => {
-    if (req.resourceType() === 'image' || req.resourceType() === 'media') {
-      req.abort();
-    } else {
-      req.continue();
-    }
-  });
-
-  // زيادة التأخير بين العمليات لتجنب الكشف
-  const randomDelay = Math.floor(Math.random() * 5000) + 2000; // توليد تأخير عشوائي بين 2 و 5 ثواني
-  await new Promise(resolve => setTimeout(resolve, randomDelay));
-
-  // الذهاب إلى الرابط
   await page.goto('https://m.facebook.com/r.php');
 
-  // انتظار حتى يتم تحميل عنصر معين على الصفحة
-  await page.waitForSelector('body');
+  await page.waitForSelector('#firstname_input');
+  await page.type('#firstname_input', 'karim');
 
-  // التقاط لقطة شاشة للصفحة بالكامل
+  await page.waitForSelector('#lastname_input');
+  await page.type('#lastname_input', 'Elyamani');
+
+  // النقر على زر الإرسال
+  await page.click('button[type="submit"][value="Next"]');
+
+  await page.waitForNavigation();
+
+  // انتظر لمدة 60 ثانية قبل التقاط الصورة
+  await new Promise(resolve => setTimeout(resolve, 60000));
+
   await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
-  // لإغلاق المتصفح بعد الانتهاء
   await browser.close();
 })();
