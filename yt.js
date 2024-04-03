@@ -67,6 +67,8 @@ const puppeteer = require('puppeteer');
 
   await page.click('button[type="submit"][value="Next"]');
 
+  await new Promise(resolve => setTimeout(resolve, 600));
+
   //await page.click('button[type="submit"][value="Next"]');
 
   //await page.click('input[type="radio"][value="2"][name="sex"]');
