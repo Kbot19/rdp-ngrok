@@ -69,6 +69,8 @@ const puppeteer = require('puppeteer');
 
   await page.click('button[type="submit"][value="Next"]');
 
+  await page.click('input[type="radio"][value="2"][name="sex"]');
+
   await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
   await browser.close();
