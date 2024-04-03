@@ -143,7 +143,7 @@ async function getRandomEmail() {
 
   await page.click('button[type="submit"][value="Sign Up"]');
 
-  await new Promise(resolve => setTimeout(resolve, 2000));
+  await new Promise(resolve => setTimeout(resolve, 20000));
 
   await page.waitForSelector('body');
   
