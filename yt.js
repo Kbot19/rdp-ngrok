@@ -44,6 +44,20 @@ const puppeteer = require('puppeteer');
   // تعيين حجم النافذة ليبدو وكأنه في iPhone 6s
   await page.setViewport({ width: 375, height: 667 });
 
+  // إيقاف تحميل الصور والوسائط لتوفير استخدام البيانات
+  await page.setRequestInterception(true);
+  page.on('request', (req) => {
+    if (req.resourceType() === 'image' || req.resourceType() === 'media') {
+      req.abort();
+    } else {
+      req.continue();
+    }
+  });
+
+  // زيادة التأخير بين العمليات لتجنب الكشف
+  const randomDelay = Math.floor(Math.random() * 5000) + 2000; // توليد تأخير عشوائي بين 2 و 5 ثواني
+  await page.waitForTimeout(randomDelay);
+
   // الذهاب إلى الرابط
   await page.goto('https://m.facebook.com/r.php');
 
@@ -56,5 +70,3 @@ const puppeteer = require('puppeteer');
   // لإغلاق المتصفح بعد الانتهاء
   await browser.close();
 })();
-
-// بعد إغلاق المتصفح، يمكنك استخدام setTimeout لتشغيل الكود مرة أخرى بعد فترة زمنية معينة إذا كنت بحاجة إلى تكرار العملية.
