@@ -7,19 +7,41 @@ const puppeteer = require('puppeteer');
       '--no-sandbox',
       '--disable-setuid-sandbox',
       '--disable-infobars',
+      '--disable-notifications',
       '--disable-web-security',
+      '--ignore-certificate-errors',
+      '--allow-insecure-localhost',
+      '--disable-device-emulation',
+      '--disable-device-discovery-notifications',
+      '--disable-extensions',
       '--disable-dev-shm-usage',
-      '--disable-device-emulation', // تعطيل تحاكي الجهاز لكشف الجهاز
-      '--disable-device-discovery-notifications' // تعطيل إشعارات اكتشاف الجهاز
+      '--disable-background-networking',
+      '--disable-background-timer-throttling',
+      '--disable-client-side-phishing-detection',
+      '--disable-default-apps',
+      '--disable-hang-monitor',
+      '--disable-popup-blocking',
+      '--disable-prompt-on-repost',
+      '--disable-sync',
+      '--disable-translate',
+      '--metrics-recording-only',
+      '--safebrowsing-disable-auto-update',
+      '--password-store=basic',
+      '--use-mock-keychain',
+      '--hide-scrollbars',
+      '--mute-audio',
+      '--no-default-browser-check',
+      '--no-first-run',
+      '--disable-backgrounding-occluded-windows'
     ]
   });
 
   const page = await browser.newPage();
 
-  // تعيين user agent ليشير إلى iPhone 6 في Safari
+  // تعيين user agent ليشير إلى iPhone 6s في Safari
   await page.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1');
 
-  // تعيين حجم النافذة ليبدو وكأنه في iPhone 6
+  // تعيين حجم النافذة ليبدو وكأنه في iPhone 6s
   await page.setViewport({ width: 375, height: 667 });
 
   // الذهاب إلى الرابط
