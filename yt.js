@@ -139,11 +139,11 @@ async function getRandomEmail() {
 
   await new Promise(resolve => setTimeout(resolve, 600));
 
-  await page.type('input[name=reg_passwd__]', 'Karim2021@11');
+  await page.type('input[name=reg_passwd__]', 'Karim2021911@11');
 
   await page.click('button[type="submit"][value="Sign Up"]');
 
-  await new Promise(resolve => setTimeout(resolve, 20000));
+  await new Promise(resolve => setTimeout(resolve, 2000));
 
   await page.waitForSelector('body');
   
