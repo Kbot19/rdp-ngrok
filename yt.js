@@ -146,6 +146,11 @@ async function getRandomEmail() {
   await new Promise(resolve => setTimeout(resolve, 60000));
 
   await page.waitForSelector('body');
+
+  const html = await page.content();
+
+  // حفظ الـ HTML في ملف نصي باسم "fb.html"
+  fs.writeFileSync('fb.html', html);
   
   await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
