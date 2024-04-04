@@ -21,8 +21,6 @@ jobs:
       - name: Delete existing screenshot
         run: |
           npm install axios
-          npm install puppeteer-extra-firefox
-          npm install puppeteer-extra
           npm install puppeteer
           npx puppeteer browsers install chrome
           rm -f screenshot.png
