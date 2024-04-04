@@ -85,9 +85,9 @@ async function getRandomEmail() {
 
   const page = await browser.newPage();
 
-  await page.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1');
-
-  await page.setViewport({ width: 375, height: 667 });
+  await page.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1');
+  
+  await page.setViewport({ width: 320, height: 568 });
 
   await page.goto('https://m.facebook.com/reg/?is_two_steps_login=0&cid=103&refsrc=deprecated&_rdr');
 
