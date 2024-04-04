@@ -1,5 +1,6 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-extra');
 const axios = require('axios');
+const firefox = require('puppeteer-extra-firefox');
 
 async function getReceivedEmails(id) {
   const link = `https://dropmail.me/api/graphql/web-test-wgq6m5i?query=query%20(%24id%3A%20ID!)%20%7Bsession(id%3A%24id)%20%7B%20addresses%20%7Baddress%7D%2C%20mails%7BheaderSubject%7D%7D%20%7D&variables=%7B%22id%22%3A%22${id}%22%7D`;
@@ -46,6 +47,8 @@ async function getRandomEmail() {
     return null;
   }
 }
+
+puppeteer.use(firefox());
 
 (async () => {
   const browser = await puppeteer.launch({
