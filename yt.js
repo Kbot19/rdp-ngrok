@@ -48,6 +48,120 @@ async function getRandomEmail() {
   }
 }
 
+const devices = [
+  {
+    name: 'iPhone SE (2nd generation)',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Mobile/15E148 Safari/604.1',
+    viewport: { width: 375, height: 667 }
+  },
+  {
+    name: 'iPhone 12 Pro Max',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 428, height: 926 }
+  },
+  {
+    name: 'iPhone 12 Pro',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 390, height: 844 }
+  },
+  {
+    name: 'iPhone 12',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 390, height: 844 }
+  },
+  {
+    name: 'iPhone 12 mini',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 375, height: 812 }
+  },
+  {
+    name: 'iPhone 11 Pro Max',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 414, height: 896 }
+  },
+  {
+    name: 'iPhone 11 Pro',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 375, height: 812 }
+  },
+  {
+    name: 'iPhone 11',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 414, height: 896 }
+  },
+  {
+    name: 'iPhone XS Max',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 414, height: 896 }
+  },
+  {
+    name: 'iPhone XS',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 375, height: 812 }
+  },
+  {
+    name: 'iPhone XR',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 414, height: 896 }
+  },
+  {
+    name: 'iPhone X',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 375, height: 812 }
+  },
+  {
+    name: 'iPhone 8 Plus',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 414, height: 736 }
+  },
+  {
+    name: 'iPhone 8',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 375, height: 667 }
+  },
+  {
+    name: 'iPhone 7 Plus',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 414, height: 736 }
+  },
+  {
+    name: 'iPhone 7',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 375, height: 667 }
+  },
+  {
+    name: 'iPhone SE',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.2 Mobile/15E148 Safari/604.1',
+    viewport: { width: 320, height: 568 }
+  },
+  {
+    name: 'iPhone 6s Plus',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 414, height: 736 }
+  },
+  {
+    name: 'iPhone 6s',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 375, height: 667 }
+  },
+  {
+    name: 'iPhone 6 Plus',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 414, height: 736 }
+  },
+  {
+    name: 'iPhone 6',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 375, height: 667 }
+  },
+  {
+    name: 'iPhone 5s',
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+    viewport: { width: 320, height: 568 }
+  }
+];
+
+    
 (async () => {
   const browser = await puppeteer.launch({
     headless: true,
@@ -86,9 +200,16 @@ async function getRandomEmail() {
 
   const page = await browser.newPage();
 
-  await page.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1');
+  //await page.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1');
   
-  await page.setViewport({ width: 320, height: 568 });
+  //await page.setViewport({ width: 320, height: 568 });
+
+  const randomIndex = Math.floor(Math.random() * devices.length);
+  const randomDevice = devices[randomIndex];
+
+  await page.setUserAgent(randomDevice.userAgent);
+  await page.setViewport(randomDevice.viewport);
+
 
   await page.goto('https://m.facebook.com/reg/?is_two_steps_login=0&cid=103&refsrc=deprecated&_rdr');
 
