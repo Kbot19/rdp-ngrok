@@ -10,6 +10,11 @@ const puppeteer = require('puppeteer');
     await page.setUserAgent(userAgent);
     await page.setViewport({ width: 414, height: 896 }); // Viewport for iPhone 12 Pro Max
     await page.goto('https://massar.men.gov.ma');
+    
+    setInterval(async () => {
+      await page.reload();
+    }, 5000);
+    
     pageCount++;
   }
 
