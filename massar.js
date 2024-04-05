@@ -40,7 +40,7 @@ async function run() {
           console.error('حدث خطأ أثناء فتح الصفحة:', error);
           throw error; // إعادة رمي الخطأ للتوقف
         }
-      }, i * 100);
+      }, i * 10); // زيادة السرعة بتقليل فاصل الزمن بين فتح كل صفحة جديدة
     }
 
     if (pagesToUpdate.length > 0) {
@@ -55,4 +55,10 @@ async function run() {
   }
 }
 
-run();
+// تكرار تشغيل الكود 10 مرات
+(async () => {
+  for (let i = 0; i < 10; i++) {
+    console.log(`تشغيل ${i + 1}`);
+    await run();
+  }
+})();
