@@ -21,10 +21,14 @@ const puppeteer = require('puppeteer');
         console.log(`تحديث ${refreshFrequency} صفحات`);
         const pages = await browser.pages();
         for (const page of pages) {
-          await page.reload();
+          try {
+            await page.reload({ waitUntil: 'networkidle0' }); // تحديث الصفحة وانتظر حتى تنتهي الشبكة من النشاط
+          } catch (error) {
+            console.error('حدث خطأ أثناء إعادة تحميل الصفحة:', error);
+          }
         }
       }
-    }, i * 1000); // تحديد فاصل زمني بين فتح كل صفحة جديدة
+    }, i * 10000); // تحديد فاصل زمني بين فتح كل صفحة جديدة
 
     pageCount++;
   }
