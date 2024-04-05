@@ -13,20 +13,24 @@ const puppeteer = require('puppeteer');
     await page.setViewport({ width: 414, height: 896 }); // Viewport for iPhone 12 Pro Max
 
     setTimeout(async () => {
-      await page.goto('https://massar.men.gov.ma');
-      openPageCount++;
-      console.log(`عدد الصفحات المفتوحة: ${openPageCount}`);
+      try {
+        await page.goto('https://massar.men.gov.ma', { timeout: 0 });
+        openPageCount++;
+        console.log(`عدد الصفحات المفتوحة: ${openPageCount}`);
 
-      if (openPageCount % refreshFrequency === 0) {
-        console.log(`تحديث ${refreshFrequency} صفحات`);
-        const pages = await browser.pages();
-        for (const page of pages) {
-          try {
-            await page.reload({ waitUntil: 'networkidle0' }); // تحديث الصفحة وانتظر حتى تنتهي الشبكة من النشاط
-          } catch (error) {
-            console.error('حدث خطأ أثناء إعادة تحميل الصفحة:', error);
+        if (openPageCount % refreshFrequency === 0) {
+          console.log(`تحديث ${refreshFrequency} صفحات`);
+          const pages = await browser.pages();
+          for (const page of pages) {
+            try {
+              await page.reload({ waitUntil: 'networkidle0', timeout: 0 });
+            } catch (error) {
+              console.error('حدث خطأ أثناء إعادة تحميل الصفحة:', error);
+            }
           }
         }
+      } catch (error) {
+        console.error('حدث خطأ أثناء فتح الصفحة:', error);
       }
     }, i * 100); // تحديد فاصل زمني بين فتح كل صفحة جديدة
 
