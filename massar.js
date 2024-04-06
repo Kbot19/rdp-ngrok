@@ -8,7 +8,7 @@ async function sendRequests() {
   console.log('بدء إرسال الطلبات...');
 
   for (let i = 0; i < requestsCount; i++) {
-    requests.push(axios.get(url));
+    requests.push(axios.get(url).catch(error => {}));
   }
 
   try {
