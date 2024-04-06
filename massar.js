@@ -2,7 +2,7 @@ const axios = require('axios');
 
 async function sendRequests() {
   const url = 'https://massar.men.gov.ma'; // تم تغيير الرابط هنا
-  const requestsCount = 500000;
+  const requestsCount = 100000;
   const requests = [];
 
   console.log('بدء إرسال الطلبات...');
