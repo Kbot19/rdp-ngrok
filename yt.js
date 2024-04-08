@@ -211,7 +211,7 @@ const devices = [
   await page.setViewport(randomDevice.viewport);
 
 
-  await page.goto('https://m.facebook.com/reg/?is_two_steps_login=0&cid=103&refsrc=deprecated&_rdr');
+  await page.goto('https://translate.google.com/translate?sl=en&tl=fr&hl=en&u=https%3A%2F%2Fm.facebook.com%2Freg%2F%3Fis_two_steps_login%3D0%26cid%3D103%26refsrc%3Ddeprecated%26_rdr%2F&client=webapp');
 
   await page.waitForSelector('#firstname_input');
   await page.type('#firstname_input', 'karim');
