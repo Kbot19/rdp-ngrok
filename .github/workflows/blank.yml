@@ -28,7 +28,7 @@ jobs:
 
       - name: Capture screenshot
         run: |
-          node massar.js
+          node yt.js
 
       - name: Delete cache and commit logs
         run: |
