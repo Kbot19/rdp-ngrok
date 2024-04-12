@@ -1,12 +1,25 @@
+const express = require('express');
 const apkpure = require('./test.js');
 
-async function searchAndRetrieveAppInfo(query) {
+const app = express();
+const port = 3000;
+
+// عرض "Hello world" في الصفحة الرئيسية
+app.get('/', (req, res) => {
+    res.send('Hello world');
+});
+
+// البحث عن التطبيقات
+app.get('/search', async (req, res) => {
+    const query = req.query.q;
     try {
         const appInfo = await apkpure(query);
-        console.log(appInfo);
+        res.json(appInfo);
     } catch (error) {
-        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
-}
+});
 
-searchAndRetrieveAppInfo('8 ball pool');
+app.listen(port, () => {
+    console.log(`Server is listening at http://localhost:${port}`);
+});
