@@ -1,10 +1,11 @@
 {
   "dependencies": {
+    "apkpure-scraper-v1": "^1.0.2",
     "axios": "^1.6.8",
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.4.5",
     "playwright": "^1.42.1",
-    "puppeteer": "^22.6.3",
+    "puppeteer": "^22.6.4",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-recaptcha": "^3.6.8",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
