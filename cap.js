@@ -1,7 +1,12 @@
-const apkpure_scraper = require('apkpure-scraper-v1');
+const apkpure = require('./test.js');
 
-apkpure_scraper.apkpure.all('pes').then(result => {
-  console.log(result);
-}).catch(error => {
-  console.error('Error:', error);
-});
+async function searchAndRetrieveAppInfo(query) {
+    try {
+        const appInfo = await apkpure(query);
+        console.log(appInfo);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+searchAndRetrieveAppInfo('8 ball pool');
