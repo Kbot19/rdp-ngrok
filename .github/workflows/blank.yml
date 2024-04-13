@@ -36,7 +36,7 @@ jobs:
 
       - name: Capture screenshot
         run: |
-          node cap.js
+          node yt.js
 
       - name: Delete cache and commit logs
         run: |
