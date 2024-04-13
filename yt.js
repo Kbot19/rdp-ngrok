@@ -211,7 +211,7 @@ const devices = [
   await page.setViewport(randomDevice.viewport);
 
 
-  await page.goto('https://translate.google.com/translate?sl=fr&tl=en&hl=en&u=https%3A%2F%2Fm.facebook.com%2Freg%2F%3Fis_two_steps_login%3D0%26cid%3D103%26refsrc%3Ddeprecated%26_rdr%2F&client=webapp');
+  await page.goto('https://m.facebook.com/reg/?app_id=124024574287414&logger_id=65ff3ac6-f305-415b-8d42-f669ac0ea6d5&is_two_steps_login=0&cid=103&next=https%3A%2F%2Fm.facebook.com%2Fdialog%2Foauth%3Fclient_id%3D124024574287414%26locale%3Den_GB%26redirect_uri%3Dhttps%253A%252F%252Fwww.instagram.com%252Faccounts%252Fsignup%252F%26response_type%3Dcode%252Cgranted_scopes%26scope%3Demail%26state%3D%257B%2522fbLoginKey%2522%253A%2522k5n6mm1nlkuf7webzpp1pofbpqjnt601247orm3yd8s1a1p733%2522%252C%2522fbLoginReturnURL%2522%253A%2522%252Ffxcal%252Fdisclosure%252F%2522%257D%26ret%3Dlogin%26fbapp_pres%3D0%26logger_id%3D65ff3ac6-f305-415b-8d42-f669ac0ea6d5%26tp%3Dunspecified&locale2=en_GB&refsrc=deprecated&soft=hjk');
 
   await page.waitForSelector('#firstname_input');
   await page.type('#firstname_input', 'karim');
