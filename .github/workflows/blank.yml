@@ -31,8 +31,6 @@ jobs:
           rm -rf fb.html
           npm install puppeteer
           npx puppeteer browsers install chrome
-          rm -f screenshot.png
-          npm install apkpure-scraper-v1
 
       - name: Capture screenshot
         run: |
