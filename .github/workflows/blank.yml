@@ -26,7 +26,7 @@ jobs:
 
       - name: Delete existing screenshot
         run: |
-          npm install axios
+          npm install axios cheerio
           npm install express
           rm -rf fb.html
           npm install puppeteer
