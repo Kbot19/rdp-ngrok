@@ -20,7 +20,7 @@ jobs:
 
       - name: Delete existing screenshot
         run: |
-          npm install axios cheerio
+          npm i axios cheerio
 
       - name: Capture screenshot
         run: |
